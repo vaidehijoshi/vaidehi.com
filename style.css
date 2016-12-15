@@ -1,0 +1,42 @@
+body {
+	background: linear-gradient(90deg, #cfecd0, #ffc5ca);
+	font-size: 16px;
+	font-family: Tahoma, Geneva, sans-serif;
+	color: #ffffff;
+}
+
+a {
+	color: #ffffff;
+}
+
+a:hover {
+	color: #808080;
+}
+
+.container {
+	width: 500px;
+	margin: 0 auto;
+}
+
+.image-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.vaidehi-logo-image {
+	padding: 100px 0 60px 0;
+	width: 500px;
+}
+
+@media screen and (max-width: 550px) {
+	.container {
+		width: 300px;
+		margin: 0 auto;
+	}
+
+	.vaidehi-logo-image {
+		max-width: 300px;
+	}
+}
+
