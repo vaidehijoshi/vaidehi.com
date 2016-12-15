@@ -13,7 +13,7 @@ a:hover {
 	color: #808080;
 }
 
-.heading-content {
+#heading-content {
 	display:flex;
 	justify-content:center;
 	align-items:center;
