@@ -13,6 +13,12 @@ a:hover {
 	color: #808080;
 }
 
+.heading-content {
+	display:flex;
+	justify-content:center;
+	align-items:center;
+}
+
 .container {
 	width: 500px;
 	margin: 0 auto;
