@@ -1,18 +1,23 @@
 :root {
   --font-color: white;
+  --hover-color: #808080;
+  --gradient-start: #cfecd0;
+  --gradient-end: #ffc5ca;
+  --image-border-radius: 2%;
 }
 
 html {
-    background: #cfecd0; /* fallback color */
-    background: linear-gradient(180deg, #cfecd0, #ffc5ca);
-    background-size: cover;
-    width: 100%;
+  background: var(--gradient-start); /* fallback background color */
+  background: linear-gradient(180deg, var(--gradient-start) , var(--gradient-end));
+  background-size: cover;
+  width: 100%;
 }
 
 body {
   font-family: Tahoma, Geneva, sans-serif;
 }
 
+/* MOBILE SIZES */
 .flex-container {
   padding: 0;
   margin: 0;
@@ -40,90 +45,81 @@ body {
   text-align: center;
 }
 
-@media only screen and (min-width: 740px) {
-  .block {
-  	font-size: 2em;
-  }
-}
-
-.content {
+/* .content {
 	text-align: left;
 	font-size: 0.8em;
 	font-weight: normal;
-}
+} */
 
-h3 {
+h3, p, a, li {
   color: var(--font-color);
 }
 
-p {
-  color: var(--font-color);
-}
-
-a {
-	color: var(--font-color);
+ul {
+  text-align: left;
 }
 
 a:hover {
-  color: #808080;
+  color: var(--hover-color);
 }
 
 .section {
-	display:flex;
+	display: flex;
   flex-direction: column;
-	justify-content:center;
-	align-items:center;
+	justify-content: center;
+	align-items: center;
 	padding-bottom: 100px;
 }
 
 .content-with-image {
-  max-width: 900px;
+  max-width: 1100px;
   margin: 0 25px;
 }
 
-@media only screen and (min-width: 740px) {
-  .content-with-image {
-  	display: flex;
-  }
-}
-
 .featured-text {
-  padding: 0 25px 0 25px;
+  padding: 0 25px;
   line-height: 1.5em;
   text-align: left;
 }
 
-.featured-images {
-  width: 650px;
-}
-
 .jsconf-image {
-  width: 400px;
-  border-radius: 2%;
+  width: 250px;
+  border-radius: var(--image-border-radius);
 }
 
 .emberconf-image {
-  height: 400px;
-  border-radius: 2%;
+  height: 300px;
+  border-radius: var(--image-border-radius);
 }
-
-/* .container {
-	padding-bottom: 50px;
-	margin: 0 auto;
-}
-
-.image-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-} */
 
 .vaidehi-logo-image {
 	padding: 200px 0 60px 0;
   width: 320px;
 }
 
+/* MID & LARGE SIZES */
 @media only screen and (min-width: 740px) {
+  .block {
+    font-size: 2em;
+  }
+
+  .content-with-image {
+    display: flex;
+    align-items: center;
+  }
+
+  .featured-text {
+    text-align: left;
+  }
+
+  .jsconf-image {
+    width: 400px;
+  }
+
+  .emberconf-image {
+    height: 400px;
+  }
+
   .vaidehi-logo-image {
     width: 650px;
   }
