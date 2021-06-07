@@ -1,15 +1,24 @@
+html {
+  height: 100%;
+}
+
+footer {
+  text-align: center;
+}
+
 .flex-container {
   padding: 0;
   margin: 0;
   list-style: none;
-  
+
   display: -webkit-box;
   display: -moz-box;
   display: -ms-flexbox;
   display: -webkit-flex;
   display: flex;
-  
+
   -webkit-flex-flow: row wrap;
+  flex-flow: row wrap;
   justify-content: space-around;
 }
 
@@ -19,7 +28,7 @@
   width: 300px;
   height: 250px;
   margin-top: 10px;
-  
+
   color: white;
 }
 
@@ -39,7 +48,7 @@
 }
 
 body {
-	background: linear-gradient(90deg, #cfecd0, #ffc5ca);
+  background: linear-gradient(#e66465, #9198e5);
 	font-size: 16px;
 	font-family: Tahoma, Geneva, sans-serif;
 	color: #ffffff;
@@ -50,7 +59,7 @@ a {
 }
 
 a:hover {
-	color: #808080;
+	color: #3e3d3d;
 }
 
 #heading-content {
