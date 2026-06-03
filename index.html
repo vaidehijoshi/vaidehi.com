@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<html>
+<html data-theme="dark">
   <head>
     <title>Vaidehi Joshi</title>
 
@@ -14,6 +14,8 @@
   </head>
 
   <body>
+    <button id="theme-toggle" aria-label="Toggle light/dark mode">☀️</button>
+
     <div id="heading-content">
       <img src="vaidehi-white.png" class="vaidehi-logo-image"/>
     </div>
@@ -55,6 +57,14 @@
           return '<li><a href="' + item.url + '" target="_blank">' + item.title + '</a></li>';
         }).join('');
       }
+
+      var toggle = document.getElementById('theme-toggle');
+      var dark = true;
+      toggle.addEventListener('click', function() {
+        dark = !dark;
+        document.documentElement.setAttribute('data-theme', dark ? 'dark' : '');
+        toggle.textContent = dark ? '☀️' : '🌙';
+      });
 
       fetch('data.yaml')
         .then(function(res) { return res.text(); })
