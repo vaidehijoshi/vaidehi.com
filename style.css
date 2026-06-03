@@ -1,5 +1,6 @@
 html {
   height: 100%;
+  font-family: Tahoma, Geneva, sans-serif;
 }
 
 body {
@@ -7,7 +8,6 @@ body {
   background-size: cover;
   min-height: 100vh;
   font-size: 16px;
-  font-family: Tahoma, Geneva, sans-serif;
   color: #ffffff;
 }
 
@@ -21,6 +21,7 @@ a:hover {
 
 footer {
   text-align: center;
+  padding: 40px 0 60px;
 }
 
 #heading-content {
@@ -43,7 +44,7 @@ footer {
 }
 
 .container {
-  max-width: 900px;
+  max-width: 1200px;
   margin: 0 auto;
   padding-bottom: 60px;
 }
@@ -66,8 +67,11 @@ footer {
 
 .section-heading {
   font-weight: bold;
-  font-size: 2em;
+  font-size: 1.25em;
   margin-bottom: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  opacity: 0.75;
 }
 
 .section-subheading {
@@ -91,11 +95,12 @@ footer {
 }
 
 blockquote {
+  font-family: inherit;
   font-style: normal;
   text-align: left;
   line-height: 1.7em;
   margin: 16px auto;
-  max-width: 520px;
+  max-width: 900px;
   padding: 0 16px;
 }
 
@@ -122,10 +127,6 @@ blockquote {
   }
 
   .heading {
-    font-size: 1.5em;
-  }
-
-  .section-heading {
     font-size: 1.5em;
   }
 

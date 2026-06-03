@@ -1,24 +1,48 @@
 talks:
   keynote_and_leadership:
-    - title: "Meditations on Software — RailsConf 2022"
+    - title: "Meditations on Software"
+      year: 2022
       url: "https://www.youtube.com/watch?v=mWXo0PFYgIk"
-    - title: "LeadDev New York 2022"
+    - title: "The Death and Life of Great Software Teams"
+      year: 2022
       url: "https://www.youtube.com/watch?v=iQCvyWk6WIE"
-    - title: "Learning how to Learn — RustFest Paris 2018"
+    - title: "The Cost of Data"
+      year: 2021
+      url: "https://www.youtube.com/watch?v=h7LFYeiCtYs"
+    - title: "The Science and Magic of Debugging"
+      year: 2021
+      url: "https://www.youtube.com/watch?v=jlX5AN8_cIo"
+    - title: "Learning how to Learn"
+      year: 2018
       url: "https://www.youtube.com/watch?v=23lRkdDXqY0"
-    - title: "Closing Keynote — EmberConf 2018"
+    - title: "Shining a Light"
+      year: 2018
       url: "https://www.youtube.com/watch?v=wkfc0Mvg4QY"
   technical:
-    - title: "Re-graphing The Mental Model of The Rails Router — RailsConf 2018"
-      url: "https://www.youtube.com/watch?v=lEC-QoZeBkM"
-    - title: "What we talk about when we talk about the JavaScript object model — Nordic.js 2019"
+    - title: "What we talk about when we talk about the JavaScript object model"
+      year: 2019
       url: "https://www.youtube.com/watch?v=jBisUx6luk8"
-    - title: "Setting Up To Fail — Deconstruct 2019"
+    - title: "Setting Up To Fail"
+      year: 2019
       url: "https://www.deconstructconf.com/2019/vaidehi-joshi-setting-up-to-fail"
+    - title: "Re-graphing The Mental Model of The Rails Router"
+      year: 2018
+      url: "https://www.youtube.com/watch?v=lEC-QoZeBkM"
+    - title: "Goldilocks And The Three Code Reviews"
+      year: 2017
+      url: "https://www.youtube.com/watch?v=d2CMwgm2pXk"
+    - title: "Nobody Knows What Time It Is"
+      year: 2017
+      url: "https://www.youtube.com/watch?v=MVWNABsd5M8"
+    - title: "Hexes and the Magic of Base 16"
+      year: 2017
+      url: "https://www.youtube.com/watch?v=skBp4AftWWQ"
 
 writing:
   - title: "basecs"
     url: "https://medium.com/basecs"
+  - title: "baseds"
+    url: "https://baseds.org"
   - title: "personal blog"
     url: "https://vaidehijoshi.github.io"
   - title: "LeadDev articles"
