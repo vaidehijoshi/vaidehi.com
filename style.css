@@ -1,15 +1,19 @@
 :root {
-  --bg:      #EDE2DC;
-  --text:    #2A2A2A;
-  --link:    #C83070;
-  --accent:  #C49010;
+  --bg:          #EDE2DC;
+  --text:        #2A2A2A;
+  --link:        #C83070;
+  --accent:      #C49010;
+  --card-bg:     rgba(0, 0, 0, 0.05);
+  --card-border: rgba(0, 0, 0, 0.12);
 }
 
 [data-theme="dark"] {
-  --bg:      #1E1A16;
-  --text:    #EDE8DF;
-  --link:    #F070A0;
-  --accent:  #F0C030;
+  --bg:          #1E1A16;
+  --text:        #EDE8DF;
+  --link:        #F070A0;
+  --accent:      #F0C030;
+  --card-bg:     rgba(255, 255, 255, 0.06);
+  --card-border: rgba(255, 255, 255, 0.1);
 }
 
 html {
@@ -38,12 +42,29 @@ footer {
   padding: 40px 0 60px;
 }
 
+.social-links {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+  margin-bottom: 20px;
+}
+
+.social-links a {
+  font-size: 1.5em;
+  opacity: 0.75;
+  transition: opacity 0.2s;
+}
+
+.social-links a:hover {
+  opacity: 1;
+}
+
 #theme-toggle {
   position: fixed;
   top: 20px;
   right: 24px;
-  background: rgba(128, 128, 128, 0.15);
-  border: 1px solid rgba(128, 128, 128, 0.3);
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(0, 0, 0, 0.5);
   border-radius: 50%;
   width: 38px;
   height: 38px;
@@ -55,6 +76,11 @@ footer {
   justify-content: center;
 }
 
+[data-theme="dark"] #theme-toggle {
+  background: rgba(128, 128, 128, 0.15);
+  border: 1px solid rgba(128, 128, 128, 0.3);
+}
+
 #theme-toggle:hover {
   background: rgba(128, 128, 128, 0.28);
 }
@@ -63,11 +89,10 @@ footer {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding-bottom: 100px;
 }
 
 .vaidehi-logo-image {
-  padding: 200px 0 60px 0;
+  padding: 200px 0 20px 0;
   width: 550px;
   filter: brightness(0);
   transition: filter 0.2s;
@@ -77,6 +102,23 @@ footer {
   filter: none;
 }
 
+.bio {
+  max-width: 900px;
+  margin: 0 auto 80px;
+  text-align: left;
+  line-height: 1.9em;
+  font-size: 1em;
+  opacity: 0.88;
+}
+
+.bio p {
+  margin-bottom: 1.2em;
+}
+
+.bio p:last-child {
+  margin-bottom: 0;
+}
+
 .container {
   max-width: 1200px;
   margin: 0 auto;
@@ -84,14 +126,21 @@ footer {
 }
 
 .talks-columns {
-  display: flex;
-  gap: 40px;
-  justify-content: center;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 60px;
+  text-align: left;
+  max-width: 800px;
+  margin: 0 auto;
 }
 
-.talks-column {
-  flex: 1;
-  min-width: 0;
+.talks-column ul {
+  list-style: disc;
+  padding-left: 20px;
+}
+
+.talks-column .section-subheading {
+  text-align: left;
 }
 
 .section {
@@ -128,6 +177,23 @@ footer {
   line-height: 2.2em;
 }
 
+#writing-links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0;
+}
+
+#writing-links li {
+  display: inline;
+  line-height: 2.2em;
+}
+
+#writing-links li + li::before {
+  content: ' \2022  ';
+  padding: 0 6px;
+}
+
 blockquote {
   font-family: inherit;
   font-style: normal;
@@ -135,19 +201,31 @@ blockquote {
   line-height: 1.7em;
   margin: 16px auto;
   max-width: 900px;
-  padding: 0 16px;
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-top: 3px solid var(--accent);
+  border-radius: 8px;
+  padding: 24px 28px;
 }
 
 .rec-author {
-  display: block;
+  display: flex;
+  justify-content: flex-end;
   margin-top: 12px;
-  font-size: 0.85em;
+  font-style: normal;
   opacity: 0.85;
 }
 
-.rec-source {
-  margin-top: 8px;
+blockquote .rec-source {
+  margin-top: 16px;
   font-size: 0.85em;
+  display: flex;
+  justify-content: flex-end;
+}
+
+blockquote .rec-source a {
+  text-decoration: underline;
+  text-underline-offset: 3px;
 }
 
 @media screen and (max-width: 560px) {
@@ -160,7 +238,19 @@ blockquote {
     max-width: 310px;
   }
 
+  .bio {
+    padding: 0 20px;
+  }
+
+  #theme-toggle {
+    display: none;
+  }
+
+  body {
+    padding-bottom: 40px;
+  }
+
   .talks-columns {
-    flex-direction: column;
+    grid-template-columns: 1fr;
   }
 }

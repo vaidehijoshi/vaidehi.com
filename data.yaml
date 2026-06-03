@@ -9,9 +9,6 @@ talks:
     - title: "The Cost of Data"
       year: 2021
       url: "https://www.youtube.com/watch?v=h7LFYeiCtYs"
-    - title: "The Science and Magic of Debugging"
-      year: 2021
-      url: "https://www.youtube.com/watch?v=jlX5AN8_cIo"
     - title: "Learning how to Learn"
       year: 2018
       url: "https://www.youtube.com/watch?v=23lRkdDXqY0"
@@ -19,6 +16,9 @@ talks:
       year: 2018
       url: "https://www.youtube.com/watch?v=wkfc0Mvg4QY"
   technical:
+    - title: "The Science and Magic of Debugging"
+      year: 2021
+      url: "https://www.youtube.com/watch?v=jlX5AN8_cIo"
     - title: "What we talk about when we talk about the JavaScript object model"
       year: 2019
       url: "https://www.youtube.com/watch?v=jBisUx6luk8"
@@ -39,14 +39,14 @@ talks:
       url: "https://www.youtube.com/watch?v=skBp4AftWWQ"
 
 writing:
-  - title: "basecs"
-    url: "https://medium.com/basecs"
-  - title: "baseds"
-    url: "https://baseds.org"
-  - title: "personal blog"
-    url: "https://vaidehijoshi.github.io"
   - title: "LeadDev articles"
     url: "https://leaddev.com/community/vaidehi-joshi"
+  - title: "BaseCS"
+    url: "https://basecs.org"
+  - title: "BaseDS"
+    url: "https://baseds.org"
+  - title: "Technical Blog"
+    url: "https://vaidehijoshi.github.io"
 
 recommendations:
   - author: "Nicholas Gottschlich"
@@ -157,63 +157,44 @@ recommendations:
 
   - author: "Michael Kohl"
     text: >-
-      I have had the opportunity to work with Vaidehi at Vimeo for one year. During the time that I
-      have worked with Vaidehi, she has proven to be an exceptional and outstanding engineering manager.
-      The entire team was always able to ship high quality deliverables on time under her management.
-      Her meticulous attention to detail, effective communication, extensive technical knowledge, and
-      empathetic leadership played a huge role in the team's success.
+      If you tasked me with assembling my dream engineering team Vaidehi would definitely be on the
+      list and close to the top at that. Over the past 15 or so months of working together I slowly
+      understood why it's such a pleasure to have her as a colleague: not only is she a great engineer
+      — as illustrated by her Base Computer Science and Base Distributed Systems series — but also a
+      hard and diligent worker who never shies away from a challenge outside her comfort zone, as
+      illustrated by her efforts to bridge our engineering and product teams and her relentless efforts
+      to improve our internal processes. Best of all, she does all of this with kindness, thoughtfulness,
+      and empathy, qualities too often neglected in our industry. To round it all off she's a great
+      communicator, something I highly appreciated in our fully remote and distributed team.
 
-      In addition to Vaidehi's managerial position, she also served as a mentor figure to me. I have
-      learned a myriad of skills (both soft and technical) and grew astoundingly as a software engineer
-      under her management. She taught me how to effectively communicate technical thoughts and details.
-      She also encouraged me and other team members to continuously learn and update our technical
-      skills - whether it's through our department reading clubs or initiating learning events held by
-      other senior members, etc. If I had another chance to work with Vaidehi, I would do so in a
-      heartbeat.
-
-      Vaidehi is a great inspiration for all software engineers and knows how to motivate those around
-      her. I always felt passionate about my work and enjoyed every project while under her management.
-      I highly recommend Vaidehi Joshi and believe she would be a valuable asset to any organization
-      or team.
+      Recently Vaidehi took her first steps into engineering management and due to the combination of
+      qualities outlined above I'm sure she'll be as successful at that as she is at engineering. If
+      you're after a talented engineer who combines technical skills with empathy and good instincts for
+      the bigger picture look no further, you found her!
 
   - author: "Arit Amana"
     text: >-
-      I have had the opportunity to work with Vaidehi at Vimeo for one year. During the time that I
-      have worked with Vaidehi, she has proven to be an exceptional and outstanding engineering manager.
-      The entire team was always able to ship high quality deliverables on time under her management.
-      Her meticulous attention to detail, effective communication, extensive technical knowledge, and
-      empathetic leadership played a huge role in the team's success.
+      I first learned of Vaidehi through her work on the BaseCS podcast, and she deeply inspired me
+      and helped me believe that I could transition careers to software engineering. Soon after joining
+      Forem, Vaidehi became my manager, and our relationship has been nothing short of amazing.
 
-      In addition to Vaidehi's managerial position, she also served as a mentor figure to me. I have
-      learned a myriad of skills (both soft and technical) and grew astoundingly as a software engineer
-      under her management. She taught me how to effectively communicate technical thoughts and details.
-      She also encouraged me and other team members to continuously learn and update our technical
-      skills - whether it's through our department reading clubs or initiating learning events held by
-      other senior members, etc. If I had another chance to work with Vaidehi, I would do so in a
-      heartbeat.
+      Vaidehi is a passionate advocate; she is a great listener and knows to reflect back what she is
+      hearing, to ensure proper understanding. She seeks to actually empower me, not just manage me.
+      In one of our first meetings, I expressed my desire to be promoted at some point during the year.
+      However, Vaidehi advocated for my more immediate promotion, presenting evidence that indicated I
+      was already performing at the next level. That really touched me - to know that Vaidehi was a
+      sponsor to me, not just a mentor.
 
-      Vaidehi is a great inspiration for all software engineers and knows how to motivate those around
-      her. I always felt passionate about my work and enjoyed every project while under her management.
-      I highly recommend Vaidehi Joshi and believe she would be a valuable asset to any organization
-      or team.
+      Vaidehi is also an amazing engineer; she is skilled, competent, possesses deep subject-matter
+      expertise and excellent communication skills to facilitate effective teamwork and obvious progress.
 
   - author: "Lisa Sy"
     text: >-
-      I have had the opportunity to work with Vaidehi at Vimeo for one year. During the time that I
-      have worked with Vaidehi, she has proven to be an exceptional and outstanding engineering manager.
-      The entire team was always able to ship high quality deliverables on time under her management.
-      Her meticulous attention to detail, effective communication, extensive technical knowledge, and
-      empathetic leadership played a huge role in the team's success.
-
-      In addition to Vaidehi's managerial position, she also served as a mentor figure to me. I have
-      learned a myriad of skills (both soft and technical) and grew astoundingly as a software engineer
-      under her management. She taught me how to effectively communicate technical thoughts and details.
-      She also encouraged me and other team members to continuously learn and update our technical
-      skills - whether it's through our department reading clubs or initiating learning events held by
-      other senior members, etc. If I had another chance to work with Vaidehi, I would do so in a
-      heartbeat.
-
-      Vaidehi is a great inspiration for all software engineers and knows how to motivate those around
-      her. I always felt passionate about my work and enjoyed every project while under her management.
-      I highly recommend Vaidehi Joshi and believe she would be a valuable asset to any organization
-      or team.
+      Vaidehi is a standout engineer and leader, and an empathetic advocate of not only high-quality
+      product engineering, but of healthy organizational design and people happiness. She was perceptive
+      to the organizational gaps at Forem and proactively resolved them with collaborators. Some of the
+      things I witnessed her champion includes: creating a company-wide product vision that was
+      accompanied with an actionable roadmap and product management process where there was no product
+      manager, mentoring and coaching engineers, advocating for more data-informed product development
+      by incorporating metrics into our product, and much more. As her design counterpart, I found it
+      to be an immense pleasure working with Vaidehi and highly recommend working with her.
