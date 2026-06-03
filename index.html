@@ -6,7 +6,10 @@
 
     <link rel="stylesheet" type="text/css" href="style.css" />
 
+    <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
+
+    <script src="https://cdn.jsdelivr.net/npm/js-yaml@4/dist/js-yaml.min.js"></script>
   </head>
 
   <body>
@@ -18,57 +21,65 @@
       <a href="https://www.twitter.com/vaidehijoshi">@vaidehijoshi</a>
     </div>
 
-    <!-- <div class="container">
-      <ul class="flex-container">
-        <li class="flex-item">
-          <div class="heading">words
-            <p class="content">
-              I'm writing a weekly series on computer science fundamentals called <a href="https://medium.com/basecs" target="_blank">basecs</a>.
-            </p>
-            <p class="content">
-              A few years ago, I wrote about code <a href="https://vaidehijoshi.github.io/">every Tuesday</a>, for a year.
-            </p>
-            <p class="content">
-              I also wrote a thousand words of fiction, <a href="https://medium.com/one-thousand-words">every Thursday</a>, for a year.
-            </p>
-          </div>
-        </li>
-        <li class="flex-item">
-          <div class="heading">talks
-            <p class="content">
-              I have spoken at a number of <a href="https://www.youtube.com/watch?v=-gAAhWfyh8Q">different</a> <a href="https://www.youtube.com/watch?v=CctE59nvXyw">tech</a> <a href="https://www.youtube.com/watch?v=N1jnoPxBGGA">conferences</a>
-            </p>
-            <p class="content">
-              But the talk that I am the most proud of is <a href="https://www.youtube.com/watch?v=Dc1sc2-ClOc&t=148s">this</a> one.
-            </p>
-            <p class="content">
-              Not all of my talks have been recorded, but most of them can be found in the form of <a href="https://slides.com/vaidehijoshi" target="_blank"> slides</a>.
-            </p>
-          </div>
-        </li>
-        <li class="flex-item">
-          <div class="heading">code
-            <p class="content">
-              <p class="content">
-                I love writing <a href="https://github.com/vaidehijoshi">code</a>, and have a lot of opinions about it.
-              </p>
-              <p class="content">
-                I think that it's important to <a href="http://www.hardscrabble.net/metaphorloop/2/">empathize with your code</a>.
-              </p>
-              <p class="content">
-                I'm also a strong supporter of bringing back <a href="http://our-origins.com/post/138286107461/vaidehi-joshi-web-developer-at-friends-of-the-web">flaming text</a> to the internet.
-              </p>
-            </p>
-          </div>
-        </li>
-      </ul>
+    <div class="container">
 
+      <section class="section">
+        <div class="section-heading">talks</div>
 
-    </div> -->
+        <div class="talks-columns">
+          <div class="talks-column">
+            <div class="section-subheading">keynote &amp; leadership</div>
+            <ul id="keynote-talks"></ul>
+          </div>
+          <div class="talks-column">
+            <div class="section-subheading">technical</div>
+            <ul id="technical-talks"></ul>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="section-heading">writing</div>
+        <ul id="writing-links"></ul>
+      </section>
+
+      <section class="section">
+        <div class="section-heading">recommendations</div>
+        <blockquote id="rec-quote"></blockquote>
+        <p class="rec-source"><a href="https://www.linkedin.com/in/vaidehijoshi/" target="_blank">via LinkedIn</a></p>
+      </section>
+
+    </div>
+
+    <script>
+      function renderList(ulId, items) {
+        const ul = document.getElementById(ulId);
+        ul.innerHTML = items.map(function(item) {
+          return '<li><a href="' + item.url + '" target="_blank">' + item.title + '</a></li>';
+        }).join('');
+      }
+
+      fetch('data.yaml')
+        .then(function(res) { return res.text(); })
+        .then(function(text) {
+          var data = jsyaml.load(text);
+
+          renderList('keynote-talks', data.talks.keynote_and_leadership);
+          renderList('technical-talks', data.talks.technical);
+          renderList('writing-links', data.writing);
+
+          var recs = data.recommendations;
+          var rec = recs[Math.floor(Math.random() * recs.length)];
+          var el = document.getElementById('rec-quote');
+          var paragraphs = rec.text.split('\n').filter(function(p) { return p.trim(); });
+          var body = paragraphs.map(function(p) { return '<p>' + p + '</p>'; }).join('');
+          el.innerHTML = body + '<span class=”rec-author”>— ' + rec.author + '</span>';
+        });
+    </script>
   </body>
 
   <footer>
-    <p>&copy; Vaidehi Joshi | 2021</p>
+    <p>&copy; Vaidehi Joshi | 2026</p>
 
     <p>Custom logotype by the ever-talented <a href="http://www.victoriarushton.com" target="_blank">Victoria Rushton</a>.</p>
   </footer>

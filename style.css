@@ -2,53 +2,10 @@ html {
   height: 100%;
 }
 
-footer {
-  text-align: center;
-}
-
-.flex-container {
-  padding: 0;
-  margin: 0;
-  list-style: none;
-
-  display: -webkit-box;
-  display: -moz-box;
-  display: -ms-flexbox;
-  display: -webkit-flex;
-  display: flex;
-
-  -webkit-flex-flow: row wrap;
-  flex-flow: row wrap;
-  justify-content: space-around;
-}
-
-.flex-item {
-  background: none;
-  padding: 5px;
-  width: 300px;
-  height: 250px;
-  margin-top: 10px;
-
-  color: white;
-}
-
-.heading {
-  line-height: 20px;
-
-  font-weight: bold;
-  font-size: 2em;
-  text-align: center;
-}
-
-.content {
-  text-align: left;
-  line-height: 30px;
-  font-size: 0.8em;
-  font-weight: normal;
-}
-
 body {
-  background: linear-gradient(#e66465, #9198e5);
+  background: linear-gradient(#e66465, #9198e5) no-repeat center center fixed;
+  background-size: cover;
+  min-height: 100vh;
   font-size: 16px;
   font-family: Tahoma, Geneva, sans-serif;
   color: #ffffff;
@@ -62,6 +19,10 @@ a:hover {
   color: #3e3d3d;
 }
 
+footer {
+  text-align: center;
+}
+
 #heading-content {
   display: flex;
   justify-content: center;
@@ -69,20 +30,85 @@ a:hover {
   padding-bottom: 100px;
 }
 
-.container {
-  padding-bottom: 50px;
-  margin: 0 auto;
-}
-
-.image-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+.heading {
+  line-height: 20px;
+  font-weight: bold;
+  font-size: 2em;
+  text-align: center;
 }
 
 .vaidehi-logo-image {
   padding: 200px 0 60px 0;
   width: 550px;
+}
+
+.container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding-bottom: 60px;
+}
+
+.talks-columns {
+  display: flex;
+  gap: 40px;
+  justify-content: center;
+}
+
+.talks-column {
+  flex: 1;
+  min-width: 0;
+}
+
+.section {
+  margin-bottom: 50px;
+  text-align: center;
+}
+
+.section-heading {
+  font-weight: bold;
+  font-size: 2em;
+  margin-bottom: 10px;
+}
+
+.section-subheading {
+  font-size: 1em;
+  font-weight: bold;
+  margin-top: 20px;
+  margin-bottom: 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  opacity: 0.75;
+}
+
+.section ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.section li {
+  line-height: 2.2em;
+}
+
+blockquote {
+  font-style: normal;
+  text-align: left;
+  line-height: 1.7em;
+  margin: 16px auto;
+  max-width: 520px;
+  padding: 0 16px;
+}
+
+.rec-author {
+  display: block;
+  margin-top: 12px;
+  font-size: 0.85em;
+  opacity: 0.85;
+}
+
+.rec-source {
+  margin-top: 8px;
+  font-size: 0.85em;
 }
 
 @media screen and (max-width: 560px) {
@@ -98,5 +124,12 @@ a:hover {
   .heading {
     font-size: 1.5em;
   }
-}
 
+  .section-heading {
+    font-size: 1.5em;
+  }
+
+  .talks-columns {
+    flex-direction: column;
+  }
+}
