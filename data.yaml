@@ -7,14 +7,17 @@ talks:
       year: 2022
       url: "https://www.youtube.com/watch?v=iQCvyWk6WIE"
     - title: "The Cost of Data"
-      year: 2021
-      url: "https://www.youtube.com/watch?v=h7LFYeiCtYs"
+      year: 2020
+      url: "https://www.youtube.com/watch?v=iEUPwHyIOBQ"
     - title: "Learning how to Learn"
       year: 2018
       url: "https://www.youtube.com/watch?v=23lRkdDXqY0"
     - title: "Shining a Light"
       year: 2018
       url: "https://www.youtube.com/watch?v=wkfc0Mvg4QY"
+    - title: "Why I Learned To Code"
+      year: 2015
+      url: "https://www.youtube.com/watch?v=Dc1sc2-ClOc"
   technical:
     - title: "The Science and Magic of Debugging"
       year: 2021
@@ -25,6 +28,9 @@ talks:
     - title: "Setting Up To Fail"
       year: 2019
       url: "https://www.deconstructconf.com/2019/vaidehi-joshi-setting-up-to-fail"
+    - title: "Inside Rails: The Lifecycle of a Request (group talk)"
+      year: 2019
+      url: "https://www.youtube.com/watch?v=eK_JVdWOssI"
     - title: "Re-graphing The Mental Model of The Rails Router"
       year: 2018
       url: "https://www.youtube.com/watch?v=lEC-QoZeBkM"
@@ -37,6 +43,12 @@ talks:
     - title: "Hexes and the Magic of Base 16"
       year: 2017
       url: "https://www.youtube.com/watch?v=skBp4AftWWQ"
+    - title: "Debugging Ember With Empathy"
+      year: 2016
+      url: "https://www.youtube.com/watch?v=CctE59nvXyw"
+    - title: "A Machine State of Mind"
+      year: 2016
+      url: "https://www.youtube.com/watch?v=N1jnoPxBGGA"
 
 writing:
   - title: "LeadDev articles"
