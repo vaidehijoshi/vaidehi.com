@@ -194,7 +194,49 @@ footer {
   padding: 0 6px;
 }
 
+.rec-card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 16px;
+  flex-shrink: 0;
+}
+
+
+.rec-main {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  height: 440px;
+}
+
+.carousel-btn {
+  background: none;
+  border: none;
+  color: var(--link);
+  font-size: 1.4em;
+  cursor: pointer;
+  opacity: 0.7;
+  transition: opacity 0.2s;
+  flex-shrink: 0;
+  padding: 8px 4px;
+}
+
+.carousel-btn:hover {
+  opacity: 1;
+}
+
+#rec-text {
+  flex: 1;
+  min-width: 0;
+  align-self: stretch;
+  overflow-y: auto;
+  transition: opacity 0.2s;
+}
+
 blockquote {
+  display: flex;
+  flex-direction: column;
   font-family: inherit;
   font-style: normal;
   text-align: left;
@@ -209,18 +251,13 @@ blockquote {
 }
 
 .rec-author {
-  display: flex;
-  justify-content: flex-end;
-  margin-top: 12px;
   font-style: normal;
   opacity: 0.85;
 }
 
-blockquote .rec-source {
-  margin-top: 16px;
+.rec-source {
   font-size: 0.85em;
-  display: flex;
-  justify-content: flex-end;
+  margin: 0;
 }
 
 blockquote .rec-source a {
