@@ -13,8 +13,20 @@
     </script>
 
     <meta charset="UTF-8" />
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌻</text></svg>">
     <meta name="viewport" content="width=device-width" />
+    <meta name="description" content="Vaidehi Joshi is an engineering manager, writer, and keynote speaker. Creator of BaseCS and BaseDS. Author at LeadDev." />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://vaidehi.com" />
+    <meta property="og:title" content="Vaidehi Joshi" />
+    <meta property="og:description" content="Engineering manager, writer, and keynote speaker. Creator of BaseCS and BaseDS. Author at LeadDev." />
+
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="@vaidehijoshi" />
+    <meta name="twitter:title" content="Vaidehi Joshi" />
+    <meta name="twitter:description" content="Engineering manager, writer, and keynote speaker. Creator of BaseCS and BaseDS. Author at LeadDev." />
+
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌻</text></svg>">
 
     <script src="https://cdn.jsdelivr.net/npm/js-yaml@4/dist/js-yaml.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" />
@@ -56,8 +68,18 @@
       </section>
 
       <section class="section">
-        <div class="section-heading">recommendations</div>
-        <blockquote id="rec-quote"></blockquote>
+        <div class="section-heading">kind words from former colleagues</div>
+        <blockquote id="rec-quote">
+          <div class="rec-main">
+            <button id="rec-prev" class="carousel-btn" aria-label="Previous recommendation"><i class="fa-solid fa-chevron-left"></i></button>
+            <div id="rec-text"></div>
+            <button id="rec-next" class="carousel-btn" aria-label="Next recommendation"><i class="fa-solid fa-chevron-right"></i></button>
+          </div>
+          <span id="rec-author" class="rec-author"></span>
+          <div class="rec-card-footer">
+            <p class="rec-source"><a href="https://www.linkedin.com/in/vaidehisj/" target="_blank">via LinkedIn</a></p>
+          </div>
+        </blockquote>
       </section>
 
     </div>
@@ -89,22 +111,57 @@
           renderList('writing-links', data.writing);
 
           var recs = data.recommendations;
-          var rec = recs[Math.floor(Math.random() * recs.length)];
-          var el = document.getElementById('rec-quote');
-          var paragraphs = rec.text.split('\n').filter(function(p) { return p.trim(); });
-          var body = paragraphs.map(function(p) { return '<p>' + p + '</p>'; }).join('');
-          el.innerHTML = body + '<span class="rec-author">— ' + rec.author + '</span><p class="rec-source"><a href="https://www.linkedin.com/in/vaidehisj/" target="_blank">via LinkedIn</a></p>';
-        });
-    </script>
-  </body>
+          var currentIndex = Math.floor(Math.random() * recs.length);
+          var textEl = document.getElementById('rec-text');
+          var authorEl = document.getElementById('rec-author');
 
-  <footer>
-    <div class="social-links">
-      <a href="https://www.linkedin.com/in/vaidehisj/" target="_blank" aria-label="LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
-      <a href="https://github.com/vaidehijoshi" target="_blank" aria-label="GitHub"><i class="fa-brands fa-github"></i></a>
-      <a href="https://bsky.app/profile/vaidehi.com" target="_blank" aria-label="Bluesky"><i class="fa-brands fa-bluesky"></i></a>
-      <a href="https://www.twitter.com/vaidehijoshi" target="_blank" aria-label="Twitter"><i class="fa-brands fa-x-twitter"></i></a>
-    </div>
-    <p>&copy; Vaidehi Joshi | 2026</p>
-  </footer>
+          function recHtml(rec) {
+            return rec.text.split('\n').filter(function(p) { return p.trim(); })
+              .map(function(p) { return '<p>' + p + '</p>'; }).join('');
+          }
+
+          function renderRec(index) {
+            var rec = recs[index];
+            textEl.style.opacity = '0';
+            setTimeout(function() {
+              textEl.innerHTML = recHtml(rec);
+              authorEl.textContent = '— ' + rec.author;
+              textEl.style.opacity = '1';
+            }, 200);
+          }
+
+          document.getElementById('rec-prev').addEventListener('click', function() {
+            currentIndex = (currentIndex - 1 + recs.length) % recs.length;
+            renderRec(currentIndex);
+          });
+
+          document.getElementById('rec-next').addEventListener('click', function() {
+            currentIndex = (currentIndex + 1) % recs.length;
+            renderRec(currentIndex);
+          });
+
+          // Lock #rec-text to the tallest rec's height to prevent the card from jumping.
+          textEl.style.visibility = 'hidden';
+          textEl.style.minHeight = Math.max.apply(null, recs.map(function(rec) {
+            textEl.innerHTML = recHtml(rec);
+            return textEl.offsetHeight;
+          })) + 'px';
+          textEl.style.visibility = '';
+
+          renderRec(currentIndex);
+        });
+
+    </script>
+
+    <footer>
+      <div class="social-links">
+        <a href="https://www.linkedin.com/in/vaidehisj/" target="_blank" aria-label="LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
+        <a href="https://github.com/vaidehijoshi" target="_blank" aria-label="GitHub"><i class="fa-brands fa-github"></i></a>
+        <a href="https://bsky.app/profile/vaidehi.com" target="_blank" aria-label="Bluesky"><i class="fa-brands fa-bluesky"></i></a>
+        <a href="https://www.twitter.com/vaidehijoshi" target="_blank" aria-label="Twitter"><i class="fa-brands fa-x-twitter"></i></a>
+      </div>
+      <p>&copy; Vaidehi Joshi | <span id="copyright-year"></span></p>
+    </footer>
+    <script>document.getElementById('copyright-year').textContent = new Date().getFullYear();</script>
+  </body>
 </html>
