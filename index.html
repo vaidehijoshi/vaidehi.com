@@ -68,15 +68,15 @@
       </section>
 
       <section class="section">
-        <div class="section-heading">recommendations</div>
+        <div class="section-heading">kind words from former colleagues</div>
         <blockquote id="rec-quote">
           <div class="rec-main">
             <button id="rec-prev" class="carousel-btn" aria-label="Previous recommendation"><i class="fa-solid fa-chevron-left"></i></button>
             <div id="rec-text"></div>
             <button id="rec-next" class="carousel-btn" aria-label="Next recommendation"><i class="fa-solid fa-chevron-right"></i></button>
           </div>
+          <span id="rec-author" class="rec-author"></span>
           <div class="rec-card-footer">
-            <span id="rec-author" class="rec-author"></span>
             <p class="rec-source"><a href="https://www.linkedin.com/in/vaidehisj/" target="_blank">via LinkedIn</a></p>
           </div>
         </blockquote>
@@ -115,14 +115,16 @@
           var textEl = document.getElementById('rec-text');
           var authorEl = document.getElementById('rec-author');
 
+          function recHtml(rec) {
+            return rec.text.split('\n').filter(function(p) { return p.trim(); })
+              .map(function(p) { return '<p>' + p + '</p>'; }).join('');
+          }
+
           function renderRec(index) {
             var rec = recs[index];
-            var paragraphs = rec.text.split('\n').filter(function(p) { return p.trim(); });
-            var body = paragraphs.map(function(p) { return '<p>' + p + '</p>'; }).join('');
             textEl.style.opacity = '0';
             setTimeout(function() {
-              textEl.innerHTML = body;
-              textEl.scrollTop = 0;
+              textEl.innerHTML = recHtml(rec);
               authorEl.textContent = '— ' + rec.author;
               textEl.style.opacity = '1';
             }, 200);
@@ -137,6 +139,14 @@
             currentIndex = (currentIndex + 1) % recs.length;
             renderRec(currentIndex);
           });
+
+          // Lock #rec-text to the tallest rec's height to prevent the card from jumping.
+          textEl.style.visibility = 'hidden';
+          textEl.style.minHeight = Math.max.apply(null, recs.map(function(rec) {
+            textEl.innerHTML = recHtml(rec);
+            return textEl.offsetHeight;
+          })) + 'px';
+          textEl.style.visibility = '';
 
           renderRec(currentIndex);
         });

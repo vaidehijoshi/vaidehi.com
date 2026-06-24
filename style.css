@@ -196,9 +196,8 @@ footer {
 
 .rec-card-footer {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-top: 16px;
+  justify-content: flex-end;
+  margin-top: 24px;
   flex-shrink: 0;
 }
 
@@ -234,8 +233,6 @@ footer {
 #rec-text {
   flex: 1;
   min-width: 0;
-  height: 260px;
-  overflow-y: auto;
   transition: opacity 0.2s;
 }
 
@@ -256,6 +253,9 @@ blockquote {
 }
 
 .rec-author {
+  display: block;
+  margin-top: 4px;
+  text-align: right;
   font-style: normal;
   opacity: 0.85;
 }
