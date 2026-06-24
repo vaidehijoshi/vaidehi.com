@@ -22,7 +22,8 @@ Then open `http://localhost:8080`.
 index.html        # Page shell — layout and JS
 style.css         # All styles, including light/dark theme variables
 data.yaml         # All content: talks, writing links, recommendations
-vaidehi-white.png # Logo image
+vaidehi-white.png # Logo (white, transparent background)
+og-image.png      # Social card image (1200×630) for og:image / Twitter previews
 ```
 
 ## Updating content
