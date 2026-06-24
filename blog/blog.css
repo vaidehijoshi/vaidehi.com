@@ -1,0 +1,142 @@
+.vaidehi-logo-image {
+  padding: 60px 0 20px 0;
+}
+
+.blog-post-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0 20px 80px;
+}
+
+.blog-nav {
+  margin-bottom: 36px;
+}
+
+.back-link {
+  font-size: 0.9em;
+  text-decoration: none;
+  opacity: 0.65;
+  transition: opacity 0.2s;
+}
+
+.back-link:hover {
+  opacity: 1;
+}
+
+.post-title {
+  font-size: 1.75em;
+  font-weight: bold;
+  margin: 0 0 8px;
+  line-height: 1.3;
+  color: var(--accent);
+}
+
+.post-date {
+  display: block;
+  font-size: 0.88em;
+  opacity: 0.6;
+  margin-bottom: 36px;
+  letter-spacing: 0.03em;
+}
+
+.post-content {
+  line-height: 1.85em;
+}
+
+.post-content h2 {
+  margin: 2em 0 0.5em;
+  font-size: 1.25em;
+  color: var(--accent);
+}
+
+.post-content h3 {
+  margin: 1.6em 0 0.4em;
+  font-size: 1.05em;
+}
+
+.post-content p {
+  margin-bottom: 1.2em;
+}
+
+.post-content ul,
+.post-content ol {
+  margin: 0 0 1.2em 1.5em;
+}
+
+.post-content li {
+  margin-bottom: 0.35em;
+}
+
+.post-content pre {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 6px;
+  padding: 16px 18px;
+  overflow-x: auto;
+  margin: 1.4em 0;
+  font-size: 0.88em;
+  line-height: 1.55em;
+}
+
+.post-content code {
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 0.88em;
+  background: var(--card-bg);
+  padding: 2px 5px;
+  border-radius: 3px;
+}
+
+.post-content pre code {
+  background: none;
+  padding: 0;
+  font-size: 1em;
+}
+
+/* Blog index listing */
+.post-list {
+  list-style: none;
+  padding: 0;
+  margin: 0 auto;
+  max-width: 720px;
+  text-align: left;
+}
+
+.post-list-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding: 11px 0;
+  border-bottom: 1px solid var(--card-border);
+  gap: 20px;
+}
+
+.post-list-item:last-child {
+  border-bottom: none;
+}
+
+.post-list-item a {
+  line-height: 1.45em;
+}
+
+.post-list-date {
+  font-size: 0.82em;
+  opacity: 0.55;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+@media screen and (max-width: 560px) {
+  .blog-post-container {
+    width: 100%;
+    padding: 0 20px 60px;
+  }
+
+  .post-list-item {
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .vaidehi-logo-image {
+    padding-top: 40px;
+  }
+}

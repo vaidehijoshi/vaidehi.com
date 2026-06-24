@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <title>Tackling Those Tests, Part 3: Testing Made Easy With Gems - Vaidehi Joshi</title>
+
+    <link rel="stylesheet" type="text/css" href="/style.css" />
+    <link rel="stylesheet" type="text/css" href="/blog/blog.css" />
+    <script>
+      (function() {
+        var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        document.documentElement.setAttribute('data-theme', prefersDark ? 'dark' : '');
+      })();
+    </script>
+
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Tackling Those Tests, Part 3: Testing Made Easy With Gems - Vaidehi Joshi" />
+
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌻</text></svg>">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" />
+    <link rel="stylesheet" id="hljs-light" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css" />
+    <link rel="stylesheet" id="hljs-dark"  href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css" disabled />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+  </head>
+
+  <body>
+    <button id="theme-toggle" aria-label="Toggle light/dark mode">☀️</button>
+
+    <div id="heading-content">
+      <a href="/"><img src="/vaidehi-white.png" class="vaidehi-logo-image" /></a>
+    </div>
+
+    <main class="blog-post-container">
+      <nav class="blog-nav">
+        <a href="/blog" class="back-link">&larr; all posts</a>
+      </nav>
+
+      <article class="blog-post">
+        <h1 class="post-title">Tackling Those Tests, Part 3: Testing Made Easy With Gems</h1>
+        <time class="post-date">April 28, 2015</time>
+        <div class="post-content">
+          <p><img src="https://imgs.xkcd.com/comics/shouldnt_be_hard.png" style="display: block; margin-left: auto; margin-right: auto;"></p>
+
+<p><em>This blog post is part of a series on testing. Read Part 2 <a href="http://vaidehijoshi.github.io/blog/2015/04/21/tackling-those-tests-part-2-getting-fun-and-functional-with-factorygirl/">here</a>.</em></p>
+
+<p>If there&rsquo;s anything that I&rsquo;ve learned about testing while writing this three-part blog post series, it&rsquo;s this: testing is freaking hard! It&rsquo;s tough to figure out the correct syntax and conventions, particularly when you&rsquo;re just starting out. Figuring out when to write a test is also a tricky business. And then sitting down to actually write the test is pretty difficult, too.</p>
+
+<p>But there are ways to make it easier on yourself. And I should know, because I tried to write my tests the hard way, and I definitely do not recommend it. Here&rsquo;s what I <em>do</em> recommend: GEMS! And lots of &lsquo;em. There are a lot of Ruby gems out there, specifically designed to make your testing life easier.</p>
+
+<p>So, to close off this epic series on testing in Rails, I&rsquo;m going to share my two favorite testing gems: <code>shoulda-matchers</code> and <code>database_cleaner</code>. Once you know how to implement them, your testing life will forever be easier. Because, let&rsquo;s be real &ndash; isn&rsquo;t that the way testing <em>should</em> be?</p>
+
+<h2>You Shoulda Used Shoulda</h2>
+
+<p>Last week, we wrote some tests for a <code>ReadingList</code> object, which we tested using factories. To refresh your memory, every <code>ReadingList</code> has a <code>title</code> attribute, which is just a <code>string</code> value. An important test for this object is a <code>title</code> validation. But what would that look like? Probably something like this:</p>
+
+<pre><code class="language-ruby">require 'rails_helper'
+
+describe ReadingList do
+  context 'has a title' do
+
+    let(:real_list) { create(:reading_list, title: "my list") }
+
+    it 'has a title' do
+      expect(reading_list.title).to eq("Books I Want To Read")
+    end
+  end
+
+  context 'doesn't have a title' do
+    let(:fake_list) { create(:reading_list) }
+
+    it 'raises an error' do
+      expect(fake_list.save!)to raise_error
+    end
+  end
+end</code></pre>
+
+<p>Man, that&rsquo;s a lot of work for a single line of Rails code, isn&rsquo;t it? Wait a second &ndash; what if we could shorten this huge test into one line of code? Is is possible? Of course it is! And it&rsquo;s easy too, because the <code>shoulda</code> gem does just that.</p>
+
+<p>To actually use the gem, you just need to add it to the <code>test</code> group within your <code>Gemfile</code>:</p>
+
+<pre><code class="language-ruby">group :test do
+  gem 'rspec-rails'
+  gem 'shoulda-matchers'
+end</code></pre>
+
+<p>You also need to add <code>require 'shoulda/matchers'</code> to your <code>rails_helper.rb</code> file. Now we can rewrite our validation test as a single line:</p>
+
+<pre><code class="language-ruby">require 'rails_helper'
+
+describe ReadingList do
+  it { should validate_presence_of(:title) }
+end</code></pre>
+
+<p>Pretty awesome, right? We can do this for all of our validations now! But wait &ndash; there&rsquo;s more! The <code>shoulda</code> gem takes care of more than just validations. It can also test for associations in ActiveRecord and actions in our controllers! You can even write super specific validations scoped to a particular attribute or object, like this:</p>
+
+<pre><code class="language-ruby">it { should validate_uniqueness_of(:reading_list).scoped_to(:title, :user) }</code></pre>
+
+<p>YAHHHHSSS we are on a test-writing roll!</p>
+
+<iframe src="//giphy.com/embed/NaNHdFMPAoL2E" width="480" height="241" frameBorder="0" style="max-width: 100%" class="giphy-embed" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
+
+<h2>Clean Yo Database</h2>
+
+<p>Now that you can write tests like a pro, you probably have an overwhelming desire to write all the tests and create all the objects and build all the factories. And you totally should. But you should also make sure they don&rsquo;t come back to haunt you.</p>
+
+<p>What do I mean by that, exactly? Well, whenever you run your test suite, you want to be sure that you clean out your database and get rid of any old or repeat data. This is super important when you have a lot of tests. You want to be sure that your test database is getting cleaned after each test, so that the next test starts with an blank database.</p>
+
+<p>Enter <code>database_cleaner</code>, a gem that does exactly what you think it does. Although we&rsquo;re using this gem in conjunction with Rails and RSpec, it also comes in handy for testing with <a href="https://github.com/jnicklas/capybara">capybara</a> and <a href="http://docs.seleniumhq.org/">selenium</a>. I was introduced to this gem by another developer who took one look at my failing test and asked me whether or not I had repeat data. I didn&rsquo;t even realize that database inconsistencies were thing. But they are! And that&rsquo;s why we&rsquo;ll want to use the <code>database_cleaner</code> gem.</p>
+
+<p>Inside of our <code>/spec/rails_helper.rb</code> file, there&rsquo;s a large block that starts with the line <code>RSpec.configure do |config|</code>. That&rsquo;s exactly where our <code>database_cleaner</code> gem code is going to live &ndash; inside of that block.</p>
+
+<p>Inside of that block, we&rsquo;ll stick in this little bit of code:</p>
+
+<pre><code class="language-ruby">config.before(:suite) do
+end
+
+config.around(:each) do |example|
+end</code></pre>
+
+<p>Our <code>config.before(:suite)</code> block is for all the things we want to do before our entire test suite runs. We&rsquo;ll probably want to put in some code that will get rid of old data from previous test suites that we ran earlier.</p>
+
+<p>The <code>config.around(:each)</code> block is for each individual test example that runs in our suite. This is where we would put certain lines of that only need to run for more specific tests (like a capybara test, for example).</p>
+
+<p>But our tests are relatively simple in this example. So, inside of our <code>before(:suite)</code> block, we&rsquo;ll add some instructions:</p>
+
+<pre><code class="language-ruby">config.before(:suite) do
+  begin
+    DatabaseCleaner.strategy = :transaction
+    DatabaseCleaner.clean_with(:truncation)
+    DatabaseCleaner.start
+  ensure
+    DatabaseCleaner.clean
+  end
+end</code></pre>
+
+<p>The <code>start</code> and <code>clean</code> methods hook into the beginning and end of our test suite, ensuring that whatever lines are above actually get executed properly. But what do the two lines above <em>do</em>, exactly?</p>
+
+<p>Well, the <code>clean_with(:truncation)</code> method clears out our test database completely, and the <code>strategy = :transaction</code> method sets the behavior of the database &ldquo;cleaning strategy&rdquo; to be a transaction. Avdi Grimm has a <a href="http://devblog.avdi.org/2012/08/31/configuring-database_cleaner-with-rails-rspec-capybara-and-selenium/">great blog post</a> on what all of this means, and his explanation of transactions is easy to understand:</p>
+
+<blockquote><p>Transactions are very fast, and for all the tests where they do work—that is, any test where the entire test runs in the RSpec process—they are preferable.</p></blockquote>
+
+<p>Okay, cool. But what about our other block? We gotta put some stuff in there, too. But since we don&rsquo;t have any specific instructions or strategies for any of our tests, we&rsquo;ll just run each of our examples normally, inside of a single block:</p>
+
+<pre><code class="language-ruby">config.around(:each) do |example|
+  DatabaseCleaner.cleaning do
+    example.run
+  end
+end</code></pre>
+
+<p>Nice! In just a handful of lines, we&rsquo;ve saved ourselves hours of heartache trying to figure out why one of our tests isn&rsquo;t passing. Well, at least <em>you</em> saved yourself hours of heartache. I already went through the pain of that while trying to debug my poorly-written tests! But one of us will never have to go through that, which I think is a cause for celebration!</p>
+
+<iframe src="//giphy.com/embed/rO7Rqg58ZbJLO" width="480" height="259" frameBorder="0" style="max-width: 100%" class="giphy-embed" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
+
+<h2>tl;dr?</h2>
+
+<ul>
+<li>The <code>shoulda-matchers</code> gem helps you keep your code DRY and test for associations and validations. The <code>database_cleaner</code> gem keeps your database clean between tests and helps you avoid problems related to repeat data.</li>
+<li>Both of these gems have well-written and maintained documentation. Read them both! (<a href="http://matchers.shoulda.io/docs/v2.8.0/">shoulda</a> docs and <a href="https://github.com/DatabaseCleaner/database_cleaner">database cleaner</a> docs)</li>
+<li>If you&rsquo;re curious about the difference between transactions, truncations, and deletions, check out <a href="http://makandracards.com/makandra/13045-understanding-database-cleaning-strategies-in-tests">this post</a>.</li>
+</ul>
+        </div>
+      </article>
+    </main>
+
+    <footer>
+      <div class="social-links">
+        <a href="https://www.linkedin.com/in/vaidehisj/" target="_blank" aria-label="LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
+        <a href="https://github.com/vaidehijoshi" target="_blank" aria-label="GitHub"><i class="fa-brands fa-github"></i></a>
+        <a href="https://bsky.app/profile/vaidehi.com" target="_blank" aria-label="Bluesky"><i class="fa-brands fa-bluesky"></i></a>
+        <a href="https://www.twitter.com/vaidehijoshi" target="_blank" aria-label="Twitter"><i class="fa-brands fa-x-twitter"></i></a>
+      </div>
+      <p>&copy; Vaidehi Joshi | <span id="copyright-year"></span></p>
+    </footer>
+
+    <script>
+      var toggle = document.getElementById('theme-toggle');
+      var dark = document.documentElement.getAttribute('data-theme') === 'dark';
+      var lightSheet = document.getElementById('hljs-light');
+      var darkSheet  = document.getElementById('hljs-dark');
+
+      function syncHighlightTheme(isDark) {
+        lightSheet.disabled = isDark;
+        darkSheet.disabled  = !isDark;
+      }
+
+      toggle.textContent = dark ? '☀️' : '🌙';
+      syncHighlightTheme(dark);
+
+      toggle.addEventListener('click', function() {
+        dark = !dark;
+        document.documentElement.setAttribute('data-theme', dark ? 'dark' : '');
+        toggle.textContent = dark ? '☀️' : '🌙';
+        syncHighlightTheme(dark);
+      });
+
+      document.getElementById('copyright-year').textContent = new Date().getFullYear();
+      hljs.highlightAll();
+    </script>
+  </body>
+</html>

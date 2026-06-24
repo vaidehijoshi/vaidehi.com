@@ -1,0 +1,147 @@
+---
+title: "Taskmanaging Your App, Part 1: Using Rake"
+date: "2015-06-30"
+slug: "taskmanaging-your-app-part-1-using-rake"
+excerpt: "Rake tasks: we&rsquo;ve all used &lsquo;em. From migrating our database to seeding it, we run commands using rake all of the time! But what actually happens when you run a rake task? And where is all this stuff defined,…"
+---
+
+<iframe src="//giphy.com/embed/uRziFAtdD6H60" width="480" height="362" frameBorder="0" style="max-width: 100%" class="giphy-embed" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
+
+<p>Rake tasks: we&rsquo;ve all used &lsquo;em. From migrating our database to seeding it, we run commands using <code>rake</code> all of the time! But what actually happens when you run a rake task? And where is all this stuff defined, exactly? And how do you write a customized rake task of your very own?</p>
+
+<p>These were the questions I was asking myself last week, when I had to write a rake task to stage some data for an application I was working on. I knew exactly what my rake task was supposed to accomplish, and I had a general idea of the code that had to live inside of it. I didn&rsquo;t quite know how to write my rake task, however. And I definitely didn&rsquo;t know what was going on inside of the Ruby interpreter when it would read my yet-to-exist task.</p>
+
+<p>So, I set out to answer some of those questions, and learned a bit about how rake works in the process. It was an interesting rabbit hole to dive down, particularly since I had never before questioned what was happening when I ran a rake command in my command line. When you&rsquo;re first starting out with code, it&rsquo;s okay to accept some of the obfuscation that is inherently a part of the abstraction of larger applications. But you should never go too long without questioning why and how a certain thing works the way that it does. And that&rsquo;s exactly what we&rsquo;ll do with our beloved rake commands.</p>
+
+<h2>Form And Function</h2>
+
+<p>We use the <code>rake</code> command so often that it might be easy to forget that it&rsquo;s <em>actually</em> part of a gem! Most everything we use &ndash; including that little gem called <code>rails</code> &ndash; relies on the <code>rake</code> gem as a dependency. And everything we could ever want to know about <code>rake</code>&rsquo;s form and function can be found in a single place: the <code>Rakefile</code>, a top-level file that exists in any application that uses this gem to manage and run tasks of all kinds.</p>
+
+<p>So what&rsquo;s inside of our <code>Rakefile</code> after we generate a brand new Rails application? Something that looks like this:</p>
+
+<pre><code class="language-ruby"># Add your own tasks in files placed in lib/tasks ending in .rake,
+# for example lib/tasks/capistrano.rake, and they will automatically be available to Rake.
+
+require File.expand_path('../config/application', __FILE__)
+
+Rails.application.load_tasks</code></pre>
+
+<p>Pretty empty, right? Except that there&rsquo;s a pretty important line in there at the end which invokes a <code>load_tasks</code> method on our application object, which is what allows rake to load tasks into our application itself. But how do we fill up this Rakefile with some awesome rake tasks? Well, if we read carefully, it seems like <code>rake</code> is telling us exactly what we need to do.</p>
+
+<p>Let&rsquo;s start by creating a data staging task that will load some initial data into our application so that we have something to work with while in development. We&rsquo;ll create a <code>stage_data.rake</code> file nested inside of our <code>lib/tasks</code> directories. But that&rsquo;s empty too! You know what that means, don&rsquo;t you? Time to write some tasks.</p>
+
+<h2>Managing Our Task Management</h2>
+
+<iframe src="//giphy.com/embed/gw3woz6oWXK48iE8" width="480" height="432" frameBorder="0" style="max-width: 100%" class="giphy-embed" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
+
+<p>Since we&rsquo;re working within the context of a mid-size Rails application, the first thing we probably want to do is namespace our rake tasks. We can do that a namespace block:</p>
+
+<pre><code class="language-ruby">namespace :data do
+end</code></pre>
+
+<p>This is how we can break up all the tasks that are concerned with managing data. But for now, let&rsquo;s just work on writing a single task, which will stage our development environment with some sample data to help us while we&rsquo;re building out the front end later on.</p>
+
+<p>In order to write our rake task, we really just need two things: a description and then a <code>task</code> block. We know what we want our task to do, so that&rsquo;s what we&rsquo;ll put in our description. What we write here will be mostly to help us later on, when we want to know what tasks are available to us, and what exactly they do.</p>
+
+<p>We&rsquo;ll also want to specify any dependencies that this task might have.</p>
+
+<p>After the <code>desc</code> term, we&rsquo;re describing what our task will do, and then setting the command that we&rsquo;ll use to run the task itself. We&rsquo;re also specifying any dependencies that this task might have. In our case, the only thing that this task <em>depends upon</em> is the application itself. So, we want to make sure that our entire Rails application is loaded before running this task:</p>
+
+<pre><code class="language-ruby">namespace :data do
+  desc "Stage environment with sample data."
+  task stage: :environment do
+  end
+end</code></pre>
+
+<p>Interestingly, all that&rsquo;s happening here is that a method called <code>task</code> is being invoked, and the key-value pair that we provided it (<code>stage: :environment</code>) is telling <code>task</code> exactly which other methods to execute before running the subsequent task we have defined inside of the block. I like how <a href="http://tutorials.jumpstartlab.com/topics/systems/automation.html">this tutorial</a> explains what&rsquo;s going on behind the scenes:</p>
+
+<blockquote><p>It starts with the task method which takes a hash parameter. The key will be the name of the task. The value stored under that key, here <code>:environment</code>, indicates which other Rake tasks should be run before this task is run. Think of them like dependencies. When your task depends on <code>:environment</code>, it will load your entire Rails application. If your task doesn’t actually need Rails, don’t depend on :environment and you can greatly increase startup time and decrease memory usage.</p></blockquote>
+
+<p>Another cool thing to keep in mind is the description. We know that our task description (after the <code>desc</code>) will show up again at some point. But when, exactly? Well, it comes into play when we run the <code>rake -T</code> command, which lists out all the tasks available to our specific application:</p>
+
+<pre><code class="language-ruby">♥ rake -T
+rake data:stage          # Stage environment with sample data.</code></pre>
+
+<p>Cool! Whatever we write in our description is exactly what will be output if and when this command is run in the future. Now, how do we get this task to create some sample data every time it&rsquo;s run? Well, we&rsquo;ll want to use ActiveRecord in order to actually persist some objects to our database. There&rsquo;s a handy block method on <code>ActiveRecord::Base</code> that does exactly this:</p>
+
+<pre><code class="language-ruby">namespace :data do
+  desc "Stage environment with sample data."
+  task stage: :environment do
+      ActiveRecord::Base.transaction do
+          poetry = Genre.create!(name: 'Poetry')
+
+          POETRY_SUBGENRES = ['lyric', 'drama', 'epic']
+
+          POETRY_SUBGENRES.each do |genre|
+              SubGenre.create!(sub_genre: genre, parent_genre: poetry)
+          end
+      end
+  end
+end</code></pre>
+
+<p>Nice! We&rsquo;re creating a genre and some sub genres, and associating them together. We could also add in authors and books to make this task a bit more robust. And to get really fancy, we could import a csv of all this information if it lived somewhere else!</p>
+
+<h2>Extending Our Tasks Further</h2>
+
+<p>Now that we know how to structure our rake tasks, we can add more tasks into the very same file. In fact, we can take advantage of the namespacing that we set up early on right now! Let&rsquo;s create a <code>rake data:reset</code> task that will work almost the same as the task we wrote above. The only difference being that this task will destroy any data that was staged (or any that might be hanging around, for some strange reason).</p>
+
+<p>We can write that task inside of our same file, inside of our namespace:</p>
+
+<pre><code class="language-ruby">namespace :data do
+  desc "Stage environment with sample data."
+  task stage: :environment do
+      # the task we just wrote lives here!
+  end
+
+  desc "Resets and clears all the sample data."
+  task reset: :environment do
+    ActiveRecord::Base.transaction do
+      Genre.destroy_all
+      SubGenre.destroy_all
+    end
+  end
+end</code></pre>
+
+<p>All we&rsquo;re doing is using the handy methods that ActiveRecord gives us for free inside of the blocks we&rsquo;ve defined in our task. And now when we run <code>rake -T</code>, we&rsquo;ll see this:</p>
+
+<pre><code class="language-ruby">♥ rake -T
+rake data:stage          # Stage environment with sample data.
+rake data:reset          # Resets and clears all the sample data.</code></pre>
+
+<p>Look at us! We&rsquo;re rake task writing masters! We could get even fancier and make one task <em>depend upon</em> the other. Remember how the block syntax with the <code>task</code> method works? We can use the form of that syntax to make our task function the way we want to:</p>
+
+<pre><code class="language-ruby">namespace :data do
+  desc "Resets and stages the environment with sample data."
+  task stage: [:environment, :reset] do
+      # the task we wrote lives here!
+  end
+end</code></pre>
+
+<p>Now, we&rsquo;re specifying that not only should the <code>task</code> method load the environment, but it should also run the <code>rake data:reset</code> task before running the <code>rake data:stage</code> task! This could be super useful in development, when you don&rsquo;t want to have your database filled with duplicate data.</p>
+
+<p>Another fun thing we could do is pass in parameters to our rake task:</p>
+
+<pre><code class="language-ruby">namespace :data do
+  desc "Stages the environment with specific amount of sample book data."
+  task create_books: [:books_to_create] :environment do
+    number_of_books = args[:books_to_create]
+    # Uses the books_to_create variable to
+    # create the number of books we want.
+  end
+end</code></pre>
+
+<p>Now, when we call the <code>rake data:create_books[100]</code> method, we could have our rake task generate 100 books for us based on the input argument we provided it.</p>
+
+<p>This is pretty fun, right? We could put a ton of tasks that do all sorts of application management for us, and it would be no problem. Except that it would be, and here&rsquo;s why: we never want too much logic in one single part of our application. In other words, we want to separate out what different sections of application are concerned with. We probably could abstract out a lot of what these tasks into something else (another object?), which would help keep our rake tasks nice and lean.</p>
+
+<p>It turns out that this is a pretty common situation to run into, and not just with rake tasks! There&rsquo;s a really cool pattern that implements a special kind of object that performs a service for you so that your code can stay simple, without too much logic in it. These objects are called <em>service objects</em>, and until I saw them in some production-level code, I had never really thought about their purpose. Tune in again next week, when I&rsquo;ll dive into service objects and how they help us serparate concerns in our code. Until then, here&rsquo;s a rake-themed gif to tide you over:</p>
+
+<iframe src="//giphy.com/embed/5xtDarAX9eDPODdPMoo" width="480" height="480" frameBorder="0" style="max-width: 100%" class="giphy-embed" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
+
+<h2>tl;dr?</h2>
+
+<ul>
+<li>Rake tasks are just Ruby code written inside of a either a <code>.rake</code> file in the <code>/app/tasks</code> directory, or sometimes within a <code>Rakefile</code> itself.</li>
+<li>A rake task needs a description and a <code>task</code> block. The description is what will be seen when you run <code>rake -T</code>, and the <code>task</code> block is where you&rsquo;ll write what the task actually has to do, and specify any dependencies.</li>
+<li>Need to see another example of how to make a rake task? Check out this awesome <a href="http://jasonseifer.com/2010/04/06/rake-tutorial">tutorial on rake</a>, or watch <a href="http://railscasts.com/episodes/66-custom-rake-tasks">this RailsCast</a>.</li>
+</ul>
