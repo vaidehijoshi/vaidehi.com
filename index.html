@@ -122,6 +122,7 @@
             textEl.style.opacity = '0';
             setTimeout(function() {
               textEl.innerHTML = body;
+              textEl.scrollTop = 0;
               authorEl.textContent = '— ' + rec.author;
               textEl.style.opacity = '1';
             }, 200);
