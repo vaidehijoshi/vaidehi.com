@@ -113,6 +113,18 @@ def clean_content(html)
 end
 
 # ---------------------------------------------------------------------------
+# Category slug normalisation
+# "number-technicaltuesdays" is how Octopress encoded #TechnicalTuesdays
+# ---------------------------------------------------------------------------
+CATEGORY_MAP = {
+  'number-technicaltuesdays' => 'technical-tuesdays',
+}.freeze
+
+def normalise_tags(raw_tags)
+  raw_tags.map { |t| CATEGORY_MAP.fetch(t, t) }.uniq.sort
+end
+
+# ---------------------------------------------------------------------------
 # Extract all fields from a compiled Octopress post page
 # ---------------------------------------------------------------------------
 def extract_post(html, post_path)
@@ -124,13 +136,17 @@ def extract_post(html, post_path)
   # Slug = second-to-last path segment: blog/YYYY/MM/DD/SLUG/index.html
   slug = post_path.split('/')[-2]
 
+  # Categories from Octopress <span class="categories"> section
+  raw_tags = html.scan(%r{href='/blog/categories/([^/]+)/'}).flatten
+  tags     = normalise_tags(raw_tags)
+
   raw_content = extract_div_content(html, 'entry-content')
   content     = clean_content(raw_content)
 
   text    = content.gsub(/<[^>]+>/, ' ').gsub(/\s+/, ' ').strip
   excerpt = text.length > 220 ? text[0, 220].gsub(/\s\S*$/, '') + '…' : text
 
-  { slug: slug, title: title, date: date, content: content, excerpt: excerpt }
+  { slug: slug, title: title, date: date, tags: tags, content: content, excerpt: excerpt }
 end
 
 # ---------------------------------------------------------------------------
@@ -141,11 +157,13 @@ def write_post_source(post)
   return if File.exist?(out)  # skip if already migrated
 
   safe = ->(s) { s.gsub('\\', '\\\\\\\\').gsub('"', '\\"') }
+  tags_str = post[:tags].join(', ')
   fm = <<~FM
     ---
     title: "#{safe.(post[:title])}"
     date: "#{post[:date]}"
     slug: "#{post[:slug]}"
+    tags: "#{tags_str}"
     excerpt: "#{safe.(post[:excerpt])}"
     ---
 

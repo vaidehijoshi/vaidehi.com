@@ -64,9 +64,19 @@ def h(str)
 end
 
 # ---------------------------------------------------------------------------
+# Render the tags HTML snippet (empty string when no tags)
+# ---------------------------------------------------------------------------
+def tags_html(tags)
+  return '' if tags.empty?
+
+  links = tags.map { |t| "<span class=\"post-tag\">#{h(t)}</span>" }.join
+  "<div class=\"post-tags\">#{links}</div>"
+end
+
+# ---------------------------------------------------------------------------
 # HTML page template
 # ---------------------------------------------------------------------------
-def page_template(title:, date_display:, content:)
+def page_template(title:, date_display:, tags:, content:)
   safe = h(title)
   <<~HTML
     <!DOCTYPE html>
@@ -113,6 +123,7 @@ def page_template(title:, date_display:, content:)
           <article class="blog-post">
             <h1 class="post-title">#{title}</h1>
             <time class="post-date">#{date_display}</time>
+            #{tags_html(tags)}
             <div class="post-content">
               #{content}
             </div>
@@ -178,6 +189,7 @@ source_files.each do |src|
   title        = data['title'] || 'Untitled'
   date         = data['date'] || ''
   excerpt      = data['excerpt'] || ''
+  tags         = data['tags'].to_s.split(',').map(&:strip).reject(&:empty?)
 
   content_html = if ext == '.md'
                    Kramdown::Document.new(body, input: 'GFM', syntax_highlighter: nil).to_html
@@ -191,19 +203,21 @@ source_files.each do |src|
   out_dir = File.join(BLOG_DIR, slug)
   FileUtils.mkdir_p(out_dir)
   File.write(File.join(out_dir, 'index.html'),
-             page_template(title: title, date_display: date_display, content: content_html),
+             page_template(title: title, date_display: date_display, tags: tags, content: content_html),
              encoding: 'utf-8')
 
-  posts << { 'title' => title, 'date' => date, 'slug' => slug, 'excerpt' => excerpt }
+  posts << { 'title' => title, 'date' => date, 'slug' => slug, 'tags' => tags, 'excerpt' => excerpt }
 end
 
 posts.sort_by! { |p| p['date'] }.reverse!
 
 yaml_lines = posts.flat_map do |p|
+  tags_val = p['tags'].empty? ? '""' : p['tags'].to_json
   [
     "- title: #{p['title'].to_json}",
     "  date: \"#{p['date']}\"",
     "  slug: \"#{p['slug']}\"",
+    "  tags: #{tags_val}",
     "  excerpt: #{p['excerpt'].to_json}",
   ]
 end
