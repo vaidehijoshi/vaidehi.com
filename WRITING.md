@@ -75,4 +75,6 @@ git commit -m "Add post: Your Post Title"
 
 ## Editing an existing post
 
-Edit `blog/_posts/[slug].md` (or `.html` for migrated posts), then re-run `ruby blog/build.rb` and commit.
+Edit `blog/_posts/[slug].md`, then re-run `ruby blog/build.rb` and commit.
+
+Migrated posts don't have a `.md` source — edit `blog/[slug]/index.html` directly and skip the build step.

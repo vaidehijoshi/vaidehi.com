@@ -33,7 +33,7 @@ blog/
   build.rb          # Build script: _posts/ → [slug]/index.html + posts.yaml
   migrate.rb        # One-time migration script (Octopress → _posts/)
   posts.yaml        # Generated post index (title, date, slug, tags, excerpt)
-  _posts/           # Source files (.md for new posts, .html for migrated posts)
+  _posts/           # Source files for new posts (.md only; migrated posts have no source)
   [slug]/           # Generated post directories (one per post)
 ```
 

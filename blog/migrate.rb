@@ -16,8 +16,6 @@ BLOG_DIR  = File.expand_path('..', __FILE__)
 POSTS_SRC = File.join(BLOG_DIR, '_posts')
 REPO      = 'vaidehijoshi/vaidehijoshi.github.io'
 
-FileUtils.mkdir_p(POSTS_SRC)
-
 # ---------------------------------------------------------------------------
 # GitHub API via gh CLI
 # ---------------------------------------------------------------------------
@@ -175,32 +173,36 @@ end
 # ---------------------------------------------------------------------------
 # Main
 # ---------------------------------------------------------------------------
-print 'Fetching repository tree… '
-tree_data  = gh_api("repos/#{REPO}/git/trees/master?recursive=1")
-post_paths = tree_data['tree']
-  .select { |n| n['type'] == 'blob' && n['path'].match?(%r{^blog/\d{4}/\d{2}/\d{2}/[^/]+/index\.html$}) }
-  .map    { |n| n['path'] }
+if $PROGRAM_NAME == __FILE__
+  FileUtils.mkdir_p(POSTS_SRC)
 
-puts "#{post_paths.length} posts found. Migrating…"
+  print 'Fetching repository tree… '
+  tree_data  = gh_api("repos/#{REPO}/git/trees/master?recursive=1")
+  post_paths = tree_data['tree']
+    .select { |n| n['type'] == 'blob' && n['path'].match?(%r{^blog/\d{4}/\d{2}/\d{2}/[^/]+/index\.html$}) }
+    .map    { |n| n['path'] }
 
-done   = 0
-failed = []
+  puts "#{post_paths.length} posts found. Migrating…"
 
-post_paths.each do |post_path|
-  res  = gh_api("repos/#{REPO}/contents/#{post_path}")
-  html = decode_content(res['content'])
-  post = extract_post(html, post_path)
-  write_post_source(post)
-  done += 1
-  print "\r#{done}/#{post_paths.length}"
-  $stdout.flush
-rescue => e
-  failed << [post_path, e.message]
-  puts "\n  Failed: #{post_path} — #{e.message}"
-end
+  done   = 0
+  failed = []
 
-puts "\n\nDone. #{done} posts written to blog/_posts/"
-if failed.any?
-  puts "#{failed.length} failed:"
-  failed.each { |path, err| puts "  #{path}: #{err}" }
+  post_paths.each do |post_path|
+    res  = gh_api("repos/#{REPO}/contents/#{post_path}")
+    html = decode_content(res['content'])
+    post = extract_post(html, post_path)
+    write_post_source(post)
+    done += 1
+    print "\r#{done}/#{post_paths.length}"
+    $stdout.flush
+  rescue => e
+    failed << [post_path, e.message]
+    puts "\n  Failed: #{post_path} — #{e.message}"
+  end
+
+  puts "\n\nDone. #{done} posts written to blog/_posts/"
+  if failed.any?
+    puts "#{failed.length} failed:"
+    failed.each { |path, err| puts "  #{path}: #{err}" }
+  end
 end

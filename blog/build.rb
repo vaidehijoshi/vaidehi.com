@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
-# Converts blog/_posts/*.md and blog/_posts/*.html → blog/[slug]/index.html
+# Converts blog/_posts/*.md → blog/[slug]/index.html
 # and regenerates blog/posts.yaml (the post listing index).
 #
 # Usage:
@@ -11,6 +11,7 @@ require 'date'
 require 'fileutils'
 require 'json'
 require 'kramdown'
+require 'kramdown-parser-gfm'
 
 BLOG_DIR  = File.expand_path('..', __FILE__)
 POSTS_SRC = File.join(BLOG_DIR, '_posts')
@@ -170,58 +171,60 @@ def page_template(title:, date_display:, tags:, content:)
 end
 
 # ---------------------------------------------------------------------------
-# Main build
+# Main build — accepts custom dirs for testing
 # ---------------------------------------------------------------------------
-source_files = Dir[File.join(POSTS_SRC, '*.md'), File.join(POSTS_SRC, '*.html')].sort
+def build_blog(blog_dir: BLOG_DIR, posts_src: POSTS_SRC)
+  source_files = Dir[File.join(posts_src, '*.md')].sort
 
-if source_files.empty?
-  warn 'No source files found in blog/_posts/. Run migrate.rb first.'
-  exit 1
+  if source_files.empty?
+    warn 'No source files found in blog/_posts/. Add a .md file first.'
+    return []
+  end
+
+  posts = []
+
+  source_files.each do |src|
+    raw          = File.read(src, encoding: 'utf-8')
+    data, body   = parse_front_matter(raw)
+    slug         = data['slug'] || File.basename(src, '.md')
+    title        = data['title'] || 'Untitled'
+    date         = data['date'] || ''
+    excerpt      = data['excerpt'] || ''
+    tags         = data['tags'].to_s.split(',').map(&:strip).reject(&:empty?)
+
+    content_html = Kramdown::Document.new(body, input: 'GFM', syntax_highlighter: nil).to_html
+
+    excerpt = make_excerpt(content_html) if excerpt.empty?
+    date_display = date.empty? ? '' : format_date(date)
+
+    out_dir = File.join(blog_dir, slug)
+    FileUtils.mkdir_p(out_dir)
+    File.write(File.join(out_dir, 'index.html'),
+               page_template(title: title, date_display: date_display, tags: tags, content: content_html),
+               encoding: 'utf-8')
+
+    posts << { 'title' => title, 'date' => date, 'slug' => slug, 'tags' => tags, 'excerpt' => excerpt }
+  end
+
+  posts.sort_by! { |p| p['date'] }.reverse!
+
+  yaml_lines = posts.flat_map do |p|
+    tags_val = p['tags'].empty? ? '""' : p['tags'].to_json
+    [
+      "- title: #{p['title'].to_json}",
+      "  date: \"#{p['date']}\"",
+      "  slug: \"#{p['slug']}\"",
+      "  tags: #{tags_val}",
+      "  excerpt: #{p['excerpt'].to_json}",
+    ]
+  end
+
+  File.write(File.join(blog_dir, 'posts.yaml'), yaml_lines.join("\n") + "\n", encoding: 'utf-8')
+
+  posts
 end
 
-posts = []
-
-source_files.each do |src|
-  raw          = File.read(src, encoding: 'utf-8')
-  data, body   = parse_front_matter(raw)
-  ext          = File.extname(src)
-  slug         = data['slug'] || File.basename(src, ext)
-  title        = data['title'] || 'Untitled'
-  date         = data['date'] || ''
-  excerpt      = data['excerpt'] || ''
-  tags         = data['tags'].to_s.split(',').map(&:strip).reject(&:empty?)
-
-  content_html = if ext == '.md'
-                   Kramdown::Document.new(body, input: 'GFM', syntax_highlighter: nil).to_html
-                 else
-                   body
-                 end
-
-  excerpt = make_excerpt(content_html) if excerpt.empty?
-  date_display = date.empty? ? '' : format_date(date)
-
-  out_dir = File.join(BLOG_DIR, slug)
-  FileUtils.mkdir_p(out_dir)
-  File.write(File.join(out_dir, 'index.html'),
-             page_template(title: title, date_display: date_display, tags: tags, content: content_html),
-             encoding: 'utf-8')
-
-  posts << { 'title' => title, 'date' => date, 'slug' => slug, 'tags' => tags, 'excerpt' => excerpt }
+if $PROGRAM_NAME == __FILE__
+  posts = build_blog
+  puts "Built #{posts.length} posts → blog/posts.yaml updated"
 end
-
-posts.sort_by! { |p| p['date'] }.reverse!
-
-yaml_lines = posts.flat_map do |p|
-  tags_val = p['tags'].empty? ? '""' : p['tags'].to_json
-  [
-    "- title: #{p['title'].to_json}",
-    "  date: \"#{p['date']}\"",
-    "  slug: \"#{p['slug']}\"",
-    "  tags: #{tags_val}",
-    "  excerpt: #{p['excerpt'].to_json}",
-  ]
-end
-
-File.write(File.join(BLOG_DIR, 'posts.yaml'), yaml_lines.join("\n") + "\n", encoding: 'utf-8')
-
-puts "Built #{posts.length} posts → blog/posts.yaml updated"
