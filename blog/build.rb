@@ -12,6 +12,7 @@ require 'fileutils'
 require 'json'
 require 'kramdown'
 require 'kramdown-parser-gfm'
+require 'yaml'
 
 BLOG_DIR  = File.expand_path('..', __FILE__)
 POSTS_SRC = File.join(BLOG_DIR, '_posts')
@@ -176,12 +177,14 @@ end
 def build_blog(blog_dir: BLOG_DIR, posts_src: POSTS_SRC)
   source_files = Dir[File.join(posts_src, '*.md')].sort
 
-  if source_files.empty?
-    warn 'No source files found in blog/_posts/. Add a .md file first.'
-    return []
-  end
+  # Load existing posts.yaml so migrated posts (which have no .md source)
+  # keep their entries in the listing when new posts are added.
+  yaml_path = File.join(blog_dir, 'posts.yaml')
+  existing_posts = File.exist?(yaml_path) ? (YAML.load_file(yaml_path) || []) : []
+  existing_by_slug = existing_posts.each_with_object({}) { |p, h| h[p['slug']] = p }
 
-  posts = []
+  md_slugs = []
+  posts    = []
 
   source_files.each do |src|
     raw          = File.read(src, encoding: 'utf-8')
@@ -203,7 +206,13 @@ def build_blog(blog_dir: BLOG_DIR, posts_src: POSTS_SRC)
                page_template(title: title, date_display: date_display, tags: tags, content: content_html),
                encoding: 'utf-8')
 
+    md_slugs << slug
     posts << { 'title' => title, 'date' => date, 'slug' => slug, 'tags' => tags, 'excerpt' => excerpt }
+  end
+
+  # Preserve migrated posts that have no .md source
+  existing_by_slug.each do |slug, entry|
+    posts << entry unless md_slugs.include?(slug)
   end
 
   posts.sort_by! { |p| p['date'] }.reverse!

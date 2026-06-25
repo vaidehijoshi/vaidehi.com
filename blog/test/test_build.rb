@@ -300,4 +300,42 @@ class TestBuildBlog < Minitest::Test
     assert_includes slugs, 'new'
     refute_includes slugs, 'old'
   end
+
+  def test_preserves_migrated_posts_from_existing_yaml
+    # Seed a posts.yaml that simulates 60 previously-migrated posts
+    File.write(File.join(@tmpdir, 'posts.yaml'), <<~YAML)
+      - title: "Migrated Post"
+        date: "2015-01-01"
+        slug: "migrated-post"
+        tags: ["ruby"]
+        excerpt: "Old post from the migration."
+    YAML
+
+    # Now add a new .md post and rebuild
+    write_post('new-post.md', "---\ntitle: \"New Post\"\ndate: \"2024-01-01\"\nslug: \"new-post\"\n---\n\nNew content.")
+
+    posts = build_blog(blog_dir: @tmpdir, posts_src: @posts_src)
+
+    slugs = posts.map { |p| p['slug'] }
+    assert_includes slugs, 'new-post',      'new .md post should appear'
+    assert_includes slugs, 'migrated-post', 'migrated post from existing yaml should be preserved'
+    assert_equal 2, posts.length
+  end
+
+  def test_md_post_updates_overwrite_existing_yaml_entry
+    File.write(File.join(@tmpdir, 'posts.yaml'), <<~YAML)
+      - title: "Old Title"
+        date: "2024-01-01"
+        slug: "my-post"
+        tags: ""
+        excerpt: "Old excerpt."
+    YAML
+
+    write_post('my-post.md', "---\ntitle: \"New Title\"\ndate: \"2024-01-01\"\nslug: \"my-post\"\n---\n\nUpdated content.")
+
+    posts = build_blog(blog_dir: @tmpdir, posts_src: @posts_src)
+
+    assert_equal 1, posts.length
+    assert_equal 'New Title', posts[0]['title']
+  end
 end
