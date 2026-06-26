@@ -1,11 +1,25 @@
 GEM
   remote: https://rubygems.org/
   specs:
+    diff-lcs (1.6.2)
     kramdown (2.5.2)
       rexml (>= 3.4.4)
     kramdown-parser-gfm (1.1.0)
       kramdown (~> 2.0)
     rexml (3.4.4)
+    rspec (3.13.2)
+      rspec-core (~> 3.13.0)
+      rspec-expectations (~> 3.13.0)
+      rspec-mocks (~> 3.13.0)
+    rspec-core (3.13.6)
+      rspec-support (~> 3.13.0)
+    rspec-expectations (3.13.5)
+      diff-lcs (>= 1.2.0, < 2.0)
+      rspec-support (~> 3.13.0)
+    rspec-mocks (3.13.8)
+      diff-lcs (>= 1.2.0, < 2.0)
+      rspec-support (~> 3.13.0)
+    rspec-support (3.13.7)
 
 PLATFORMS
   ruby
@@ -13,6 +27,7 @@ PLATFORMS
 DEPENDENCIES
   kramdown
   kramdown-parser-gfm
+  rspec
 
 BUNDLED WITH
    1.17.2
