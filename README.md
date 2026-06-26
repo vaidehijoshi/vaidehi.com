@@ -32,8 +32,11 @@ blog/
   blog.css          # Blog-specific styles
   build.rb          # Build script: _posts/ → [slug]/index.html + posts.yaml
   migrate.rb        # One-time migration script (Octopress → _posts/)
+  Gemfile           # Ruby gem dependencies (kramdown, kramdown-parser-gfm)
+  Gemfile.lock
   posts.yaml        # Generated post index (title, date, slug, tags, excerpt)
   _posts/           # Source files for new posts (.md only; migrated posts have no source)
+  test/             # Minitest suite for build.rb and migrate.rb
   [slug]/           # Generated post directories (one per post)
 ```
 
