@@ -41,7 +41,7 @@ end
 # Date formatting
 # ---------------------------------------------------------------------------
 def format_date(iso)
-  Date.parse(iso).strftime('%-d %B %Y')
+  Date.parse(iso).strftime('%B %-d, %Y')
 rescue ArgumentError, TypeError
   iso.to_s
 end
@@ -121,9 +121,13 @@ def page_template(title:, date_display:, tags:, content:)
           <a href="/"><img src="/vaidehi-white.png" class="vaidehi-logo-image" /></a>
         </div>
 
+        <nav id="site-nav">
+          <a href="/">home</a><span class="nav-sep"> · </span><a href="/blog">blog</a><span class="nav-sep"> · </span><a href="https://www.linkedin.com/in/vaidehisj/" target="_blank" rel="noopener">linkedin</a><span class="nav-sep"> · </span><a href="https://github.com/vaidehijoshi" target="_blank" rel="noopener">github</a><span class="nav-sep"> · </span><a href="https://medium.com/@vaidehijoshi" target="_blank" rel="noopener">medium</a><span class="nav-sep"> · </span><a href="https://bsky.app/profile/vaidehi.com" target="_blank" rel="noopener">bluesky</a><span class="nav-sep"> · </span><a href="https://www.twitter.com/vaidehijoshi" target="_blank" rel="noopener">twitter</a>
+        </nav>
+
         <main class="blog-post-container">
           <nav class="blog-nav">
-            <a href="/blog" class="back-link">&larr; all posts</a>
+            <a href="/blog" class="back-link">&larr; All Posts</a>
           </nav>
 
           <article class="blog-post">

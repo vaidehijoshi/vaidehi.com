@@ -6,21 +6,31 @@
   max-width: 800px;
   margin: 0 auto;
   padding: 0 20px 80px;
+  animation: fadeUp 0.5s ease 0.2s both;
 }
 
 .blog-nav {
   margin-bottom: 36px;
 }
 
+@keyframes bounce-left {
+  0%   { transform: translateX(0); }
+  35%  { transform: translateX(-6px); }
+  65%  { transform: translateX(-2px); }
+  100% { transform: translateX(0); }
+}
+
 .back-link {
   font-size: 0.9em;
   text-decoration: none;
   opacity: 0.65;
+  display: inline-block;
   transition: opacity 0.2s;
 }
 
 .back-link:hover {
   opacity: 1;
+  animation: bounce-left 0.4s ease;
 }
 
 .post-title {
@@ -83,6 +93,13 @@
   margin-bottom: 0.35em;
 }
 
+.post-content img {
+  display: block;
+  margin: 1.4em auto;
+  max-width: 100%;
+  height: auto;
+}
+
 .post-content pre {
   background: var(--card-bg);
   border: 1px solid var(--card-border);
@@ -109,7 +126,10 @@
 }
 
 /* Blog index listing */
-.post-list {
+/* .section ul { margin: 0 } in style.css has higher specificity, so we need
+   .section .post-list to win */
+.post-list,
+.section .post-list {
   list-style: none;
   padding: 0;
   margin: 0 auto;
@@ -121,17 +141,18 @@
   display: flex;
   justify-content: space-between;
   align-items: baseline;
-  padding: 11px 0;
-  border-bottom: 1px solid var(--card-border);
+  padding: 9px 6px;
   gap: 20px;
-}
-
-.post-list-item:last-child {
-  border-bottom: none;
 }
 
 .post-list-item a {
   line-height: 1.45em;
+  display: inline-block;
+  transition: transform 0.15s ease;
+}
+
+.post-list-item:hover a {
+  transform: translateX(6px);
 }
 
 .post-list-date {

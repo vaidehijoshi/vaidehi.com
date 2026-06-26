@@ -123,6 +123,11 @@ footer {
   content: '🌙';
 }
 
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
 #heading-content {
   display: flex;
   justify-content: center;
@@ -131,24 +136,49 @@ footer {
 
 #site-nav {
   text-align: center;
-  margin: 0 0 48px;
-  font-size: 0.88em;
+  margin: 0 0 52px;
+  font-size: 0.9em;
   letter-spacing: 0.08em;
   text-transform: uppercase;
+  animation: fadeUp 0.5s ease 0.1s both;
 }
 
 #site-nav a {
   text-decoration: none;
-  opacity: 0.6;
-  transition: opacity 0.2s;
+  color: var(--link);
+  display: inline-block;
+  position: relative;
+  padding-bottom: 2px;
+  transition: transform 0.15s ease;
+}
+
+#site-nav a::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 1.5px;
+  background: var(--accent);
+  transform: scaleX(0);
+  transition: transform 0.2s ease;
 }
 
 #site-nav a:hover {
+  transform: translateY(-2px);
   opacity: 1;
 }
 
+#site-nav a:hover::after {
+  transform: scaleX(1);
+}
+
+.nav-sep {
+  opacity: 0.3;
+}
+
 .vaidehi-logo-image {
-  padding: 200px 0 20px 0;
+  padding: 60px 0 20px 0;
   width: 550px;
   filter: brightness(0);
   transition: filter 0.2s;
@@ -214,6 +244,7 @@ footer {
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 20px 60px;
+  animation: fadeUp 0.5s ease 0.2s both;
 }
 
 .talks-column ul {

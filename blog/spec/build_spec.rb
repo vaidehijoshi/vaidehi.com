@@ -58,11 +58,11 @@ end
 
 RSpec.describe 'format_date' do
   it 'formats an ISO date' do
-    expect(format_date('2024-01-01')).to eq('1 January 2024')
+    expect(format_date('2024-01-01')).to eq('January 1, 2024')
   end
 
   it 'omits the leading zero from the day' do
-    expect(format_date('2015-06-05')).to eq('5 June 2015')
+    expect(format_date('2015-06-05')).to eq('June 5, 2015')
   end
 
   it 'returns the original string for an invalid date' do
@@ -189,7 +189,7 @@ RSpec.describe 'build_blog' do
     expect(File.exist?(out)).to be true
     expect(html).to include('Test Post')
     expect(html).to include('<p>Content here.</p>')
-    expect(html).to include('1 January 2024')
+    expect(html).to include('January 1, 2024')
   end
 
   it 'generates posts.yaml with newest post first' do
