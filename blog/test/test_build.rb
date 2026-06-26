@@ -338,4 +338,83 @@ class TestBuildBlog < Minitest::Test
     assert_equal 1, posts.length
     assert_equal 'New Title', posts[0]['title']
   end
+
+  def test_title_with_special_chars_escaped_in_h1
+    write_post('special.md', <<~MD)
+      ---
+      title: "Hello <World> & \"Friends\""
+      date: "2024-01-01"
+      slug: "special"
+      ---
+
+      Body.
+    MD
+
+    build_blog(blog_dir: @tmpdir, posts_src: @posts_src)
+
+    html = File.read(File.join(@tmpdir, 'special', 'index.html'))
+    assert_includes html, '<h1 class="post-title">Hello &lt;World&gt; &amp; &quot;Friends&quot;</h1>'
+    refute_includes html, '<h1 class="post-title">Hello <World>'
+  end
+
+  def test_migrated_post_with_nil_tags_does_not_crash
+    File.write(File.join(@tmpdir, 'posts.yaml'), <<~YAML)
+      - title: "No Tags Post"
+        date: "2015-06-01"
+        slug: "no-tags"
+        excerpt: "A post with no tags field at all."
+    YAML
+
+    write_post('new.md', "---\ntitle: \"New\"\ndate: \"2024-01-01\"\nslug: \"new\"\n---\n\nContent.")
+
+    posts = build_blog(blog_dir: @tmpdir, posts_src: @posts_src)
+
+    slugs = posts.map { |p| p['slug'] }
+    assert_includes slugs, 'no-tags'
+    assert_includes slugs, 'new'
+  end
+
+  def test_migrated_post_with_nil_date_does_not_crash_sort
+    File.write(File.join(@tmpdir, 'posts.yaml'), <<~YAML)
+      - title: "No Date Post"
+        slug: "no-date"
+        tags: []
+        excerpt: "A post with no date field."
+    YAML
+
+    write_post('new.md', "---\ntitle: \"New\"\ndate: \"2024-01-01\"\nslug: \"new\"\n---\n\nContent.")
+
+    posts = build_blog(blog_dir: @tmpdir, posts_src: @posts_src)
+
+    assert_equal 2, posts.length
+    assert_equal 'new', posts[0]['slug'], 'post with date should sort before post without date'
+  end
+
+  def test_title_with_quotes_serialized_safely_in_yaml
+    write_post('quoted.md', <<~MD)
+      ---
+      title: 'She said "hello"'
+      date: "2024-01-01"
+      slug: "quoted"
+      ---
+
+      Body.
+    MD
+
+    build_blog(blog_dir: @tmpdir, posts_src: @posts_src)
+
+    yaml_text = File.read(File.join(@tmpdir, 'posts.yaml'))
+    reloaded  = YAML.safe_load(yaml_text)
+    assert_equal 'She said "hello"', reloaded[0]['title']
+  end
+
+  def test_front_matter_without_trailing_newline_falls_back_gracefully
+    # A file where the closing --- has no trailing newline won't match the regex;
+    # parse_front_matter should fall back cleanly rather than crash.
+    raw = "---\ntitle: \"No Newline\"\ndate: \"2024-01-01\"\n---"
+    data, body = parse_front_matter(raw)
+
+    assert_equal({}, data, 'should return empty data when regex does not match')
+    assert_equal raw, body, 'should return the raw content as body'
+  end
 end
