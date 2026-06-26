@@ -221,8 +221,8 @@ def build_blog(blog_dir: BLOG_DIR, posts_src: POSTS_SRC)
     tags_val = (p['tags'] || []).empty? ? '""' : p['tags'].to_json
     [
       "- title: #{p['title'].to_json}",
-      "  date: \"#{p['date']}\"",
-      "  slug: \"#{p['slug']}\"",
+      "  date: #{p['date'].to_json}",
+      "  slug: #{p['slug'].to_json}",
       "  tags: #{tags_val}",
       "  excerpt: #{p['excerpt'].to_json}",
     ]
