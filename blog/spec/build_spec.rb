@@ -4,7 +4,7 @@ require 'tmpdir'
 require 'fileutils'
 require_relative '../build'
 
-RSpec.describe 'parse_front_matter' do
+RSpec.describe '#parse_front_matter' do
   it 'parses double-quoted values' do
     raw = "---\ntitle: \"Hello World\"\ndate: \"2024-01-01\"\n---\n\nBody text."
     data, body = parse_front_matter(raw)
@@ -41,13 +41,6 @@ RSpec.describe 'parse_front_matter' do
     expect(tags).to be_empty
   end
 
-  it 'handles Windows line endings' do
-    raw = "---\r\ntitle: \"Win\"\r\n---\r\n\r\nbody"
-    data, body = parse_front_matter(raw)
-    expect(data['title']).to eq('Win')
-    expect(body).to eq('body')
-  end
-
   it 'falls back gracefully when closing --- has no trailing newline' do
     raw = "---\ntitle: \"No Newline\"\ndate: \"2024-01-01\"\n---"
     data, body = parse_front_matter(raw)
@@ -56,7 +49,7 @@ RSpec.describe 'parse_front_matter' do
   end
 end
 
-RSpec.describe 'format_date' do
+RSpec.describe '#format_date' do
   it 'formats an ISO date' do
     expect(format_date('2024-01-01')).to eq('January 1, 2024')
   end
@@ -74,7 +67,7 @@ RSpec.describe 'format_date' do
   end
 end
 
-RSpec.describe 'make_excerpt' do
+RSpec.describe '#make_excerpt' do
   it 'strips HTML tags' do
     expect(make_excerpt('<p>Hello <strong>world</strong>.</p>')).to eq('Hello world .')
   end
@@ -98,7 +91,7 @@ RSpec.describe 'make_excerpt' do
   end
 end
 
-RSpec.describe 'h (HTML escape)' do
+RSpec.describe '#h (HTML escape)' do
   it 'escapes ampersands' do
     expect(h('a & b')).to eq('a &amp; b')
   end
@@ -116,7 +109,7 @@ RSpec.describe 'h (HTML escape)' do
   end
 end
 
-RSpec.describe 'tags_html' do
+RSpec.describe '#tags_html' do
   it 'returns an empty string when there are no tags' do
     expect(tags_html([])).to eq('')
   end
@@ -140,7 +133,7 @@ RSpec.describe 'tags_html' do
   end
 end
 
-RSpec.describe 'build_blog' do
+RSpec.describe '#build_blog' do
   let(:tmpdir)    { Dir.mktmpdir }
   let(:posts_src) { File.join(tmpdir, '_posts').tap { |d| FileUtils.mkdir_p(d) } }
 

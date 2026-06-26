@@ -80,4 +80,4 @@ git commit -m "Add post: Your Post Title"
 
 Edit `blog/_posts/[slug].md`, then re-run `bundle exec ruby blog/build.rb` and commit.
 
-Migrated posts don't have a `.md` source — edit `blog/[slug]/index.html` directly and skip the build step.
+Posts migrated from the old GitHub Pages [blog](vaidehijoshi.github.io) don't have a `.md` source — edit `blog/[slug]/index.html` directly and skip the build step.
