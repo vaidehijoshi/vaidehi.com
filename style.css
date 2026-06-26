@@ -195,7 +195,7 @@ footer {
 .container {
   max-width: 1200px;
   margin: 0 auto;
-  padding-bottom: 60px;
+  padding: 0 20px 60px;
 }
 
 .talks-column ul {
@@ -347,13 +347,8 @@ blockquote .rec-source a {
 }
 
 @media screen and (max-width: 560px) {
-  .container {
-    width: 310px;
-    margin: 0 auto;
-  }
-
   .vaidehi-logo-image {
-    max-width: 310px;
+    max-width: calc(100vw - 40px);
   }
 
   .theme-toggle {
@@ -366,5 +361,23 @@ blockquote .rec-source a {
 
   .talks-columns {
     grid-template-columns: 1fr;
+  }
+
+  blockquote {
+    position: relative;
+    padding: 20px 16px 64px;
+  }
+
+  .carousel-btn {
+    position: absolute;
+    bottom: 16px;
+  }
+
+  #rec-prev {
+    left: 16px;
+  }
+
+  #rec-next {
+    right: 16px;
   }
 }
