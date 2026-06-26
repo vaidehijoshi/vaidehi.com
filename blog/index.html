@@ -66,6 +66,10 @@
 
       document.getElementById('copyright-year').textContent = new Date().getFullYear();
 
+      function esc(s) {
+        return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+      }
+
       fetch('/blog/posts.yaml')
         .then(function(r) { return r.text(); })
         .then(function(text) {
@@ -75,10 +79,13 @@
             var d = new Date(p.date + 'T00:00:00');
             var dateStr = d.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
             return '<li class="post-list-item">' +
-              '<a href="/blog/' + p.slug + '">' + p.title + '</a>' +
+              '<a href="/blog/' + esc(p.slug) + '">' + esc(p.title) + '</a>' +
               '<span class="post-list-date">' + dateStr + '</span>' +
               '</li>';
           }).join('');
+        })
+        .catch(function() {
+          document.getElementById('post-list').innerHTML = '<li>Failed to load posts.</li>';
         });
     </script>
   </body>

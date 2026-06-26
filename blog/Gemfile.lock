@@ -1,0 +1,18 @@
+GEM
+  remote: https://rubygems.org/
+  specs:
+    kramdown (2.5.2)
+      rexml (>= 3.4.4)
+    kramdown-parser-gfm (1.1.0)
+      kramdown (~> 2.0)
+    rexml (3.4.4)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  kramdown
+  kramdown-parser-gfm
+
+BUNDLED WITH
+   1.17.2

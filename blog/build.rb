@@ -123,7 +123,7 @@ def page_template(title:, date_display:, tags:, content:)
           </nav>
 
           <article class="blog-post">
-            <h1 class="post-title">#{title}</h1>
+            <h1 class="post-title">#{safe}</h1>
             <time class="post-date">#{date_display}</time>
             #{tags_html(tags)}
             <div class="post-content">
@@ -215,10 +215,10 @@ def build_blog(blog_dir: BLOG_DIR, posts_src: POSTS_SRC)
     posts << entry unless md_slugs.include?(slug)
   end
 
-  posts.sort_by! { |p| p['date'] }.reverse!
+  posts.sort_by! { |p| p['date'].to_s }.reverse!
 
   yaml_lines = posts.flat_map do |p|
-    tags_val = p['tags'].empty? ? '""' : p['tags'].to_json
+    tags_val = (p['tags'] || []).empty? ? '""' : p['tags'].to_json
     [
       "- title: #{p['title'].to_json}",
       "  date: \"#{p['date']}\"",

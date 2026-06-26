@@ -5,15 +5,18 @@ Posts live in `blog/_posts/` as Markdown files. The build script converts them t
 ## Quickstart
 
 ```bash
-# 1. Create the post file
+# 1. Install dependencies (first time only)
+cd blog && bundle install && cd ..
+
+# 2. Create the post file
 touch blog/_posts/your-post-slug.md
 
-# 2. Add front matter + content (see format below)
+# 3. Add front matter + content (see format below)
 
-# 3. Build
-ruby blog/build.rb
+# 4. Build
+bundle exec ruby blog/build.rb
 
-# 4. Preview locally
+# 5. Preview locally
 ruby -run -e httpd . -p 8080
 # → open http://localhost:8080/blog/your-post-slug
 ```
@@ -55,7 +58,7 @@ end
 
 ## What the build script does
 
-`ruby blog/build.rb` reads every file in `blog/_posts/` and:
+`bundle exec ruby blog/build.rb` reads every file in `blog/_posts/` and:
 
 - Converts `.md` files to HTML via [Kramdown](https://kramdown.gettalong.org/)
 - Wraps content in the page template (same header, footer, dark-mode toggle as the main site)
@@ -75,6 +78,6 @@ git commit -m "Add post: Your Post Title"
 
 ## Editing an existing post
 
-Edit `blog/_posts/[slug].md`, then re-run `ruby blog/build.rb` and commit.
+Edit `blog/_posts/[slug].md`, then re-run `bundle exec ruby blog/build.rb` and commit.
 
 Migrated posts don't have a `.md` source — edit `blog/[slug]/index.html` directly and skip the build step.
