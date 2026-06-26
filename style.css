@@ -59,30 +59,68 @@ footer {
   opacity: 1;
 }
 
-#theme-toggle {
+.theme-toggle {
   position: fixed;
-  top: 20px;
+  top: 22px;
   right: 24px;
-  background: rgba(0, 0, 0, 0.3);
-  border: 1px solid rgba(0, 0, 0, 0.5);
-  border-radius: 50%;
-  width: 38px;
-  height: 38px;
-  font-size: 1.1em;
   cursor: pointer;
-  transition: background 0.2s;
+  z-index: 100;
+}
+
+.theme-toggle input {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.toggle-track {
+  display: block;
+  width: 54px;
+  height: 30px;
+  background: #C0B8B0;
+  border: 1px solid #8A8280;
+  border-radius: 15px;
+  position: relative;
+  transition: background 0.2s, border-color 0.2s;
+}
+
+[data-theme="dark"] .toggle-track {
+  background: #3A3530;
+  border-color: #6A6560;
+}
+
+.toggle-thumb {
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 22px;
+  height: 22px;
+  background: #555;
+  border-radius: 50%;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+  transition: transform 0.25s;
   display: flex;
   align-items: center;
   justify-content: center;
+  font-size: 13px;
+  line-height: 1;
 }
 
-[data-theme="dark"] #theme-toggle {
-  background: rgba(128, 128, 128, 0.15);
-  border: 1px solid rgba(128, 128, 128, 0.3);
+[data-theme="dark"] .toggle-thumb {
+  background: #B0A8A0;
 }
 
-#theme-toggle:hover {
-  background: rgba(128, 128, 128, 0.28);
+.toggle-thumb::before {
+  content: '☀️';
+}
+
+.theme-toggle input:checked + .toggle-track .toggle-thumb {
+  transform: translateX(24px);
+}
+
+.theme-toggle input:checked + .toggle-track .toggle-thumb::before {
+  content: '🌙';
 }
 
 #heading-content {
@@ -102,9 +140,21 @@ footer {
   filter: none;
 }
 
-.bio {
+.bio-wrapper {
   max-width: 900px;
   margin: 0 auto 80px;
+  padding: 0 20px;
+}
+
+.speaking-photo {
+  display: block;
+  width: 100%;
+  border-radius: 8px;
+  margin-bottom: 32px;
+  object-fit: cover;
+}
+
+.bio {
   text-align: left;
   line-height: 1.9em;
   font-size: 1em;
@@ -119,19 +169,33 @@ footer {
   margin-bottom: 0;
 }
 
+.talks-layout {
+  display: flex;
+  align-items: center;
+  gap: 48px;
+  max-width: 960px;
+  margin: 16px auto 0;
+  text-align: left;
+}
+
+.talks-photo {
+  width: 400px;
+  flex-shrink: 0;
+  border-radius: 8px;
+  object-fit: cover;
+}
+
+.talks-lists {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
 .container {
   max-width: 1200px;
   margin: 0 auto;
-  padding-bottom: 60px;
-}
-
-.talks-columns {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-  gap: 60px;
-  text-align: left;
-  max-width: 800px;
-  margin: 0 auto;
+  padding: 0 20px 60px;
 }
 
 .talks-column ul {
@@ -270,21 +334,24 @@ blockquote .rec-source a {
   text-underline-offset: 3px;
 }
 
+@media screen and (max-width: 1000px) {
+  .talks-layout {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .talks-photo {
+    width: 100%;
+    max-width: 400px;
+  }
+}
+
 @media screen and (max-width: 560px) {
-  .container {
-    width: 310px;
-    margin: 0 auto;
-  }
-
   .vaidehi-logo-image {
-    max-width: 310px;
+    max-width: calc(100vw - 40px);
   }
 
-  .bio {
-    padding: 0 20px;
-  }
-
-  #theme-toggle {
+  .theme-toggle {
     display: none;
   }
 
@@ -294,5 +361,23 @@ blockquote .rec-source a {
 
   .talks-columns {
     grid-template-columns: 1fr;
+  }
+
+  blockquote {
+    position: relative;
+    padding: 20px 16px 64px;
+  }
+
+  .carousel-btn {
+    position: absolute;
+    bottom: 16px;
+  }
+
+  #rec-prev {
+    left: 16px;
+  }
+
+  #rec-next {
+    right: 16px;
   }
 }
