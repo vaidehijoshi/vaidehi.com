@@ -16,7 +16,8 @@
     <link rel="stylesheet" type="text/css" href="style.css" />
     <script>
       (function() {
-        var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        var stored = localStorage.getItem('theme');
+        var prefersDark = stored ? stored === 'dark' : window.matchMedia('(prefers-color-scheme: dark)').matches;
         document.documentElement.setAttribute('data-theme', prefersDark ? 'dark' : '');
       })();
     </script>
@@ -71,6 +72,10 @@
     <div id="heading-content">
       <img src="vaidehi-white.png" class="vaidehi-logo-image"/>
     </div>
+
+    <nav id="site-nav">
+      <a href="/blog">blog</a>
+    </nav>
 
     <div class="bio-wrapper">
       <img src="vaidehi_speaking.jpg" class="speaking-photo" alt="Vaidehi speaking at a conference" />
@@ -137,6 +142,7 @@
       checkbox.addEventListener('change', function() {
         dark = checkbox.checked;
         document.documentElement.setAttribute('data-theme', dark ? 'dark' : '');
+        localStorage.setItem('theme', dark ? 'dark' : 'light');
       });
 
       fetch('data.yaml')

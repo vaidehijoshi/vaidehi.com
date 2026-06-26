@@ -8,7 +8,8 @@
     <link rel="stylesheet" type="text/css" href="/blog/blog.css" />
     <script>
       (function() {
-        var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        var stored = localStorage.getItem('theme');
+        var prefersDark = stored ? stored === 'dark' : window.matchMedia('(prefers-color-scheme: dark)').matches;
         document.documentElement.setAttribute('data-theme', prefersDark ? 'dark' : '');
       })();
     </script>
@@ -29,7 +30,10 @@
   </head>
 
   <body>
-    <button id="theme-toggle" aria-label="Toggle light/dark mode">☀️</button>
+    <label class="theme-toggle" aria-label="Toggle light/dark mode">
+      <input type="checkbox" id="theme-checkbox" />
+      <span class="toggle-track"><span class="toggle-thumb"></span></span>
+    </label>
 
     <div id="heading-content">
       <a href="/"><img src="/vaidehi-white.png" class="vaidehi-logo-image" /></a>
@@ -55,13 +59,13 @@
     </footer>
 
     <script>
-      var toggle = document.getElementById('theme-toggle');
+      var checkbox = document.getElementById('theme-checkbox');
       var dark = document.documentElement.getAttribute('data-theme') === 'dark';
-      toggle.textContent = dark ? '☀️' : '🌙';
-      toggle.addEventListener('click', function() {
-        dark = !dark;
+      checkbox.checked = dark;
+      checkbox.addEventListener('change', function() {
+        dark = checkbox.checked;
         document.documentElement.setAttribute('data-theme', dark ? 'dark' : '');
-        toggle.textContent = dark ? '☀️' : '🌙';
+        localStorage.setItem('theme', dark ? 'dark' : 'light');
       });
 
       document.getElementById('copyright-year').textContent = new Date().getFullYear();
@@ -77,7 +81,7 @@
           var ul = document.getElementById('post-list');
           ul.innerHTML = posts.map(function(p) {
             var d = new Date(p.date + 'T00:00:00');
-            var dateStr = d.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
+            var dateStr = d.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
             return '<li class="post-list-item">' +
               '<a href="/blog/' + esc(p.slug) + '">' + esc(p.title) + '</a>' +
               '<span class="post-list-date">' + dateStr + '</span>' +

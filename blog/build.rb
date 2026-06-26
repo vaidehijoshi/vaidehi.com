@@ -91,7 +91,8 @@ def page_template(title:, date_display:, tags:, content:)
         <link rel="stylesheet" type="text/css" href="/blog/blog.css" />
         <script>
           (function() {
-            var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            var stored = localStorage.getItem('theme');
+            var prefersDark = stored ? stored === 'dark' : window.matchMedia('(prefers-color-scheme: dark)').matches;
             document.documentElement.setAttribute('data-theme', prefersDark ? 'dark' : '');
           })();
         </script>
@@ -111,7 +112,10 @@ def page_template(title:, date_display:, tags:, content:)
       </head>
 
       <body>
-        <button id="theme-toggle" aria-label="Toggle light/dark mode">☀️</button>
+        <label class="theme-toggle" aria-label="Toggle light/dark mode">
+          <input type="checkbox" id="theme-checkbox" />
+          <span class="toggle-track"><span class="toggle-thumb"></span></span>
+        </label>
 
         <div id="heading-content">
           <a href="/"><img src="/vaidehi-white.png" class="vaidehi-logo-image" /></a>
@@ -143,7 +147,7 @@ def page_template(title:, date_display:, tags:, content:)
         </footer>
 
         <script>
-          var toggle = document.getElementById('theme-toggle');
+          var checkbox = document.getElementById('theme-checkbox');
           var dark = document.documentElement.getAttribute('data-theme') === 'dark';
           var lightSheet = document.getElementById('hljs-light');
           var darkSheet  = document.getElementById('hljs-dark');
@@ -153,13 +157,13 @@ def page_template(title:, date_display:, tags:, content:)
             darkSheet.disabled  = !isDark;
           }
 
-          toggle.textContent = dark ? '☀️' : '🌙';
+          checkbox.checked = dark;
           syncHighlightTheme(dark);
 
-          toggle.addEventListener('click', function() {
-            dark = !dark;
+          checkbox.addEventListener('change', function() {
+            dark = checkbox.checked;
             document.documentElement.setAttribute('data-theme', dark ? 'dark' : '');
-            toggle.textContent = dark ? '☀️' : '🌙';
+            localStorage.setItem('theme', dark ? 'dark' : 'light');
             syncHighlightTheme(dark);
           });
 

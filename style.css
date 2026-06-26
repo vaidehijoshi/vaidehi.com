@@ -129,6 +129,24 @@ footer {
   align-items: center;
 }
 
+#site-nav {
+  text-align: center;
+  margin: 0 0 48px;
+  font-size: 0.88em;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+#site-nav a {
+  text-decoration: none;
+  opacity: 0.6;
+  transition: opacity 0.2s;
+}
+
+#site-nav a:hover {
+  opacity: 1;
+}
+
 .vaidehi-logo-image {
   padding: 200px 0 20px 0;
   width: 550px;
