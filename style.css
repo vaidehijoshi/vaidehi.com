@@ -244,7 +244,6 @@ footer {
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 20px 60px;
-  animation: fadeUp 0.5s ease 0.2s both;
 }
 
 .talks-column ul {
