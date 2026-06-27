@@ -134,14 +134,18 @@
 }
 
 .post-list-item {
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  grid-template-rows: auto auto;
   align-items: baseline;
   padding: 9px 6px;
-  gap: 20px;
+  column-gap: 20px;
+  row-gap: 4px;
 }
 
 .post-list-item a {
+  grid-column: 1;
+  grid-row: 1;
   line-height: 1.45em;
   display: inline-block;
   transition: transform 0.15s ease;
@@ -152,10 +156,17 @@
 }
 
 .post-list-date {
+  grid-column: 2;
+  grid-row: 1;
   font-size: 0.82em;
   opacity: 0.55;
   white-space: nowrap;
-  flex-shrink: 0;
+}
+
+.post-list-item .post-tags {
+  grid-column: 1 / -1;
+  grid-row: 2;
+  margin-bottom: 0;
 }
 
 @media screen and (max-width: 560px) {

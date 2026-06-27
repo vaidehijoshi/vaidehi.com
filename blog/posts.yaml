@@ -288,13 +288,13 @@
   slug: "have-you-met-your-controller-yet"
   tags: ["flatiron","school"]
   excerpt: "Controllers: we all have &lsquo;em. Sure, they put the C in MVC, but how much do we really know about these mysterious creatures? Probably not a lot. Don&rsquo;t you wish you could just look your Controller in the eye…"
-- title: "Class Inheritance"
-  date: "2014-10-16"
-  slug: "class-inheritance"
-  tags: ["flatiron","school"]
-  excerpt: "Confession time: I&rsquo;m kind of in love with object-oriented programming. I should probably clarify that I don&rsquo;t always understand OOP, and I sometimes even confuse myself for no good reason whenever the topic…"
 - title: "Class Inheritance: Part 1"
   date: "2014-10-16"
   slug: "class-inheritance-part-1"
   tags: ["flatiron"]
+  excerpt: "Confession time: I&rsquo;m kind of in love with object-oriented programming. I should probably clarify that I don&rsquo;t always understand OOP, and I sometimes even confuse myself for no good reason whenever the topic…"
+- title: "Class Inheritance"
+  date: "2014-10-16"
+  slug: "class-inheritance"
+  tags: ["flatiron","school"]
   excerpt: "Confession time: I&rsquo;m kind of in love with object-oriented programming. I should probably clarify that I don&rsquo;t always understand OOP, and I sometimes even confuse myself for no good reason whenever the topic…"
