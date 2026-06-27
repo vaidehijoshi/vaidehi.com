@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <title>When Enough Is Enough: How to Know When to Use Enums - Vaidehi Joshi</title>
+
+    <link rel="stylesheet" type="text/css" href="/style.css" />
+    <link rel="stylesheet" type="text/css" href="/blog/blog.css" />
+    <script src="/theme.js"></script>
+
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="When Enough Is Enough: How to Know When to Use Enums - Vaidehi Joshi" />
+
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌻</text></svg>">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" />
+    <link rel="stylesheet" id="hljs-light" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css" />
+    <link rel="stylesheet" id="hljs-dark"  href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css" disabled />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+  </head>
+
+  <body>
+    <label class="theme-toggle" aria-label="Toggle light/dark mode">
+      <input type="checkbox" id="theme-checkbox" />
+      <span class="toggle-track"><span class="toggle-thumb"></span></span>
+    </label>
+
+    <div id="heading-content">
+      <a href="/"><img src="/vaidehi-white.png" class="vaidehi-logo-image" /></a>
+    </div>
+
+    <nav id="site-nav">
+      <a href="/">home</a><span class="nav-sep"> · </span><a href="/blog">blog</a><span class="nav-sep"> · </span><a href="https://www.linkedin.com/in/vaidehisj/" target="_blank" rel="noopener">linkedin</a><span class="nav-sep"> · </span><a href="https://github.com/vaidehijoshi" target="_blank" rel="noopener">github</a><span class="nav-sep"> · </span><a href="https://medium.com/@vaidehijoshi" target="_blank" rel="noopener">medium</a><span class="nav-sep"> · </span><a href="https://bsky.app/profile/vaidehi.com" target="_blank" rel="noopener">bluesky</a><span class="nav-sep"> · </span><a href="https://www.twitter.com/vaidehijoshi" target="_blank" rel="noopener">twitter</a>
+    </nav>
+
+    <main class="blog-post-container">
+      <nav class="blog-nav">
+        <a href="/blog" class="back-link">&larr; All Posts</a>
+      </nav>
+
+      <article class="blog-post">
+        <h1 class="post-title">When Enough Is Enough: How to Know When to Use Enums</h1>
+        <time class="post-date">February 3, 2015</time>
+        <div class="post-tags"><span class="post-tag">rails</span><span class="post-tag">technical-tuesdays</span></div>
+        <div class="post-content">
+          <p>NERD ALERT: I love databases. God, they&rsquo;re just <em>fantastic</em>. Few things give me as much joy as an empty whiteboard and a couple of intricate join tables that need to be sketched out. But there&rsquo;s also an art to understanding how to handle data &ndash; particularly when you have a shit ton of it.</p>
+
+<p>The main issue people run into with data is first, how to go about storing it, and second, how to go about getting it when you actually need it! This doesn&rsquo;t sound super complicated though, right? <em>Wrong</em>. Databases grow vertically, not horizontally, and they grow hella fast. At a certain point, the way that you go about storing your data ends up <em>directly impacting</em> how you go about retrieving it!</p>
+
+<p>Many Rubyists write different helper methods to do their querying for them. But this is Rails Land, which means that we have <del>black</del> Rails magic at our disposal. And with the advent of Rails 4.1, that magic now has a name: <strong>enum</strong>.</p>
+
+<h2>Get Yo Enum On</h2>
+
+<p>When Rails 4.1 was released less than a year ago, it came out with a bunch of new features. One of those was <strong>ActiveRecord enums</strong>, which essentially cut out a lot of methods and superfluous code.</p>
+
+<p>ActiveRecord enums allow you to manipulate the attributes of an ActiveRecord object in Rails such that an attribute&rsquo;s values map to <em>integers</em> in the database (as opposed to strings), and yet can also be <em>queried by name</em>. If all this sounds kind of crazy to you, that&rsquo;s because it is! Enums are pretty cool because they have the flexibility of a string, but the speed and efficiency of an integer. You can look up values in a huge database using an integer, but you can also update and add attributes as string. Oh &ndash; you also get a bunch of methods for FREE!</p>
+
+<iframe src="//giphy.com/embed/eYieKG19ZuaR2" width="480" height="338" frameBorder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
+
+<p><br></p>
+
+<p>So how does this magic work, exactly? I thought you&rsquo;d never ask!</p>
+
+<h2>Multiple Columns?! Ain&rsquo;t Nobody Got Time For That!</h2>
+
+<p>To demonstrate how to implement ActiveRecord enums, I&rsquo;ll continue using <a href="http://vaidehijoshi.github.io/blog/2015/01/27/embrace-your-inner-paranoia-use-acts-as-paranoid/">last week&rsquo;s ecommerce bookstore app</a> as my example. So, I have these <code>Book</code> objects in my store, and I want to keep track of what their status is: either <code>in stock</code>, <code>out of stock</code>, or <code>ordered</code>. For the sake of simplicity, we&rsquo;ll pretend that I&rsquo;m not a super sophisticated bookseller, so I don&rsquo;t have a lot of <code>Book</code>s, and therefore each <code>Book</code> object can only ever have one of these three states.</p>
+
+<p>I might first start off by having three different columns to represent each of these states:</p>
+
+<pre><code class="language-ruby">class AddStatusesToBooks &lt; ActiveRecord::Migration
+  def change
+    add_column :books, :in_stock?, :boolean
+    add_column :books, :out_of_stock?, :boolean
+    add_column :books, :ordered?, :boolean
+  end
+end</code></pre>
+
+<p>But this seems kind of&hellip;ridiculous. I&rsquo;m always going to have <em>two empty columns</em>. This code has me all like:</p>
+
+<iframe src="//giphy.com/embed/zrdUjl6N99nLq" width="480" height="380" frameBorder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
+
+<p><br></p>
+
+<p>Alternatively, I could combine all of these columns into one and use some helper methods that return boolean values when I call them on an instance of a <code>Book</code>:</p>
+
+<pre><code class="language-ruby">class Book &lt; ActiveRecord::Base
+  def in_stock?
+    self.status == 'in stock'
+  end
+
+  def out_of_stock?
+    self.status == 'out of stock'
+  end
+
+  def ordered?
+    self.status == 'ordered'
+  end
+end</code></pre>
+
+<p>Well, now I have one column, so that&rsquo;s better. But this is still so repetitive, ugly, and inefficient. Don&rsquo;t worry, it&rsquo;s about to get real good.</p>
+
+<h2>Query Your Little Heart Out</h2>
+
+<p>Implementing enum is pretty simple. First, add the macro to your class:</p>
+
+<pre><code class="language-ruby">class Book &lt; ActiveRecord::Base
+  enum status: [:in_stock, :out_of_stock, :ordered]
+end</code></pre>
+
+<p>You&rsquo;ll notice that I have my <code>status</code> attribute categorized into my three different options. The fact that they look like symbols in an array is no mistake &ndash; each of these symbols is actually associated with its index. So <code>in_stock</code> will be referenced by its index number <code>0</code>, <code>out_of_stock</code> by <code>1</code>, and <code>ordered</code> by <code>2</code>.</p>
+
+<p>Next, add a column to your migration that will allow ActiveRecord enum to carry out your queries:</p>
+
+<pre><code class="language-ruby">class AddStatusToBooks &lt; ActiveRecord::Migration
+  def change
+    add_column :books, :status, :integer, default: 0
+  end
+end</code></pre>
+
+<p>I want all my <code>Book</code> objects to default to an <code>in_stock</code> status when they are created, so I added a <code>default: 0</code> to my column. Adding a default is always a good way to keep your code defensive.</p>
+
+<p>Now if I want to create a <code>Book</code> object and check its status:</p>
+
+<pre><code class="language-ruby">book = Book.create
+
+book.status
+# =&gt; "in_stock"
+
+book.out_of_stock?
+# =&gt; false
+
+book.status = :ordered
+book.ordered! #updates the object
+book.ordered?
+# =&gt; true
+book.status?
+# =&gt; "ordered"
+
+book.out_of_stock
+# =&gt; #&lt;ActiveRecord::Relation []&gt;</code></pre>
+
+<p>Go ahead and scroll up if you don&rsquo;t believe me &ndash; I promise I didn&rsquo;t make any of these methods! Enum gave them to me, FO FREE. So what&rsquo;s actually going on here? Well, not much more than ActiveRecord mapping the integer corresponding to the indexes of the symbols we provided in the enum macro array.</p>
+
+<p>Our database has only one column storing all this information: <code>status</code>. That column has rows that are all either <code>1</code>, <code>2</code>, or <code>3</code>. ActiveRecord pulls the actual symbols that correspond to these array indexes, and returns them, simultaneously creating an <code>in_stock</code>, <code>out_of_stock</code>, and <code>ordered</code> scope. And the icing on the cake: all the helper methods that are immediately generated for us in the process!</p>
+
+<h2>Tips and Tricks</h2>
+
+<p>Enums give you a lot of flexibility. For example, I played around with the <code>in_stock</code> scope of my <code>Book</code> object to create a specific class method that would order the top three newest books added to my inventory:</p>
+
+<pre><code class="language-ruby">scope :newest_stock, -&gt; (limit: 3) { in_stock.order('date DESC').limit(limit) }</code></pre>
+
+<p>Another thing to remember is that you <em>cannot</em> use the same names for different enums of the same class:</p>
+
+<pre><code class="language-ruby">class Book &lt; ActiveRecord::Base
+  enum status: [ :ordered ]
+  enum inventory: [ :ordered ]
+end</code></pre>
+
+<p>Definitely <strong>don&rsquo;t</strong> do this &ndash; this will raise an ActiveRecord error!</p>
+
+<p>A huge upside to using enums is their contribution to your application&rsquo;s speed and performance. It&rsquo;s a <a href="http://dev.mysql.com/doc/refman/5.1/en/storage-requirements.html">well-known fact</a> that it&rsquo;s much cheaper to store data as an integer in memory, rather than as a string value. Enums take advantage of that, yet allow you to use all the ActiveRecord methods you know and love.</p>
+
+<p>So, you can have your human-readable and fun-to-program code without sacrificing any of the speed and performance that you need to save and access your information. I guess dreams really do come true.</p>
+
+<iframe src="//giphy.com/embed/aCu2aFhWKR84M" width="480" height="198" frameBorder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
+
+<h2>tl;dr?</h2>
+
+<ul>
+<li>The ActiveRecord enum feature allows you compose a single complex state on your models, and can help avoid using multiple boolean value columns to check the status of different objects.</li>
+<li>There are a bunch more resources out there, so make sure <a href="http://brewhouse.io/blog/2013/12/17/whats-new-in-rails-4-1.html">you</a> <a href="http://richonrails.com/articles/active-record-enums-in-ruby-on-rails-4-1">check</a> <a href="https://hackhands.com/ruby-on-enums-queries-and-rails-4-1/">them</a> <a href="http://robots.thoughtbot.com/whats-new-in-edge-rails-active-record-enum">all</a> <a hef="http://dev.mikamai.com/post/82355998967/rails-4-1-activerecord-enums">out</a>.</li>
+<li>Check out the enum <a href="http://edgeguides.rubyonrails.org/4_1_release_notes.html#active-record-enums">release notes</a> and <a href="http://api.rubyonrails.org/v4.1.0/classes/ActiveRecord/Enum.html">documentation</a>.</li>
+</ul>
+        </div>
+      </article>
+    </main>
+
+    <footer>
+      <div class="social-links">
+        <a href="https://www.linkedin.com/in/vaidehisj/" target="_blank" aria-label="LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
+        <a href="https://github.com/vaidehijoshi" target="_blank" aria-label="GitHub"><i class="fa-brands fa-github"></i></a>
+        <a href="https://bsky.app/profile/vaidehi.com" target="_blank" aria-label="Bluesky"><i class="fa-brands fa-bluesky"></i></a>
+        <a href="https://www.twitter.com/vaidehijoshi" target="_blank" aria-label="Twitter"><i class="fa-brands fa-x-twitter"></i></a>
+      </div>
+      <p>&copy; Vaidehi Joshi | <span id="copyright-year"></span></p>
+    </footer>
+
+    <script>
+      var checkbox = document.getElementById('theme-checkbox');
+      var dark = document.documentElement.getAttribute('data-theme') === 'dark';
+      var lightSheet = document.getElementById('hljs-light');
+      var darkSheet  = document.getElementById('hljs-dark');
+
+      function syncHighlightTheme(isDark) {
+        lightSheet.disabled = isDark;
+        darkSheet.disabled  = !isDark;
+      }
+
+      checkbox.checked = dark;
+      syncHighlightTheme(dark);
+
+      checkbox.addEventListener('change', function() {
+        dark = checkbox.checked;
+        document.documentElement.setAttribute('data-theme', dark ? 'dark' : '');
+        localStorage.setItem('theme', dark ? 'dark' : 'light');
+        syncHighlightTheme(dark);
+      });
+
+      document.getElementById('copyright-year').textContent = new Date().getFullYear();
+      hljs.highlightAll();
+    </script>
+  </body>
+</html>

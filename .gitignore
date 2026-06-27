@@ -19,3 +19,10 @@
 
 # Claude Code
 .claude/
+
+# Migrated post HTML sources (generated pages live in blog/[slug]/, not _posts/)
+blog/_posts/*.html
+
+# Bundler gem install path (used when system gems are not writable)
+blog/vendor/
+blog/.bundle/

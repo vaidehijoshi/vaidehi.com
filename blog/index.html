@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <title>Blog - Vaidehi Joshi</title>
+
+    <link rel="stylesheet" type="text/css" href="/style.css" />
+    <link rel="stylesheet" type="text/css" href="/blog/blog.css" />
+    <script src="/theme.js"></script>
+
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="description" content="Technical blog posts by Vaidehi Joshi on Ruby, Rails, computer science, and software engineering." />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://vaidehi.com/blog" />
+    <meta property="og:title" content="Blog - Vaidehi Joshi" />
+    <meta property="og:description" content="Technical blog posts on Ruby, Rails, computer science, and software engineering." />
+
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌻</text></svg>">
+
+    <script src="https://cdn.jsdelivr.net/npm/js-yaml@4/dist/js-yaml.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" />
+  </head>
+
+  <body>
+    <label class="theme-toggle" aria-label="Toggle light/dark mode">
+      <input type="checkbox" id="theme-checkbox" />
+      <span class="toggle-track"><span class="toggle-thumb"></span></span>
+    </label>
+
+    <div id="heading-content">
+      <a href="/"><img src="/vaidehi-white.png" class="vaidehi-logo-image" /></a>
+    </div>
+
+    <nav id="site-nav">
+      <a href="/">home</a><span class="nav-sep"> · </span><a href="https://www.linkedin.com/in/vaidehisj/" target="_blank" rel="noopener">linkedin</a><span class="nav-sep"> · </span><a href="https://github.com/vaidehijoshi" target="_blank" rel="noopener">github</a><span class="nav-sep"> · </span><a href="https://medium.com/@vaidehijoshi" target="_blank" rel="noopener">medium</a><span class="nav-sep"> · </span><a href="https://bsky.app/profile/vaidehi.com" target="_blank" rel="noopener">bluesky</a><span class="nav-sep"> · </span><a href="https://www.twitter.com/vaidehijoshi" target="_blank" rel="noopener">twitter</a>
+    </nav>
+
+    <div class="container">
+      <section class="section">
+        <div class="section-heading">blog</div>
+        <ul class="post-list" id="post-list">
+          <li style="opacity:0.5;text-align:center">loading&hellip;</li>
+        </ul>
+      </section>
+    </div>
+
+    <footer>
+      <div class="social-links">
+        <a href="https://www.linkedin.com/in/vaidehisj/" target="_blank" aria-label="LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
+        <a href="https://github.com/vaidehijoshi" target="_blank" aria-label="GitHub"><i class="fa-brands fa-github"></i></a>
+        <a href="https://bsky.app/profile/vaidehi.com" target="_blank" aria-label="Bluesky"><i class="fa-brands fa-bluesky"></i></a>
+        <a href="https://www.twitter.com/vaidehijoshi" target="_blank" aria-label="Twitter"><i class="fa-brands fa-x-twitter"></i></a>
+      </div>
+      <p>&copy; Vaidehi Joshi | <span id="copyright-year"></span></p>
+    </footer>
+
+    <script>
+      var checkbox = document.getElementById('theme-checkbox');
+      var dark = document.documentElement.getAttribute('data-theme') === 'dark';
+      checkbox.checked = dark;
+      checkbox.addEventListener('change', function() {
+        dark = checkbox.checked;
+        document.documentElement.setAttribute('data-theme', dark ? 'dark' : '');
+        localStorage.setItem('theme', dark ? 'dark' : 'light');
+      });
+
+      document.getElementById('copyright-year').textContent = new Date().getFullYear();
+
+      function esc(s) {
+        return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+      }
+
+      fetch('/blog/posts.yaml')
+        .then(function(r) { return r.text(); })
+        .then(function(text) {
+          var posts = jsyaml.load(text);
+          var ul = document.getElementById('post-list');
+          ul.innerHTML = posts.map(function(p) {
+            var d = new Date(p.date + 'T00:00:00');
+            var dateStr = d.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+            return '<li class="post-list-item">' +
+              '<a href="/blog/' + esc(p.slug) + '">' + esc(p.title) + '</a>' +
+              '<span class="post-list-date">' + dateStr + '</span>' +
+              '</li>';
+          }).join('');
+        })
+        .catch(function() {
+          document.getElementById('post-list').innerHTML = '<li>Failed to load posts.</li>';
+        });
+    </script>
+  </body>
+</html>

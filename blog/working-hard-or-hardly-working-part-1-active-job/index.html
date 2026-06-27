@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <title>Working Hard or Hardly Working, Part 1: Active Job - Vaidehi Joshi</title>
+
+    <link rel="stylesheet" type="text/css" href="/style.css" />
+    <link rel="stylesheet" type="text/css" href="/blog/blog.css" />
+    <script src="/theme.js"></script>
+
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Working Hard or Hardly Working, Part 1: Active Job - Vaidehi Joshi" />
+
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌻</text></svg>">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" />
+    <link rel="stylesheet" id="hljs-light" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css" />
+    <link rel="stylesheet" id="hljs-dark"  href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css" disabled />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+  </head>
+
+  <body>
+    <label class="theme-toggle" aria-label="Toggle light/dark mode">
+      <input type="checkbox" id="theme-checkbox" />
+      <span class="toggle-track"><span class="toggle-thumb"></span></span>
+    </label>
+
+    <div id="heading-content">
+      <a href="/"><img src="/vaidehi-white.png" class="vaidehi-logo-image" /></a>
+    </div>
+
+    <nav id="site-nav">
+      <a href="/">home</a><span class="nav-sep"> · </span><a href="/blog">blog</a><span class="nav-sep"> · </span><a href="https://www.linkedin.com/in/vaidehisj/" target="_blank" rel="noopener">linkedin</a><span class="nav-sep"> · </span><a href="https://github.com/vaidehijoshi" target="_blank" rel="noopener">github</a><span class="nav-sep"> · </span><a href="https://medium.com/@vaidehijoshi" target="_blank" rel="noopener">medium</a><span class="nav-sep"> · </span><a href="https://bsky.app/profile/vaidehi.com" target="_blank" rel="noopener">bluesky</a><span class="nav-sep"> · </span><a href="https://www.twitter.com/vaidehijoshi" target="_blank" rel="noopener">twitter</a>
+    </nav>
+
+    <main class="blog-post-container">
+      <nav class="blog-nav">
+        <a href="/blog" class="back-link">&larr; All Posts</a>
+      </nav>
+
+      <article class="blog-post">
+        <h1 class="post-title">Working Hard or Hardly Working, Part 1: Active Job</h1>
+        <time class="post-date">September 15, 2015</time>
+        <div class="post-tags"><span class="post-tag">rails</span><span class="post-tag">ruby</span><span class="post-tag">technical-tuesdays</span></div>
+        <div class="post-content">
+          <iframe src="//giphy.com/embed/79JlUHyiSzYBi" width="480" height="249" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
+
+<p>Last week, I sent a lot of emails &mdash; after all, I was working on creating my <a href="http://vaidehijoshi.github.io/blog/2015/09/08/youve-got-mail-action-mailer-plus-letter-opener/">very first mailer</a>. But in the process, I also realized something else: waiting for an email to send is <em>not</em> fun. Especially if you can&rsquo;t do anything else while you&rsquo;re waiting.</p>
+
+<p>This problem pretty much encapsculates the reason for the existence and invention of background jobs. I&rsquo;ve actually been playing around with creating and running jobs in different applications for the past few months now, yet I never really felt comfortable with them. I knew that having jobs run certain processes was clearly very important since they kept popping up all over the place. However, I was having trouble wrapping my head around what exactly a background job <em>was</em>, and when and why I would ever need to use one.</p>
+
+<p>Working with ActionMailer turned out to be the perfect stepping-stone to Active Job, which helped me to better understand inline processes, asychronous requests, and how all of these things fit into running a job. Since we already know how to create mailers, that will be the perfect introduction to running our very first job! Integrating ActionMailer and Active Job is a piece of cake, so we&rsquo;ll start with that first. Baby steps, my friends!</p>
+
+<h2>Jobs: Inline Or Background?</h2>
+
+<iframe src="//giphy.com/embed/jfiHMHRyARhf2" width="480" height="285" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
+
+<p>Background jobs existed far before ActiveJob came into being in December of 2014. In fact, if we take a look at one of our more complex, pre-Rails 4.2 projects, it&rsquo;s likely that we&rsquo;ll see a some classes that are suffixed with <code>Worker</code>. These classes are a little bit like service objects in that they are responsible for taking in an object as a parameter and performing a certain action with or <em>on</em> that object, sometimes implementing a service class in the process of doing so. The &ldquo;worker&rdquo; term really just refers to classes that we use in the background of our application.</p>
+
+<p>But, why would we ever need to run a class in the background of our application? And honestly, what does that even <em>mean</em>? Well, we can start by defining what exactly makes a background job, beginning by peeking inside of our <code>config/application.rb</code> file. There are a lot of things happening inside of here, all of which are setting different configurations inside of our application. But there&rsquo;s one line in particular that we should pay more attention to:</p>
+
+<p><code>Rails.application.config.active_job.queue_adapter = :inline</code></p>
+
+<p>Without even worrying about what <code>queue_adapter</code> is doing for now, we know one thing for sure: our current <code>active_job</code> configuration is set to run <code>inline</code>. Okay, let&rsquo;s try to deduce what <code>inline</code> means, exactly. A quick search in the Rails guides leads us to <a href="http://api.rubyonrails.org/classes/ActiveJob/QueueAdapters/InlineAdapter.html">the documentation</a> for something called the <code>InlineAdapter</code>, which explains:</p>
+
+<blockquote><p>&ldquo;When enqueueing jobs with the Inline adapter, the job will be executed immediately. To use the Inline set the queue_adapter config to <code>:inline</code>.&rdquo;</p></blockquote>
+
+<p>Interesting! So, if running a job <code>inline</code> means that it happens right away, running a job that is <em>not</em> inline means that it will be delayed in its execution &ndash; that is to say, it won&rsquo;t happen immediately, but it&rsquo;ll happen later on. So the next logical question, then, is <em>why</em>?</p>
+
+<p>After doing some digging, the best explanation I&rsquo;ve found for why we&rsquo;d want to run a process <em>not</em> inline but rather in the background, at a later point, comes from <a href="http://ryanselk.com/2014/09/25/using-background-jobs-in-rails-42-with-active-job/">Ryan Selk</a>. I really like the way that he explains the thought-processes behind choosing when to use a background job:</p>
+
+<blockquote><p>&ldquo;One common situation for needing background jobs is consuming external APIs. It is unrealistic to think that all of your external APIs will have 100% uptime. By allowing API interaction to happen in a background job we can manage failures more effectively. Instead of having the user wait for a task to end, we send that task to the background queue. The User can then continue interacting with the app. Background jobs also give us the opportunity to prioritize jobs which are waiting in out background job queue. In many cases using background jobs can significantly reduce the required resources of the app.&rdquo;</p></blockquote>
+
+<p>Ultimately, <strong>it all comes down to waiting</strong>. If there is ever a situation where your application would have to wait for a process &ndash; an email to send, a request to complete, or a response to be received &ndash; that&rsquo;s a sign that you probably should be using a background job, rather than an inline process. In his blog post, Ryan talks about using 3rd party APIs, or performing some form of &ldquo;computation intensive work, such as solving equations or image processing&rdquo;; basically, anything that would require enough time or effort to make our application lag or to keep our user waiting would be a prime candidate for a background job.</p>
+
+<p>So, let&rsquo;s implement a job using Active Job&hellip;that&rsquo;ll be easy, right?</p>
+
+<h2>A Round of Applause for Active Job</h2>
+
+<iframe src="//giphy.com/embed/QOfrQpuGMa9Pi" width="480" height="278" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
+
+<p>When Active Job was <a href="http://weblog.rubyonrails.org/2014/12/19/Rails-4-2-final/">first introduced</a>, one of its most impressive aspects was the fact that you could easily create a job and then later specify the job runner that you wanted to use. Active Job was essentially built to be its own mini-framework, which made it incredibly useful for declaring a job, and then making it run on any backend that you wanted (for example, <code>delayed_job</code> or <code>resque</code>). This also meant that it became super easy (think changing a single line in our application) to switch between different queuing backends. An important thing to remember is that Rails itself doesn&rsquo;t have a job runner; by default, it comes with an &ldquo;immediate runner&rdquo; queuing implementation, which means that each job that is enqueued will run immediately (in other words, it will run <code>inline</code>).</p>
+
+<p>Setting up Active Job is incredibly easy, which is another thing that makes it so beautiful. It comes with a generator, which means that we can run a simple command like this to create a job that would send a newsletter to new users of our application:</p>
+
+<p><code>♥ bin/rails g job new_user_newsletter</code></p>
+
+<p>Of course, we could also just create our own file inside of <code>app/jobs</code>, as long as it inherited from <code>ActiveJob::Base</code>. But let&rsquo;s hold off on writing a complex job for now. Let&rsquo;s try to first get Active Job to work with ActionMailer and send our order confirmation email via our <code>OrderMailer</code> for today.</p>
+
+<p>The first thing we need to do is to choose a queuing backend. I&rsquo;ve found <code>delayed_job_active_record</code> to be a pretty good starting point, so we can add that to our <code>Gemfile</code> and run <code>bundle install</code>. This backend also requires two additional forms of setup: first, a migration that sets up <code>Job</code> objects in Active Record. We can run these commands easily in our terminal:</p>
+
+<pre><code class="language-ruby">♥ rails generate delayed_job:active_record
+♥ rake db:migrate</code></pre>
+
+<p>And secondly, inside of our <code>config/application.rb</code>, we&rsquo;ll need to set our <code>queue_adapter</code> configuration to use <code>delayed_job</code> rather than be set to <code>inline</code> processes:</p>
+
+<p><code>config.active_job.queue_adapter = :delayed_job</code></p>
+
+<p>This last part is very important, as the documentation explains that Rails doesn&rsquo;t have it&rsquo;s own queuing adapter:</p>
+
+<blockquote><p>&ldquo;Rails itself does not provide a sophisticated queuing system and just executes the job immediately if no adapter is set.&rdquo;</p></blockquote>
+
+<p>Without setting up our queuing backend, Active Job won&rsquo;t know what to use to send our email. And speaking of emails, it&rsquo;s finally time to integrate Active Job with ActionMailer!</p>
+
+<h2>BFFS 4EVA: Active Job + ActionMailer</h2>
+
+<p>Active Job is neatly integrated with ActionMailer so that we can easily send emails outside of a single request-response cycle (in other words, asynchronously). There are two methods that exist on the ActionMailer module that we can use. In fact, we already started using one last week: <code>deliver_now</code>.</p>
+
+<p>Inside of our <code>Order</code> class, we were using <code>deliver_now</code> to send a confirmation email that was written inside of our <code>OrderMailer</code>. We probably both need a refresher, so here&rsquo;s the code that uses our favorite thing ever: a state machine!</p>
+
+<pre><code class="language-ruby">class Order &lt; ActiveRecord::Base
+  include AASM
+  
+  aasm column: 'state', whiny_transitions: false do
+      state :complete
+
+      event :completed, after: :send_confirmation_email
+  end
+
+  def send_confirmation_email
+      OrderMailer.confirmation_email(self).deliver_now
+  end
+end</code></pre>
+
+<p>If we instead change our <code>send_confirmation_email</code> to use <code>deliver_later</code>, we can send our order confirmation email through Active Job, rather than sending it inline, within the same request-response cycle. All of this magic is built into the <code>deliver_later</code> method. In fact, if we take a look at <a href="http://api.rubyonrails.org/classes/ActionMailer/MessageDelivery.html#method-i-deliver_later">the source code</a> for Action Mailer, we&rsquo;ll learn that there are actually two different types of <code>deliver_later</code> methods: <code>deliver_later</code> and <code>deliver_later!</code>. They&rsquo;re both similar in that they both enqueue our email to be delievered through Active Job.</p>
+
+<p>However, when <code>deliver_later!</code> is invoked, it relies on <code>deliver_now!</code>, which delivers an email without checking <code>perform_deliveries</code> and <code>raise_delivery_errors</code>. But, because <code>deliever_later!</code> depends on <code>deliver_now!</code>, which in turn bypasses these two important methods, <code>deliver_later!</code> it will never, ever raise any errors. The documentation suggests that we use this particular method with caution, so if you&rsquo;re unsure, it&rsquo;s probably best to stick with plain old <code>deliver_later</code>.</p>
+
+<p>Integrating ActionMailer with Active Job is probably the easiest way to start using background jobs. But there are a <em>lot</em> of other ways to implement Active Job in our applications! Now we know enough to start writing our own custom jobs that will run asynchronously! In fact, that&rsquo;s exactly what we&rsquo;ll do next week, in part 2 of this series. Get ready to become an Active Job boss and walk around like this:</p>
+
+<iframe src="//giphy.com/embed/a93sBAElVcuNq" width="480" height="269" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
+
+<h2>tl;dr?</h2>
+
+<ul>
+<li>Active Job requires you to set up a queuing backend and use the <code>deliver_later</code> method in order to integrate with ActionMailer.</li>
+<li>The Rails Guides for cover all the basics for Active Job; head <a href="http://edgeguides.rubyonrails.org/active_job_basics.html">over here</a> to read more.</li>
+<li>Even though Active Job is a relatively new feature of Rails, there are a lot of great blog posts that walk through how to use it. Check out <a href="http://www.gotealeaf.com/blog/handling-emails-in-rails">this one</a>, <a href="http://ryanselk.com/2014/09/25/using-background-jobs-in-rails-42-with-active-job/">another one</a>, and <a href="http://www.jetthoughts.com/blog/tech/2015/04/17/time-for-active-job.html">one more</a>.</li>
+</ul>
+        </div>
+      </article>
+    </main>
+
+    <footer>
+      <div class="social-links">
+        <a href="https://www.linkedin.com/in/vaidehisj/" target="_blank" aria-label="LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
+        <a href="https://github.com/vaidehijoshi" target="_blank" aria-label="GitHub"><i class="fa-brands fa-github"></i></a>
+        <a href="https://bsky.app/profile/vaidehi.com" target="_blank" aria-label="Bluesky"><i class="fa-brands fa-bluesky"></i></a>
+        <a href="https://www.twitter.com/vaidehijoshi" target="_blank" aria-label="Twitter"><i class="fa-brands fa-x-twitter"></i></a>
+      </div>
+      <p>&copy; Vaidehi Joshi | <span id="copyright-year"></span></p>
+    </footer>
+
+    <script>
+      var checkbox = document.getElementById('theme-checkbox');
+      var dark = document.documentElement.getAttribute('data-theme') === 'dark';
+      var lightSheet = document.getElementById('hljs-light');
+      var darkSheet  = document.getElementById('hljs-dark');
+
+      function syncHighlightTheme(isDark) {
+        lightSheet.disabled = isDark;
+        darkSheet.disabled  = !isDark;
+      }
+
+      checkbox.checked = dark;
+      syncHighlightTheme(dark);
+
+      checkbox.addEventListener('change', function() {
+        dark = checkbox.checked;
+        document.documentElement.setAttribute('data-theme', dark ? 'dark' : '');
+        localStorage.setItem('theme', dark ? 'dark' : 'light');
+        syncHighlightTheme(dark);
+      });
+
+      document.getElementById('copyright-year').textContent = new Date().getFullYear();
+      hljs.highlightAll();
+    </script>
+  </body>
+</html>

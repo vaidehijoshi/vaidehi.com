@@ -58,7 +58,7 @@ writing:
   - title: "BaseDS"
     url: "https://baseds.org"
   - title: "Technical Blog"
-    url: "https://vaidehijoshi.github.io"
+    url: "/blog"
 
 recommendations:
   - author: "Nicholas Gottschlich"

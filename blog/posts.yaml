@@ -1,0 +1,300 @@
+- title: "A Year of Tuesdays"
+  date: "2015-12-29"
+  slug: "a-year-of-tuesdays"
+  tags: ["non-technical","technical-tuesdays"]
+  excerpt: "A year ago, I had this idea: I was going to write things down. To be clear, this wasn&rsquo;t a novel idea, and definitely not a new one by any stretch of the imagination. But it was something I wasn&rsquo;t exactly in…"
+- title: "Composing Microscopic Rails Views With Cells"
+  date: "2015-12-22"
+  slug: "composing-microscopic-rails-views-with-cells"
+  tags: ["ember","rails","ruby","technical-tuesdays"]
+  excerpt: "I crossed over to the dark side awhile ago, and I can hide it no longer. And when I say &ldquo;the dark side&rdquo;, what I mean is JavaScript. Surprise, surprise &mdash; I am now haunted by semicolons everywhere I go!…"
+- title: "You’ve Got a Friend in Friendly_Id"
+  date: "2015-12-15"
+  slug: "youve-got-a-friend-in-friendly-id"
+  tags: ["rails","ruby","technical-tuesdays"]
+  excerpt: "One of my favorite aspects of programming is the fact that there&rsquo;s always more than one way to do something. In fact, I think this is probably why I consider the very act of writing and building software to be a…"
+- title: "Breaking the News: Wisper + Pub-Sub"
+  date: "2015-12-08"
+  slug: "breaking-the-news-wisper-plus-pub-sub"
+  tags: ["computer-science","rails","ruby","technical-tuesdays"]
+  excerpt: "I&rsquo;ve been rather reflective this past week. This is mostly because the end of this year of technical Tuesdays is now very much in sight, with only a handful more posts left to write. Also, I&rsquo;ve been going…"
+- title: "Functions to Call Upon: ActiveRecord Association Callbacks"
+  date: "2015-12-01"
+  slug: "functions-to-call-upon-activerecord-association-callbacks"
+  tags: ["rails","ruby","technical-tuesdays"]
+  excerpt: "No developer knows everything &mdash; even if they do know a whole lot more than you do. I was reminded of this fact recently while pairing with a more experienced programmer on a large Ember-Rails project that&rsquo;s…"
+- title: "Peeking Under the Hood of ActionController Parameters, Part 2"
+  date: "2015-11-24"
+  slug: "peeking-under-the-hood-of-actioncontroller-parameters-part-2"
+  tags: ["computer-science","rails","ruby","technical-tuesdays"]
+  excerpt: "This blog post is part of a series on strong parameters. Read Part 1 here . Rails often feels like a black box, with all of the complex logic abstracted away and hidden from view. This leaves behind a clean,…"
+- title: "Peeking Under the Hood of ActionController Parameters, Part 1"
+  date: "2015-11-17"
+  slug: "peeking-under-the-hood-of-actioncontroller-parameters-part-1"
+  tags: ["rails","ruby","technical-tuesdays"]
+  excerpt: "When you write code every day for a living, it&rsquo;s easy to get hyper-focused on building out new features and getting things done quickly. What&rsquo;s much harder is to take a step back and figure out exactly how…"
+- title: "Methods to Remember Things by: Ruby Memoization"
+  date: "2015-11-10"
+  slug: "methods-to-remember-things-by-ruby-memoization"
+  tags: ["computer-science","rails","ruby","technical-tuesdays"]
+  excerpt: "A couple of months ago, I wrote a blog post on some basic Ruby keywords including begin , end , rescue , and ensure . A few days after publishing said post, another Rubyist friend of mine sent me a message telling me to…"
+- title: "Hunting Down the Scoop on ActiveRecord Scopes"
+  date: "2015-11-03"
+  slug: "hunting-down-the-scoop-on-activerecord-scopes"
+  tags: ["rails","ruby","technical-tuesdays"]
+  excerpt: "Over the past forty or so Tuesdays &mdash; has it really been that many?! &mdash; I&rsquo;ve written on a spread of topics. There&rsquo;s a slight problem with this: sometimes I forget what I have and haven&rsquo;t…"
+- title: "Digging Into the Finder Object Pattern"
+  date: "2015-10-27"
+  slug: "digging-into-the-finder-object-pattern"
+  tags: ["rails","ruby","technical-tuesdays"]
+  excerpt: "Most developers aren&rsquo;t ever completely happy with their code. I&rsquo;m no exception to this stereotype &mdash; I almost always know that I could probably write a cleaner, more concise method, controller, or…"
+- title: "Solutions for Slugs of All Sizes: Acts_as_url + To_param"
+  date: "2015-10-20"
+  slug: "solutions-for-slugs-of-all-sizes-acts-as-url-plus-to-param"
+  tags: ["rails","ruby","technical-tuesdays"]
+  excerpt: "Last week was my first week of working from home, which meant two things: spending a lot of time with my computer and limited time with other human beings and, more importantly, debugging things on my own without having…"
+- title: "Stop Worrying and Start Being Concerned: ActiveSupport Concerns"
+  date: "2015-10-13"
+  slug: "stop-worrying-and-start-being-concerned-activesupport-concerns"
+  tags: ["rails","ruby","technical-tuesdays"]
+  excerpt: "A few weeks ago, while learning everything I never knew about user authorization , I also stumbled upon a cool refactoring pattern that I didn&rsquo;t even know existed. This pattern is based on the simple idea of Ruby…"
+- title: "Fleeting Filing With Ruby Tempfile"
+  date: "2015-10-06"
+  slug: "fleeting-filing-with-ruby-tempfile"
+  tags: ["ruby","technical-tuesdays"]
+  excerpt: "There are times in a Ruby program or Rails application that one comes to a single realization: Oh no, I need to deal with an external file! For larger applications, this might manifest as a request to your Amazon S3…"
+- title: "Using Pundit, the Cool Kid of Authorization"
+  date: "2015-09-29"
+  slug: "using-pundit-the-cool-kid-of-authorization"
+  tags: ["rails","ruby","technical-tuesdays"]
+  excerpt: "Ah, authorization &ndash; or as I like to call it, authentication&rsquo;s cooler, slightly less complicated twin. It&rsquo;s easy to confuse the two, but there&rsquo;s a fundamental difference between them. I recently…"
+- title: "Working Hard or Hardly Working, Part 2: Custom Jobs"
+  date: "2015-09-22"
+  slug: "working-hard-or-hardly-working-part-2-custom-jobs"
+  tags: ["rails","ruby","technical-tuesdays"]
+  excerpt: "This blog post is part of a series on Active Job. Read Part 1 here . With the advent of Rails 4.2, one thing is definitely for sure: there is now one background job to rule them all: Active Job. Last week, I learned…"
+- title: "Working Hard or Hardly Working, Part 1: Active Job"
+  date: "2015-09-15"
+  slug: "working-hard-or-hardly-working-part-1-active-job"
+  tags: ["rails","ruby","technical-tuesdays"]
+  excerpt: "Last week, I sent a lot of emails &mdash; after all, I was working on creating my very first mailer . But in the process, I also realized something else: waiting for an email to send is not fun. Especially if you…"
+- title: "You’ve Got Mail: Action Mailer + Letter_Opener"
+  date: "2015-09-08"
+  slug: "youve-got-mail-action-mailer-plus-letter-opener"
+  tags: ["rails","ruby","technical-tuesdays"]
+  excerpt: "There&rsquo;s one thing that everyone loves: getting mail! But there&rsquo;s one thing that all developers would rather avoid: sending mail. Unfortunately, this paradox perfectly describes the joys and horrors of…"
+- title: "Inflections Everywhere: Using ActiveSupport Inflector"
+  date: "2015-09-01"
+  slug: "inflections-everywhere-using-activesupport-inflector"
+  tags: ["rails","ruby","technical-tuesdays"]
+  excerpt: "Words are pretty important. But do you know what&rsquo;s more important than words? Grammar . (Can you tell that I was an English major?) Despite how big of a book nerd I am, there&rsquo;s acually a crucial reason as to…"
+- title: "Unlocking Ruby Keywords: Begin, End, Ensure, Rescue"
+  date: "2015-08-25"
+  slug: "unlocking-ruby-keywords-begin-end-ensure-rescue"
+  tags: ["ruby","technical-tuesdays"]
+  excerpt: "I recently went down a little bit of rabbit hole in order to do some digging on database transactions . And when I say &ldquo;a little bit&rdquo;, I mostly mean &ldquo;a lot bit&rdquo;. I opened up the Rails source code…"
+- title: "Safer SQL: Using ActiveRecord Transactions"
+  date: "2015-08-18"
+  slug: "safer-sql-using-activerecord-transactions"
+  tags: ["rails","ruby","sql","technical-tuesdays"]
+  excerpt: "Is there anything more satisfying than writing concise, perfect line of SQL and then watching it query your database exactly as you expected? Probably not. Writing &mdash; and subsequently watching! &mdash; an efficient…"
+- title: "Rolling Out the Redcarpet for Rendering Markdown"
+  date: "2015-08-11"
+  slug: "rolling-out-the-redcarpet-for-rendering-markdown"
+  tags: ["markdown","rails","ruby","technical-tuesdays"]
+  excerpt: "Sometimes, it&rsquo;s the little things that matter the most. As cool and complex as your giant application might be, small details like a toggleable button, or beautiful-formatted and styled dropdown select can have…"
+- title: "Safely Storing Your Assets: Paperclip With AWS + Heroku"
+  date: "2015-08-04"
+  slug: "safely-storing-your-assets-paperclip-with-aws-plus-heroku"
+  tags: ["aws","heroku","rails","ruby","technical-tuesdays"]
+  excerpt: "We all know how this scene plays out: you&rsquo;ve created the first iteration of your application and you&rsquo;re ready to test it out in production. You can&rsquo;t wait to see what it looks like live, and you want…"
+- title: "Clipping Images for Rails: Using Paperclip"
+  date: "2015-07-28"
+  slug: "clipping-images-for-rails-using-paperclip"
+  tags: ["rails","ruby","technical-tuesdays"]
+  excerpt: "They say that a picture is worth a thousand words. How they came up with a such a nice, conveniently specific number number I&rsquo;ll never know. But what I do know is that everything on the web is just data floating…"
+- title: "All the Columns Fit to Index: Unique + Compound Indexing"
+  date: "2015-07-21"
+  slug: "all-the-columns-fit-to-index-unique-plus-compound-indexing"
+  tags: ["postgresql","rails","sql","technical-tuesdays"]
+  excerpt: "Database indexing: the last frontier. Well, okay, not the last frontier perse&hellip;more like the frontier that I&rsquo;ve been reading about a lot recently. While learning about writing about smart and efficient…"
+- title: "Writing Smart Migrations: References, Reversible, and Indexes"
+  date: "2015-07-14"
+  slug: "writing-smart-migrations-references-reversible-and-indexes"
+  tags: ["rails","sql","technical-tuesdays"]
+  excerpt: "All it takes is a single feature to make you realize how well &ndash; or perhaps not so well &ndash; you&rsquo;ve written your application. Depending on if you&rsquo;ve done a good job of separating concerns,…"
+- title: "Taskmanaging Your App, Part 2: Service Objects"
+  date: "2015-07-07"
+  slug: "taskmanaging-your-app-part-2-service-objects"
+  tags: ["rails","ruby","technical-tuesdays"]
+  excerpt: "This blog post is part of a series on service objects. Read Part 1 here . Everything seems to perform a service these days. We&rsquo;ve got infrastructure as a service, platforms as a service, and even software as a…"
+- title: "Taskmanaging Your App, Part 1: Using Rake"
+  date: "2015-06-30"
+  slug: "taskmanaging-your-app-part-1-using-rake"
+  tags: ["rails","ruby","technical-tuesdays"]
+  excerpt: "Rake tasks: we&rsquo;ve all used &lsquo;em. From migrating our database to seeding it, we run commands using rake all of the time! But what actually happens when you run a rake task? And where is all this stuff defined,…"
+- title: "To Serialize or Not to Serialize: ActiveModel Serializers"
+  date: "2015-06-23"
+  slug: "to-serialize-or-not-to-serialize-activemodel-serializers"
+  tags: ["rails","ruby","technical-tuesdays"]
+  excerpt: "Lesson number one when it comes to developing for the web: everything is just data. When you send something to the server in a request, or when you get something back from the server as a response, all you&rsquo;re…"
+- title: "Baby’s First Conference: Recapping RedDotRubyConf"
+  date: "2015-06-16"
+  slug: "babys-first-conference-recapping-reddotrubyconf"
+  tags: ["conferences","rails","ruby","talks","technical-tuesdays"]
+  excerpt: "A week ago, I was on a code overload in Singapore. What was I doing on the other side of the world? Why, giving (and attending!) my very first talk at a Ruby conference, of course! I was lucky enough to join some…"
+- title: "Refactoring to Reveal Rails Group_by"
+  date: "2015-06-09"
+  slug: "refactoring-to-reveal-rails-group-by"
+  tags: ["rails","refactoring","ruby","technical-tuesdays"]
+  excerpt: "There are a lot of opportunities in programming to feel pretty silly about yourself. I&rsquo;m sure that the more coding experience you have, the less often these moments actually occur. But early on in your career,…"
+- title: "Code Smells and Ruby Shorthand: Unpacking Ampersand + To_proc"
+  date: "2015-06-02"
+  slug: "code-smells-and-ruby-shorthand-unpacking-ampersand-plus-to-proc"
+  tags: ["rails","refactoring","ruby","technical-tuesdays"]
+  excerpt: "There aren&rsquo;t too many things that bring me down when I&rsquo;m deep into programming. But there&rsquo;s always one thing that&rsquo;ll stop me dead in my tracks: a code smell. In the context of programming, a code…"
+- title: "The Secret Life of Your Database, Part 2: Join Tables"
+  date: "2015-05-26"
+  slug: "the-secret-life-of-your-database-part-2-join-tables"
+  tags: ["rails","sql","technical-tuesdays"]
+  excerpt: "This blog post is part of a series on databases. Read Part 1 here . When it comes to databases, there are generally two schools of thought. There are those people who love them, and there are those people who just hate…"
+- title: "The Secret Life of Your Database, Part 1: Migrations"
+  date: "2015-05-19"
+  slug: "the-secret-life-of-your-database-part-1-migrations"
+  tags: ["rails","technical-tuesdays"]
+  excerpt: "As young developers, we often get caught up in what we don&rsquo;t know. One of the first and hardest lessons to learn when you&rsquo;re starting out as a programmer is the sheer volume of things that you don&rsquo;t…"
+- title: "Investigating Ruby’s Global Functions + Kernel Module With Puts"
+  date: "2015-05-12"
+  slug: "investigating-rubys-global-functions-plus-kernel-module-with-puts"
+  tags: ["ruby","technical-tuesdays"]
+  excerpt: "When you&rsquo;re a relatively new developer, it&rsquo;s easy to get caught up in all of the things that you don&rsquo;t know. And boy is that a long, long list of things. But there&rsquo;s also another list that we…"
+- title: "Metaprogramming Dynamic Methods: Using Public_send"
+  date: "2015-05-05"
+  slug: "metaprogramming-dynamic-methods-using-public-send"
+  tags: ["metaprogramming","refactoring","ruby","technical-tuesdays"]
+  excerpt: "A really amazing thing happened to me last week: I wrote some code that I was actually proud of! I was trying to solve an interesting problem for an application I started building at work recently, and I implemented the…"
+- title: "Tackling Those Tests, Part 3: Testing Made Easy With Gems"
+  date: "2015-04-28"
+  slug: "tackling-those-tests-part-3-testing-made-easy-with-gems"
+  tags: ["rails","technical-tuesdays","testing"]
+  excerpt: "This blog post is part of a series on testing. Read Part 2 here . If there&rsquo;s anything that I&rsquo;ve learned about testing while writing this three-part blog post series, it&rsquo;s this: testing is freaking…"
+- title: "Tackling Those Tests, Part 2: Getting Fun and Functional With FactoryGirl"
+  date: "2015-04-21"
+  slug: "tackling-those-tests-part-2-getting-fun-and-functional-with-factorygirl"
+  tags: ["rails","technical-tuesdays","testing"]
+  excerpt: "This blog post is part of a series on testing. Read Part 1 here . Good things always come in pairs, and that couldn&rsquo;t be more true when it comes to testing. Like milk and cookies or peanut butter and jelly, test…"
+- title: "Tackling Those Tests, Part 1: The How, When, and What of Rspec Testing"
+  date: "2015-04-14"
+  slug: "tackling-those-tests-part-1-the-how-when-and-what-of-rspec-testing"
+  tags: ["rails","ruby","technical-tuesdays","testing"]
+  excerpt: "Up until two weeks ago, I had one great fear: testing . And, to be clear, when I say &ldquo;fear&rdquo;, what I actually mean is sheer terror. My test-writing anxiety stems from the fact that I&rsquo;ve never really had…"
+- title: "Querying at Warp Drive: Using ActiveRecord Includes"
+  date: "2015-04-07"
+  slug: "querying-at-warp-drive-using-activerecord-includes"
+  tags: ["computer-science","rails","refactoring","technical-tuesdays"]
+  excerpt: "There comes a time in the life of every developer when you stop thinking about whether your code works. Instead, you concern yourself with something else entirely: how efficiently your code works. In fact, you can trace…"
+- title: "Delegating All of the Things With Ruby Forwardable"
+  date: "2015-03-31"
+  slug: "delegating-all-of-the-things-with-ruby-forwardable"
+  tags: ["refactoring","ruby","technical-tuesdays"]
+  excerpt: "It was the best of times. It was the worst of times. It was&hellip;refactoring time! Well it was for me yesterday, at least. Refactoring your own code has a great payoff at the end, but boy, does it take some work to…"
+- title: "A Machine State of Mind, Part 2: Implementing State Machines"
+  date: "2015-03-24"
+  slug: "a-machine-state-of-mind-part-2-implementing-state-machines"
+  tags: ["computer-science","rails","technical-tuesdays"]
+  excerpt: "This blog post is part of a series on State Machines. Read Part 1 here . Until you encounter a state machine in a gem, framework, or within someone else&rsquo;s code, you probably won&rsquo;t find one very easily. But…"
+- title: "A Machine State of Mind, Part 1: Understanding State Machines"
+  date: "2015-03-17"
+  slug: "a-machine-state-of-mind-part-1-understanding-state-machines"
+  tags: ["computer-science","technical-tuesdays"]
+  excerpt: "My favorite thing about programming is the fact that you never run out of opportunities to be completely floored. There&rsquo;s literally always either a concept, theory, framework, or language that you don&rsquo;t…"
+- title: "It’s All in the Family: Using Acts_as_tree"
+  date: "2015-03-10"
+  slug: "its-all-in-the-family-using-acts-as-tree"
+  tags: ["rails","technical-tuesdays"]
+  excerpt: "When working in Rails, it&rsquo;s all the family &ndash; literally. No matter the size of your application, almost all of your objects are going to be related to each other. You can create however many objects you want…"
+- title: "Bundle Up & Let Your Objects Do the Freezing: Frozen Hashes"
+  date: "2015-03-03"
+  slug: "bundle-up-and-let-your-objects-do-the-freezing-frozen-hashes"
+  tags: ["rails","ruby","technical-tuesdays"]
+  excerpt: "Snowmageddon. Snowpocalypse. The Deep Freeze of 2015. You can call it whatever you want, but we can all agree on one thing: it&rsquo;s so damn cold outside. In fact, it&rsquo;s so cold that I recently saw this error…"
+- title: "Class Inheritance: Part 2 (Singletons and Eigens, Oh My!)"
+  date: "2015-02-24"
+  slug: "class-inheritance-part-2-singletons-and-eigens-oh-my"
+  tags: ["ruby","technical-tuesdays"]
+  excerpt: "This blog post is part of a series on Class Inheritance. Read Part 1 here . I recently stumbled upon this line of code that totally floored me. I mean, I had to drop everything I was doing and do some serious Googling,…"
+- title: "Time: The Black Sheep of the Programming Family"
+  date: "2015-02-17"
+  slug: "time-the-black-sheep-of-the-programming-family"
+  tags: ["rails","ruby","technical-tuesdays"]
+  excerpt: "No matter where you&rsquo;re from, what programming language you prefer, or which JavaScript framework you&rsquo;re committed to, I think you&rsquo;ll agree with me on one thing: time is a bitch. And no, I don&rsquo;t…"
+- title: "Money Makes the World Go Round: Using Money-Rails and BigDecimal"
+  date: "2015-02-10"
+  slug: "money-makes-the-world-go-round-using-money-rails-and-bigdecimal"
+  tags: ["rails","ruby","technical-tuesdays"]
+  excerpt: "Mo money, mo problems. This is especially the case when you&rsquo;re a new developer trying to onboard onto a huge eCommerce Rails application. No, but really - money is such a pain in the ass to deal with as a…"
+- title: "When Enough Is Enough: How to Know When to Use Enums"
+  date: "2015-02-03"
+  slug: "when-enough-is-enough-how-to-know-when-to-use-enums"
+  tags: ["rails","technical-tuesdays"]
+  excerpt: "NERD ALERT: I love databases. God, they&rsquo;re just fantastic . Few things give me as much joy as an empty whiteboard and a couple of intricate join tables that need to be sketched out. But there&rsquo;s also an art…"
+- title: "Embrace Your Inner Paranoia: Using Acts_as_paranoid"
+  date: "2015-01-27"
+  slug: "embrace-your-inner-paranoia-use-acts-as-paranoid"
+  tags: ["rails","technical-tuesdays"]
+  excerpt: "Yesterday, I started my very first job as a software engineer! It&rsquo;s been super exciting, slightly terrifying, and sometimes overwhelming. I think one of the trickiest parts of starting as a new engineer at a…"
+- title: "The Fog Creek Fellowship: Lessons in Fearlessness and Fortitude"
+  date: "2015-01-23"
+  slug: "the-fog-creek-fellowship-lessons-in-fearlessness-and-fortitude"
+  tags: ["flatiron","non-technical"]
+  excerpt: "There are a lot of scary things out there. To start, there are lions and tigers and bears. But if you go a bit below the surface, that&rsquo;s where you&rsquo;ll hit the dark stuff &ndash; the kind of stuff that I was…"
+- title: "Implementing REM in CSS (or, How to Be a Shiny Happy Developer)"
+  date: "2015-01-20"
+  slug: "implementing-rem-in-css-or-how-to-be-a-shiny-happy-developer"
+  tags: ["css","technical-tuesdays"]
+  excerpt: "During a recent pair programming session, I came to the tough realization that I really know nothing about CSS. Granted, I can add in a div tag here and there, and yes, I can make a responsive page using Twitter…"
+- title: "Tidying Up Those Views: Using Decorators in Rails"
+  date: "2015-01-13"
+  slug: "tidying-up-those-views-using-decorators-in-rails"
+  tags: ["rails","technical-tuesdays"]
+  excerpt: "Last week, I had my first full-day technical interview. It was a thrilling experience, and so much more fun than I expected. Part of that was because I viewed the whole experience not as an evaluation, but rather an…"
+- title: "The Final Countdown: Using JavaScript’s setInterval + clearInterval Methods"
+  date: "2015-01-06"
+  slug: "the-final-countdown-using-javascripts-setinterval-plus-clearinterval-methods"
+  tags: ["javascript","technical-tuesdays"]
+  excerpt: "It&rsquo;s a brand new year, and with that comes a renewed sense of self. Also: a rather lengthy todo list. Enter #technicaltuesdays , or my attempt at beefing up my technical chops by posting a blog post every week…"
+- title: "To Understand Recursion, You Must First Understand Recursion"
+  date: "2014-12-14"
+  slug: "to-understand-recursion-you-must-first-understand-recursion"
+  tags: ["flatiron"]
+  excerpt: "Recursion is kind of like the cloud &ndash; it&rsquo;s hard to explain and you might not ever see it, but it definitely is a thing. Yet we deal directly with recursion more than we may realize. Recursion is the process…"
+- title: "So You Wanna Ship Some Software, Eh?"
+  date: "2014-11-30"
+  slug: "so-you-wanna-ship-some-software-eh"
+  tags: ["flatiron","non-technical"]
+  excerpt: "Disheveled hair. Bags under your eyes. Hermit-like tendencies. Suffice it to say, project mode can do a lot of things to a person. It&rsquo;s the first time you&rsquo;re on your own, and the feeling of &ldquo;sink or…"
+- title: "How Programming Makes You a Better Writer"
+  date: "2014-11-19"
+  slug: "how-programming-makes-you-a-better-writer"
+  tags: ["flatiron","non-technical"]
+  excerpt: "When I was in my terrible twos, my mom walked in on me writing all over the white walls of our living room with a pencil. I didn&rsquo;t even know how to write, much less what to write. But apparently, even as a…"
+- title: "The Asset WHUTline?: Revisiting the Asset Pipeline After JavaScript"
+  date: "2014-11-16"
+  slug: "the-asset-whutline-revisiting-the-asset-pipeline-after-javascript"
+  tags: ["flatiron"]
+  excerpt: "Two weeks ago, I was introduced to the Asset Pipeline. I didn&rsquo;t really think much of it at first, and part of me even assumed that I&rsquo;d never really have to see it again. It was a little like going out on a…"
+- title: "Have You Met Your Controller Yet?"
+  date: "2014-10-30"
+  slug: "have-you-met-your-controller-yet"
+  tags: ["flatiron","school"]
+  excerpt: "Controllers: we all have &lsquo;em. Sure, they put the C in MVC, but how much do we really know about these mysterious creatures? Probably not a lot. Don&rsquo;t you wish you could just look your Controller in the eye…"
+- title: "Class Inheritance"
+  date: "2014-10-16"
+  slug: "class-inheritance"
+  tags: ["flatiron","school"]
+  excerpt: "Confession time: I&rsquo;m kind of in love with object-oriented programming. I should probably clarify that I don&rsquo;t always understand OOP, and I sometimes even confuse myself for no good reason whenever the topic…"
+- title: "Class Inheritance: Part 1"
+  date: "2014-10-16"
+  slug: "class-inheritance-part-1"
+  tags: ["flatiron"]
+  excerpt: "Confession time: I&rsquo;m kind of in love with object-oriented programming. I should probably clarify that I don&rsquo;t always understand OOP, and I sometimes even confuse myself for no good reason whenever the topic…"
