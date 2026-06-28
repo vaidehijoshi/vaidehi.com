@@ -97,7 +97,7 @@ end</code></pre>
 
 <p>NOPE. Nope nope nope. This is already way too much for a single controller action. And all the requests between our application and the Goodreads API really shouldn&rsquo;t be up publicly available &ndash; they need to be private methods. And what if something goes wrong during those requests? We aren&rsquo;t handling those errors at all! And honestly, it really shouldn&rsquo;t be the <code>index</code> action&rsquo;s job to send a request, handle the response, create and persist book objects, and then, on top of <em>all</em> of that, render the <code>books</code> of the <code>Wish List</code>! This is not the right path.</p>
 
-<iframe src="//giphy.com/embed/srATnRQXsTfDG" width="480" height="269" frameBorder="0" style="max-width: 100%" class="giphy-embed" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
+<img src="https://media.giphy.com/media/srATnRQXsTfDG/giphy.gif" alt="">
 
 <p><br></p>
 
