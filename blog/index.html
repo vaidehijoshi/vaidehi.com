@@ -65,7 +65,7 @@
             var tagsHtml = tags.length
               ? '<div class="post-tags">' + tags.map(function(t) {
                   return '<a href="/blog/tags/' + esc(t) + '" class="post-tag">' + esc(t) + '</a>';
-                }).join('') + '</div>'
+                }).join('<span class="tag-sep"> · </span>') + '</div>'
               : '';
             return '<li class="post-list-item">' +
               '<a href="/blog/' + esc(p.slug) + '">' + esc(p.title) + '</a>' +
