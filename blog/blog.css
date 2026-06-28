@@ -1,6 +1,3 @@
-.vaidehi-logo-image {
-  padding: 60px 0 20px 0;
-}
 
 .blog-post-container {
   max-width: 800px;
@@ -172,7 +169,4 @@
     gap: 2px;
   }
 
-  .vaidehi-logo-image {
-    padding-top: 40px;
-  }
 }

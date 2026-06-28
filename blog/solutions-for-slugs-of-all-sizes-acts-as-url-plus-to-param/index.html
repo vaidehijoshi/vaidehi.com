@@ -23,18 +23,8 @@
   </head>
 
   <body>
-    <label class="theme-toggle" aria-label="Toggle light/dark mode">
-      <input type="checkbox" id="theme-checkbox" />
-      <span class="toggle-track"><span class="toggle-thumb"></span></span>
-    </label>
-
-    <div id="heading-content">
-      <a href="/"><img src="/vaidehi-white.png" class="vaidehi-logo-image" /></a>
-    </div>
-
-    <nav id="site-nav">
-      <a href="/">home</a><span class="nav-sep"> · </span><a href="/blog">blog</a><span class="nav-sep"> · </span><a href="https://www.linkedin.com/in/vaidehisj/" target="_blank" rel="noopener">linkedin</a><span class="nav-sep"> · </span><a href="https://github.com/vaidehijoshi" target="_blank" rel="noopener">github</a><span class="nav-sep"> · </span><a href="https://medium.com/@vaidehijoshi" target="_blank" rel="noopener">medium</a><span class="nav-sep"> · </span><a href="https://bsky.app/profile/vaidehi.com" target="_blank" rel="noopener">bluesky</a><span class="nav-sep"> · </span><a href="https://www.twitter.com/vaidehijoshi" target="_blank" rel="noopener">twitter</a>
-    </nav>
+    <header id="site-header"></header>
+    <script src="/header.js"></script>
 
     <main class="blog-post-container">
       <nav class="blog-nav">
@@ -192,8 +182,6 @@ end</code></pre>
     </footer>
 
     <script>
-      var checkbox = document.getElementById('theme-checkbox');
-      var dark = document.documentElement.getAttribute('data-theme') === 'dark';
       var lightSheet = document.getElementById('hljs-light');
       var darkSheet  = document.getElementById('hljs-dark');
 
@@ -202,14 +190,10 @@ end</code></pre>
         darkSheet.disabled  = !isDark;
       }
 
-      checkbox.checked = dark;
-      syncHighlightTheme(dark);
+      syncHighlightTheme(document.documentElement.getAttribute('data-theme') === 'dark');
 
-      checkbox.addEventListener('change', function() {
-        dark = checkbox.checked;
-        document.documentElement.setAttribute('data-theme', dark ? 'dark' : '');
-        localStorage.setItem('theme', dark ? 'dark' : 'light');
-        syncHighlightTheme(dark);
+      document.addEventListener('themechange', function(e) {
+        syncHighlightTheme(e.detail.dark);
       });
 
       document.getElementById('copyright-year').textContent = new Date().getFullYear();

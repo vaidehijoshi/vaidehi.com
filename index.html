@@ -58,18 +58,8 @@
   </head>
 
   <body>
-    <label class="theme-toggle" aria-label="Toggle light/dark mode">
-      <input type="checkbox" id="theme-checkbox" />
-      <span class="toggle-track"><span class="toggle-thumb"></span></span>
-    </label>
-
-    <div id="heading-content">
-      <img src="vaidehi-white.png" class="vaidehi-logo-image"/>
-    </div>
-
-    <nav id="site-nav">
-      <a href="/blog">blog</a><span class="nav-sep"> · </span><a href="https://www.linkedin.com/in/vaidehisj/" target="_blank" rel="noopener">linkedin</a><span class="nav-sep"> · </span><a href="https://github.com/vaidehijoshi" target="_blank" rel="noopener">github</a><span class="nav-sep"> · </span><a href="https://medium.com/@vaidehijoshi" target="_blank" rel="noopener">medium</a><span class="nav-sep"> · </span><a href="https://bsky.app/profile/vaidehi.com" target="_blank" rel="noopener">bluesky</a><span class="nav-sep"> · </span><a href="https://www.twitter.com/vaidehijoshi" target="_blank" rel="noopener">twitter</a>
-    </nav>
+    <header id="site-header"></header>
+    <script src="/header.js"></script>
 
     <div class="bio-wrapper">
       <img src="vaidehi_speaking.jpg" class="speaking-photo" alt="Vaidehi speaking at a conference" />
@@ -129,15 +119,6 @@
           return '<li><a href="' + item.url + '" target="_blank">' + item.title + '</a></li>';
         }).join('');
       }
-
-      var checkbox = document.getElementById('theme-checkbox');
-      var dark = document.documentElement.getAttribute('data-theme') === 'dark';
-      checkbox.checked = dark;
-      checkbox.addEventListener('change', function() {
-        dark = checkbox.checked;
-        document.documentElement.setAttribute('data-theme', dark ? 'dark' : '');
-        localStorage.setItem('theme', dark ? 'dark' : 'light');
-      });
 
       fetch('data.yaml')
         .then(function(res) { return res.text(); })
