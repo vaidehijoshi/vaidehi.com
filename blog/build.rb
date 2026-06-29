@@ -110,7 +110,7 @@ def page_template(title:, date_display:, tags:, content:)
 
           <article class="blog-post">
             <h1 class="post-title">#{safe}</h1>
-            <time class="post-date">#{date_display}</time>
+            <time class="post-date">#{CGI.escapeHTML(date_display)}</time>
             #{tags_html(tags)}
             <div class="post-content">
               #{content}

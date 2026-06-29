@@ -17,12 +17,13 @@
     .filter(function (l) { return !l.skip; })
     .map(function (l) {
       var attrs = 'href="' + l.href + '"';
-      if (l.external) attrs += ' target="_blank" rel="noopener"';
+      if (l.external) attrs += ' target="_blank" rel="noopener noreferrer"';
       return '<a ' + attrs + '>' + l.text + '</a>';
     })
     .join('<span class="nav-sep"> · </span>');
 
   var header = document.getElementById('site-header');
+  if (!header) return;
   header.innerHTML =
     '<div id="heading-content">' +
       '<a href="/"><img src="/vaidehi-white.png" class="vaidehi-logo-image" alt="Vaidehi Joshi"/></a>' +

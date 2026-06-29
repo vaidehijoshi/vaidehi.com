@@ -165,6 +165,8 @@ RSpec.describe '#build_blog' do
     expect(html).to include('Test Post')
     expect(html).to include('<p>Content here.</p>')
     expect(html).to include('January 1, 2024')
+    expect(html).to include('<header id="site-header">')
+    expect(html).to include('<script src="/header.js">')
   end
 
   it 'generates posts.yaml with newest post first' do
@@ -298,6 +300,24 @@ RSpec.describe '#build_blog' do
 
     expect(posts.length).to eq(1)
     expect(posts[0]['title']).to eq('New Title')
+  end
+
+  it 'HTML-escapes a malformed date that falls back to raw iso string' do
+    write_post('bad-date.md', <<~MD)
+      ---
+      title: "Bad Date"
+      date: "not-a-<date>"
+      slug: "bad-date"
+      ---
+
+      Body.
+    MD
+
+    build_blog(blog_dir: tmpdir, posts_src: posts_src)
+
+    html = File.read(File.join(tmpdir, 'bad-date', 'index.html'))
+    expect(html).to include('not-a-&lt;date&gt;')
+    expect(html).not_to include('not-a-<date>')
   end
 
   it 'HTML-escapes special characters in the <h1> title' do
