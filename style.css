@@ -431,7 +431,7 @@ blockquote .rec-source a {
   }
 
   #site-nav {
-    width: 100%;
+    flex: 0 0 100%;
     text-align: center;
     order: 3;
     padding-bottom: 16px;
