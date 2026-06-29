@@ -430,6 +430,12 @@ blockquote .rec-source a {
     margin-bottom: 32px;
   }
 
+  #heading-content {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+  }
+
   #site-nav {
     flex: 0 0 100%;
     text-align: center;
