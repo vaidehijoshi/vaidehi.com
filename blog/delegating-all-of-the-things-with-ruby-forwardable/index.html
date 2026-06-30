@@ -80,7 +80,7 @@ class Book &lt; Product
   end
 end</code></pre>
 
-<p>Yup, that&rsquo;s right. Class inheritance, a concept I&rsquo;ve <a href="http://vaidehijoshi.github.io/blog/2015/02/24/class-inheritance-part-2-singletons-and-eigens-oh-my/">written about</a> <a href="http://vaidehijoshi.github.io/blog/2014/10/16/class-inheritance-part-1/">a couple times</a> that you&rsquo;re probably pretty familiar with at this point, is a type of delegation.</p>
+<p>Yup, that&rsquo;s right. Class inheritance, a concept I&rsquo;ve <a href="/blog/class-inheritance-part-2-singletons-and-eigens-oh-my/">written about</a> <a href="/blog/class-inheritance-part-1/">a couple times</a> that you&rsquo;re probably pretty familiar with at this point, is a type of delegation.</p>
 
 <p>Since a <code>Book</code> object inherits from a <code>Product</code> object, it has both an <code>author</code> method an a <code>sku</code> method. When you ask a <code>Book</code> for its <code>sku</code>, it first looks in the <code>Book</code> class, and when it doesn&rsquo;t find the method in there, it delegates up to its parent class, which is the <code>Product</code> class. Instead of making the <code>Book</code> responsible for all the functionality, we&rsquo;re using the <code>Product</code> object to take care of doing the logic and finding and returning the correct <code>sku</code>.</p>
 

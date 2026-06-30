@@ -50,7 +50,7 @@
 
 <p><br></p>
 
-<p>A couple of months ago, I wrote <a href="http://vaidehijoshi.github.io/blog/2015/08/25/unlocking-ruby-keywords-begin-end-ensure-rescue/">a blog post</a> on some basic Ruby keywords including <code>begin</code>, <code>end</code>, <code>rescue</code>, and <code>ensure</code>. A few days after publishing said post, another Rubyist friend of mine sent me a message telling me to read about memoization. &ldquo;You basically describe memoization in your post without ever explicitly explaining it,&rdquo; she had said. At the time, I had added it to my ever-growing list of &ldquo;things to learn more about&rdquo;, but promptly forgot to make the time to learn about the concept.</p>
+<p>A couple of months ago, I wrote <a href="/blog/unlocking-ruby-keywords-begin-end-ensure-rescue/">a blog post</a> on some basic Ruby keywords including <code>begin</code>, <code>end</code>, <code>rescue</code>, and <code>ensure</code>. A few days after publishing said post, another Rubyist friend of mine sent me a message telling me to read about memoization. &ldquo;You basically describe memoization in your post without ever explicitly explaining it,&rdquo; she had said. At the time, I had added it to my ever-growing list of &ldquo;things to learn more about&rdquo;, but promptly forgot to make the time to learn about the concept.</p>
 
 <p>Cut to last week, when I was trying to write a controller action that had to do something a bit more complex than simply render a JSON-formatted response of a given resource. So, I started off by implementing a <code>begin</code> <code>end</code> block to execute a bunch of code that needed to run on it&rsquo;s own. I remembered writing about how to use these two keywords, so I pulled up my post and was suddenly reminded of&hellip;<strong>memoization</strong>. It turned out that I actually needed to use memoization in this controller action, and had already been using it elsewhere in the very same project! But, I still didn&rsquo;t understand what it was, or in what way I had been using it so far.</p>
 
@@ -72,7 +72,7 @@
   end
 end</code></pre>
 
-<p>The <code>published</code> method that we&rsquo;re chaining on here is just a simple scope that we <a href="http://vaidehijoshi.github.io/blog/2015/11/03/hunting-down-the-scoop-on-activerecord-scopes/">learned about last week</a>, and added on to our <code>Review</code> model:</p>
+<p>The <code>published</code> method that we&rsquo;re chaining on here is just a simple scope that we <a href="/blog/hunting-down-the-scoop-on-activerecord-scopes/">learned about last week</a>, and added on to our <code>Review</code> model:</p>
 
 <pre><code class="language-ruby">class Review &lt; ActiveRecord::Base
   scope :published, -&gt; {

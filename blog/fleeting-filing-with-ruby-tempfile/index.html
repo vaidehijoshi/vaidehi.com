@@ -153,7 +153,7 @@ irb(main):001:0&gt; tempfile = Tempfile.new('cats')
 
 <blockquote><p>&ldquo;When a Tempfile object is garbage collected, or when the Ruby interpreter exits, its associated temporary file is automatically deleted. This means that it’s unnecessary to explicitly delete a Tempfile after use, though it’s good practice to do so: not explicitly deleting unused Tempfiles can potentially leave behind large amounts of tempfiles on the filesystem until they’re garbage collected. The existance of these temp files can make it harder to determine a new Tempfile filename.&rdquo;</p></blockquote>
 
-<p>The guides suggest that the best way to go about deleting a tempfile after we&rsquo;re done using it is by calling two specific methods from within an <code>ensure</code> block (remember the <code>ensure</code> keyword? No? Don&rsquo;t worry, you can read about it <a href="http://vaidehijoshi.github.io/blog/2015/08/25/unlocking-ruby-keywords-begin-end-ensure-rescue/">over here</a>).</p>
+<p>The guides suggest that the best way to go about deleting a tempfile after we&rsquo;re done using it is by calling two specific methods from within an <code>ensure</code> block (remember the <code>ensure</code> keyword? No? Don&rsquo;t worry, you can read about it <a href="/blog/unlocking-ruby-keywords-begin-end-ensure-rescue/">over here</a>).</p>
 
 <p>But first, let&rsquo;s round out our order of filing operations with the two most important tempfile methods.</p>
 

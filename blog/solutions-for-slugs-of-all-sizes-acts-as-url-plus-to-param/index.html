@@ -134,7 +134,7 @@ the <code>find_by_url</code> method, but we could also use the <code>find_by</co
   end
 end</code></pre>
 
-<p>Nothing changes about how our controller works and we can still do all the fancy things we were doing before, like use a decorator (<a href="http://vaidehijoshi.github.io/blog/2015/01/13/tidying-up-those-views-using-decorators-in-rails/">Remember those?</a>). The only thing that happens now is that our original <code>book_path</code> helper will now use the <code>book</code> instance we passed it to generate a url with a slug instead of the primary key!</p>
+<p>Nothing changes about how our controller works and we can still do all the fancy things we were doing before, like use a decorator (<a href="/blog/tidying-up-those-views-using-decorators-in-rails/">Remember those?</a>). The only thing that happens now is that our original <code>book_path</code> helper will now use the <code>book</code> instance we passed it to generate a url with a slug instead of the primary key!</p>
 
 <p>Success! We&rsquo;ve done it! Actually, we&rsquo;ve <em>almost</em> done it. One tiny little thing that I always forget is all of the books that already exist in our database. What about them? They all have a <code>slug</code> attribute, sure, and a <code>slug</code> column &ndash; but there&rsquo;s a slight problem: the column is empty! So we can&rsquo;t <code>find_by</code> the <code>slug</code> attribute for those books, can we? In fact, if we try to call <code>to_param</code> on any of our preexisting <code>Book</code> instances right now, all we&rsquo;ll get is <code>nil</code>!</p>
 

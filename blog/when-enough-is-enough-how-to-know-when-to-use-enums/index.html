@@ -66,7 +66,7 @@
 
 <h2>Multiple Columns?! Ain&rsquo;t Nobody Got Time For That!</h2>
 
-<p>To demonstrate how to implement ActiveRecord enums, I&rsquo;ll continue using <a href="http://vaidehijoshi.github.io/blog/2015/01/27/embrace-your-inner-paranoia-use-acts-as-paranoid/">last week&rsquo;s ecommerce bookstore app</a> as my example. So, I have these <code>Book</code> objects in my store, and I want to keep track of what their status is: either <code>in stock</code>, <code>out of stock</code>, or <code>ordered</code>. For the sake of simplicity, we&rsquo;ll pretend that I&rsquo;m not a super sophisticated bookseller, so I don&rsquo;t have a lot of <code>Book</code>s, and therefore each <code>Book</code> object can only ever have one of these three states.</p>
+<p>To demonstrate how to implement ActiveRecord enums, I&rsquo;ll continue using <a href="/blog/embrace-your-inner-paranoia-use-acts-as-paranoid/">last week&rsquo;s ecommerce bookstore app</a> as my example. So, I have these <code>Book</code> objects in my store, and I want to keep track of what their status is: either <code>in stock</code>, <code>out of stock</code>, or <code>ordered</code>. For the sake of simplicity, we&rsquo;ll pretend that I&rsquo;m not a super sophisticated bookseller, so I don&rsquo;t have a lot of <code>Book</code>s, and therefore each <code>Book</code> object can only ever have one of these three states.</p>
 
 <p>I might first start off by having three different columns to represent each of these states:</p>
 

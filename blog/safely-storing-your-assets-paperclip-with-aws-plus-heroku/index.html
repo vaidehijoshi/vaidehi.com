@@ -52,7 +52,7 @@
 
 <p><br></p>
 
-<p>This happened to me recently, and boy was it disheartening. I was all excited because I had used <code>paperclip</code> to get some pretty cool <a href="http://vaidehijoshi.github.io/blog/2015/07/28/clipping-images-for-rails-using-paperclip/">image uploading functionality</a> on my application, but it didn&rsquo;t seem like it was working. It turns out, however, that an application in development is one thing; the same app in production is another game entirely.</p>
+<p>This happened to me recently, and boy was it disheartening. I was all excited because I had used <code>paperclip</code> to get some pretty cool <a href="/blog/clipping-images-for-rails-using-paperclip/">image uploading functionality</a> on my application, but it didn&rsquo;t seem like it was working. It turns out, however, that an application in development is one thing; the same app in production is another game entirely.</p>
 
 <p>While developing an application, our environments are configured in a certain way. It&rsquo;s easy to forget that things will change once we deploy what we&rsquo;ve been working on. Being able to implement something like the <code>paperclip</code> gem in development doesn&rsquo;t easily carry over to your production environment &ndash; unless, of course, you know what tool to use. Luckily, there&rsquo;s a great gem that was created specifically to make the transition from development to production quick and easy: the <code>aws-sdk</code> gem, Amazon Web Services&#8217; Software Development Kit that was created to use with Rails applications for storing your static assets in your AWS Simple Storage bucket. And once you know how to set it up with your Heroku account, you can get rid of that pesky broken image icon once and for all!</p>
 

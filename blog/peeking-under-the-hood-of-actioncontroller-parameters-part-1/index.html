@@ -62,7 +62,7 @@
 
 <p><br></p>
 
-<p>When we&rsquo;re first introduced to the Rails framework, there are some fairly basic components that we learn about, including the MVC structure, which stands for Model, View, Controller. Personally, I found models and views to be far easier to grasp than controllers. Controllers were a whole other beast entirely. In fact, one of the very first concepts that <a href="http://vaidehijoshi.github.io/blog/2014/10/30/have-you-met-your-controller-yet/">I struggled with</a> was the very basics of writing a controller action! I eventually got a better at that, and now for our bookstore application, I have a more sophisticated controller (in this case, for our <code>Order</code> objects), which looks like this:</p>
+<p>When we&rsquo;re first introduced to the Rails framework, there are some fairly basic components that we learn about, including the MVC structure, which stands for Model, View, Controller. Personally, I found models and views to be far easier to grasp than controllers. Controllers were a whole other beast entirely. In fact, one of the very first concepts that <a href="/blog/have-you-met-your-controller-yet/">I struggled with</a> was the very basics of writing a controller action! I eventually got a better at that, and now for our bookstore application, I have a more sophisticated controller (in this case, for our <code>Order</code> objects), which looks like this:</p>
 
 <pre><code class="language-ruby">class OrdersController &lt; ApplicationController
   def create
@@ -99,7 +99,7 @@
     end
 end</code></pre>
 
-<p>Nice! We&rsquo;re using our new <a href="http://vaidehijoshi.github.io/blog/2015/11/10/methods-to-remember-things-by-ruby-memoization/">memoization</a> technique, and we&rsquo;re rendering json responses to make it much easier to integrate with a JavaScript frontend; of course, we could have also just rendered our <code>@order</code> instance if this were a simple Rails application with no frontend framework. But&hellip;there&rsquo;s one thing that we&rsquo;re still missing, and clearly put off because I was dreading it: our strong parameters!</p>
+<p>Nice! We&rsquo;re using our new <a href="/blog/methods-to-remember-things-by-ruby-memoization/">memoization</a> technique, and we&rsquo;re rendering json responses to make it much easier to integrate with a JavaScript frontend; of course, we could have also just rendered our <code>@order</code> instance if this were a simple Rails application with no frontend framework. But&hellip;there&rsquo;s one thing that we&rsquo;re still missing, and clearly put off because I was dreading it: our strong parameters!</p>
 
 <p>The <code>ActionController</code> <a href="http://edgeapi.rubyonrails.org/classes/ActionController/StrongParameters.html">strong parameters</a> module was introduced back in 2012 with the release of Rails 4. The idea behind strong params was to abstract out the creation of models via mass assignment into the controller, rather than in the context of a model. Prior to this feature, we used to need to whitelist attributes in our models using <code>attr_accessible</code></p>
 

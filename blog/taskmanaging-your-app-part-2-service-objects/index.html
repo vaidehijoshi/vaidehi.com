@@ -50,7 +50,7 @@
 
 <p><br></p>
 
-<p><em>This blog post is part of a series on service objects. Read Part 1 <a href="http://vaidehijoshi.github.io/blog/2015/06/30/taskmanaging-your-app-part-1-using-rake/">here</a>.</em></p>
+<p><em>This blog post is part of a series on service objects. Read Part 1 <a href="/blog/taskmanaging-your-app-part-1-using-rake/">here</a>.</em></p>
 
 <p>Everything seems to perform a service these days. We&rsquo;ve got infrastructure as a service, platforms as a service, and even software as a service. But the servicing doesn&rsquo;t end there: even our software applications often need specific services provided to them. But how, exactly?</p>
 
@@ -60,7 +60,7 @@
 
 <h2>Separating All Dem Concerns</h2>
 
-<p>Last week, we started off by learning about <a href="http://vaidehijoshi.github.io/blog/2015/06/30/taskmanaging-your-app-part-1-using-rake/">rake tasks</a>, which turned out be an awesome way of encapsulating a specific type of functionality into a single file. But when we started writing a <code>rake data:stage</code> task (which stages our database with some sample <code>Book</code> objects), we noticed that we were making a single rake task responsible for multiple things.</p>
+<p>Last week, we started off by learning about <a href="/blog/taskmanaging-your-app-part-1-using-rake/">rake tasks</a>, which turned out be an awesome way of encapsulating a specific type of functionality into a single file. But when we started writing a <code>rake data:stage</code> task (which stages our database with some sample <code>Book</code> objects), we noticed that we were making a single rake task responsible for multiple things.</p>
 
 <p>We&rsquo;ve got a similar dilemma on our hands again this week. We have a <code>WishLists Controller</code>, which should be responsible for rendering all of the <code>Wish Lists</code> associated with a <code>User</code>. But here&rsquo;s the kicker: it should work with the Goodreads API to pull in the books that the User wants to read, and add that to their <code>Wish List</code>. Here&rsquo;s our current, clean and beautiful controller:</p>
 
@@ -135,7 +135,7 @@ end</code></pre>
     end
 end</code></pre>
 
-<p>So far, we&rsquo;re just initializing our <code>Importer</code> with some options. Notice that we&rsquo;re <em>not</em> inheriting from <code>ActiveRecord::Base</code>! This is just a plain Ruby class, like the ones we used to make when we were first learning about things like <a href="http://vaidehijoshi.github.io/blog/2014/10/16/class-inheritance-part-1/">inheritance</a>.</p>
+<p>So far, we&rsquo;re just initializing our <code>Importer</code> with some options. Notice that we&rsquo;re <em>not</em> inheriting from <code>ActiveRecord::Base</code>! This is just a plain Ruby class, like the ones we used to make when we were first learning about things like <a href="/blog/class-inheritance-part-1/">inheritance</a>.</p>
 
 <p>We&rsquo;ve also abstracted out those API calls (<code>Client.new</code>) and the methods provided to us by the Goodreads API (<code>client.shelf</code>, <code>shelf.books</code>) into private methods that are only going to be accessible by this service object. Not only is this important because we don&rsquo;t want any other person or part of this application to be able to <em>access</em> these endpoints, but this is also going to be super helpful to us down the road. Now, if something goes wrong, we can narrow down exactly <em>where</em> in the process our application broke. And, we can write tests for specific parts of this service object, just to double and triple check that everything is working exactly as we expect it to.</p>
 
