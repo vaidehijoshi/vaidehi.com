@@ -49,6 +49,11 @@
   margin-bottom: 32px;
   font-size: 0.78em;
   letter-spacing: 0.04em;
+  color: #6B6560;
+}
+
+[data-theme="dark"] .post-tags {
+  color: #A09890;
 }
 
 .post-content {
@@ -152,10 +157,15 @@
   grid-row: 2;
   margin: 0;
   display: block;
+  font-size: 0.78em;
+  color: #6B6560;
+}
+
+[data-theme="dark"] .post-list-item .post-tags {
+  color: #A09890;
 }
 
 .post-list-item .post-tag {
-  font-size: 0.76em;
   letter-spacing: 0;
   padding: 0;
   border: none;
