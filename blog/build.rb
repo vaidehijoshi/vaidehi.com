@@ -117,7 +117,7 @@ def tag_page_template(tag:, posts:)
         <div class="container">
           <section class="section">
             <nav class="blog-nav">
-              <a href="/blog" class="back-link">&larr; all posts</a>
+              <a href="/blog" class="back-link">&larr; All Posts</a>
             </nav>
             <div class="section-heading">##{safe_tag}</div>
             <ul class="post-list">
