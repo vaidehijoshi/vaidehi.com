@@ -46,15 +46,17 @@
 }
 
 .post-tags {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
   margin-bottom: 32px;
 }
 
 .post-tag {
   font-size: 0.78em;
   letter-spacing: 0.04em;
+}
+
+.post-tags .tag-sep {
+  font-size: 0.78em;
+  color: #9A918C;
 }
 
 .post-content {
