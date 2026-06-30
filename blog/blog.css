@@ -167,9 +167,6 @@
 
 .post-list-item .post-tag {
   letter-spacing: 0;
-  padding: 0;
-  border: none;
-  border-radius: 0;
   color: #6B6560;
   text-decoration: none;
 }
@@ -191,7 +188,7 @@
   }
 
   .post-list-item {
-    flex-direction: column;
+    grid-template-columns: 1fr;
     gap: 2px;
   }
 

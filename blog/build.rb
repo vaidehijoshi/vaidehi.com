@@ -72,7 +72,7 @@ end
 def tags_html(tags)
   return '' if tags.empty?
 
-  links = tags.map { |t| "<a href=\"/blog/tags/#{CGI.escapeHTML(t)}\" class=\"post-tag\">#{CGI.escapeHTML(t)}</a>" }.join(', ')
+  links = tags.map { |t| "<a href=\"/blog/tags/#{CGI.escape(t)}\" class=\"post-tag\">#{CGI.escapeHTML(t)}</a>" }.join(', ')
   "<div class=\"post-tags\">#{links}</div>"
 end
 
@@ -142,6 +142,9 @@ def tag_page_template(tag:, posts:)
           </div>
           <p>&copy; Vaidehi Joshi | <span id="copyright-year"></span></p>
         </footer>
+        <script>
+          document.getElementById('copyright-year').textContent = new Date().getFullYear();
+        </script>
       </body>
     </html>
   HTML
@@ -291,7 +294,7 @@ def build_blog(blog_dir: BLOG_DIR, posts_src: POSTS_SRC)
   posts.sort_by! { |p| p['date'].to_s }.reverse!
 
   yaml_lines = posts.flat_map do |p|
-    tags_val = (p['tags'] || []).empty? ? '""' : p['tags'].to_json
+    tags_val = (p['tags'] || []).empty? ? '[]' : p['tags'].to_json
     [
       "- title: #{p['title'].to_json}",
       "  date: #{p['date'].to_json}",
