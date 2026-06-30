@@ -60,6 +60,13 @@ def make_excerpt(html, max_len = 220)
 end
 
 # ---------------------------------------------------------------------------
+# Shared nav partial
+# ---------------------------------------------------------------------------
+def back_link_html
+  '<a href="/blog" class="back-link">&larr; All Posts</a>'
+end
+
+# ---------------------------------------------------------------------------
 # Render the tags HTML snippet (empty string when no tags)
 # ---------------------------------------------------------------------------
 def tags_html(tags)
@@ -117,7 +124,7 @@ def tag_page_template(tag:, posts:)
         <div class="container">
           <section class="section">
             <nav class="blog-nav">
-              <a href="/blog" class="back-link">&larr; All Posts</a>
+              #{back_link_html}
             </nav>
             <div class="section-heading">##{safe_tag}</div>
             <ul class="post-list">
@@ -194,7 +201,7 @@ def page_template(title:, date_display:, tags:, content:)
 
         <main class="blog-post-container">
           <nav class="blog-nav">
-            <a href="/blog" class="back-link">&larr; All Posts</a>
+            #{back_link_html}
           </nav>
 
           <article class="blog-post">
