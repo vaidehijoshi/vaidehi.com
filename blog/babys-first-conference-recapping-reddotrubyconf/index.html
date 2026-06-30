@@ -78,7 +78,7 @@
     <iframe width="560" height="315" src="https://www.youtube.com/embed/aP5NNkzb4og?rel=0&amp;showinfo=0" frameborder="0" allowfullscreen></iframe><br>
 </div>
 
-<p>Sam&rsquo;s talk piqued my interested in particular because I&rsquo;ve been trying to think about the efficiency of my own applications for a few weeks now. I&rsquo;ve been trying to use more efficient methods in my own code &ndash; like <code>pluck</code> in last week&rsquo;s post, for example, or my post on the ActiveRecord <code>includes</code> <a href="http://vaidehijoshi.github.io/blog/2015/04/07/querying-at-warp-drive-using-activerecord-includes/">method</a> a few months ago.</p>
+<p>Sam&rsquo;s talk piqued my interested in particular because I&rsquo;ve been trying to think about the efficiency of my own applications for a few weeks now. I&rsquo;ve been trying to use more efficient methods in my own code &ndash; like <code>pluck</code> in last week&rsquo;s post, for example, or my post on the ActiveRecord <code>includes</code> <a href="/blog/querying-at-warp-drive-using-activerecord-includes/">method</a> a few months ago.</p>
 
 <p>Yet there&rsquo;s a lot more to efficiency than that, it turns out! And that&rsquo;s exactly what Sam&rsquo;s talk aimed to explore. One of the things I learned pretty early on was that ActiveRecord is inefficient &ndash; yes, really! For those of us writing smaller applications, it may not be all that obvious. But for something much larger, such as Discourse, which has tons and tons of assets that have to compile on page load&hellip;well, it&rsquo;s pretty obvious how even just <em>one</em> n+1 query could throw the whole thing to hell in a handbasket!</p>
 

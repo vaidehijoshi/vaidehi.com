@@ -50,7 +50,7 @@
 
 <p>Rails has a wonderful built-in mailing system called Action Mailer, which allows us to send email from our application as long as we have a <strong>mailer model</strong>. Mailers are actually a lot like controllers: they have their own <code>app/mailers</code> directory, and each mailer has its own associated view as well. Each mailer also inherits from <code>ActionMailer::Base</code>, and just like controllers, can be generated really easily.</p>
 
-<p>For our bookstore app, we won&rsquo;t start off with anything <em>too</em> fancy just yet. Instead, let&rsquo;s stick with a simple mailer that will be responsible for one little thing: sending an order confirmation email whenever a user successfully places an order (did your mind immediately jump to using a <a href="http://vaidehijoshi.github.io/blog/2015/03/24/a-machine-state-of-mind-part-2-implementing-state-machines/">state machine</a>? I hope so!)</p>
+<p>For our bookstore app, we won&rsquo;t start off with anything <em>too</em> fancy just yet. Instead, let&rsquo;s stick with a simple mailer that will be responsible for one little thing: sending an order confirmation email whenever a user successfully places an order (did your mind immediately jump to using a <a href="/blog/a-machine-state-of-mind-part-2-implementing-state-machines/">state machine</a>? I hope so!)</p>
 
 <p>To start, we&rsquo;ll use Rails to generate a mailer:</p>
 

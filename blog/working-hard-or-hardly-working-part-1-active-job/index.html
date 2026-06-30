@@ -36,9 +36,9 @@
         <time class="post-date">September 15, 2015</time>
         <div class="post-tags"><span class="post-tag">rails</span><span class="post-tag">ruby</span><span class="post-tag">technical-tuesdays</span></div>
         <div class="post-content">
-          <iframe src="//giphy.com/embed/79JlUHyiSzYBi" width="480" height="249" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
+          <img src="https://media.giphy.com/media/79JlUHyiSzYBi/giphy.gif" alt="">
 
-<p>Last week, I sent a lot of emails &mdash; after all, I was working on creating my <a href="http://vaidehijoshi.github.io/blog/2015/09/08/youve-got-mail-action-mailer-plus-letter-opener/">very first mailer</a>. But in the process, I also realized something else: waiting for an email to send is <em>not</em> fun. Especially if you can&rsquo;t do anything else while you&rsquo;re waiting.</p>
+<p>Last week, I sent a lot of emails &mdash; after all, I was working on creating my <a href="/blog/youve-got-mail-action-mailer-plus-letter-opener/">very first mailer</a>. But in the process, I also realized something else: waiting for an email to send is <em>not</em> fun. Especially if you can&rsquo;t do anything else while you&rsquo;re waiting.</p>
 
 <p>This problem pretty much encapsculates the reason for the existence and invention of background jobs. I&rsquo;ve actually been playing around with creating and running jobs in different applications for the past few months now, yet I never really felt comfortable with them. I knew that having jobs run certain processes was clearly very important since they kept popping up all over the place. However, I was having trouble wrapping my head around what exactly a background job <em>was</em>, and when and why I would ever need to use one.</p>
 
@@ -46,7 +46,7 @@
 
 <h2>Jobs: Inline Or Background?</h2>
 
-<iframe src="//giphy.com/embed/jfiHMHRyARhf2" width="480" height="285" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
+<img src="https://media.giphy.com/media/jfiHMHRyARhf2/giphy.gif" alt="">
 
 <p>Background jobs existed far before ActiveJob came into being in December of 2014. In fact, if we take a look at one of our more complex, pre-Rails 4.2 projects, it&rsquo;s likely that we&rsquo;ll see a some classes that are suffixed with <code>Worker</code>. These classes are a little bit like service objects in that they are responsible for taking in an object as a parameter and performing a certain action with or <em>on</em> that object, sometimes implementing a service class in the process of doing so. The &ldquo;worker&rdquo; term really just refers to classes that we use in the background of our application.</p>
 
@@ -121,7 +121,7 @@ end</code></pre>
 
 <p>Integrating ActionMailer with Active Job is probably the easiest way to start using background jobs. But there are a <em>lot</em> of other ways to implement Active Job in our applications! Now we know enough to start writing our own custom jobs that will run asynchronously! In fact, that&rsquo;s exactly what we&rsquo;ll do next week, in part 2 of this series. Get ready to become an Active Job boss and walk around like this:</p>
 
-<iframe src="//giphy.com/embed/a93sBAElVcuNq" width="480" height="269" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
+<img src="https://media.giphy.com/media/a93sBAElVcuNq/giphy.gif" alt="">
 
 <h2>tl;dr?</h2>
 

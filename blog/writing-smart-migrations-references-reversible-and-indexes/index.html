@@ -44,7 +44,7 @@
 
 <p>Luckily, the application I started adding a feature to last week is pretty well-built, which makes it flexible enough to add new functionality relatively easily. Yet even the most well-thought-out applications need to be teased apart and glued back together during the course of their lives. Often times, a big part of building out a new feature is restructuring the architecture of your application. When you&rsquo;re working with larger code bases (legacy code in particular), that can be the most daunting task. But a lot of the intimidation of that begins to dissipate once you know how to go about restructuring a schema which already exists without breaking all the the things.</p>
 
-<p>The first step in this process is writing migrations to change how the objects in your application and database relate to one another. Of course, knowing how to write the proper migration to suit your needs is just half the battle; the other half is writing a migration that makes object lookup in your database efficient and super fast. Even though I&rsquo;ve <a href="http://vaidehijoshi.github.io/blog/2015/05/19/the-secret-life-of-your-database-part-1-migrations/">written about migrations</a> before, I&rsquo;m learning that there&rsquo;s always so much more to know. So, let&rsquo;s get learning!</p>
+<p>The first step in this process is writing migrations to change how the objects in your application and database relate to one another. Of course, knowing how to write the proper migration to suit your needs is just half the battle; the other half is writing a migration that makes object lookup in your database efficient and super fast. Even though I&rsquo;ve <a href="/blog/the-secret-life-of-your-database-part-1-migrations/">written about migrations</a> before, I&rsquo;m learning that there&rsquo;s always so much more to know. So, let&rsquo;s get learning!</p>
 
 <h2>Referencing Your References</h2>
 
@@ -90,7 +90,7 @@ end</code></pre>
 
 <blockquote><p>Complex migrations may require processing that Active Record doesn&rsquo;t know how to reverse. You can use <code>reversible</code> to specify what to do when running a migration and what else to do when reverting it. Using <code>reversible</code> will ensure that the instructions are executed in the right order too.</p></blockquote>
 
-<iframe src="//giphy.com/embed/11EAsNbNMMcO3u" width="480" height="148" frameBorder="0" style="max-width: 100%" class="giphy-embed" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
+<img src="https://media.giphy.com/media/11EAsNbNMMcO3u/giphy.gif" alt="">
 
 <p><br></p>
 
@@ -169,7 +169,7 @@ end</code></pre>
 
 <p>Now our migrations are not just clear and concise, but they&rsquo;re also helping our application run smoother and quicker in the process. Writing smart migrations can not only save us a lot of time down the road, but they make feature-writing a lot more fun! Not as fun as running wildly through the safari, but hey &ndash; it&rsquo;s a close second:</p>
 
-<iframe src="//giphy.com/embed/cyrx5VQ8PiWoE" width="480" height="270" frameBorder="0" style="max-width: 100%" class="giphy-embed" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
+<img src="https://media.giphy.com/media/cyrx5VQ8PiWoE/giphy.gif" alt="">
 
 <h2>tl;dr?</h2>
 
