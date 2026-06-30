@@ -65,7 +65,7 @@ end
 def tags_html(tags)
   return '' if tags.empty?
 
-  links = tags.map { |t| "<a href=\"/blog/tags/#{CGI.escapeHTML(t)}\" class=\"post-tag\">#{CGI.escapeHTML(t)}</a>" }.join('<span class="tag-sep"> · </span>')
+  links = tags.map { |t| "<a href=\"/blog/tags/#{CGI.escapeHTML(t)}\" class=\"post-tag\">#{CGI.escapeHTML(t)}</a>" }.join(', ')
   "<div class=\"post-tags\">#{links}</div>"
 end
 

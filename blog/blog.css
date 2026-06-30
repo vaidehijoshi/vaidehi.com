@@ -54,10 +54,6 @@
   letter-spacing: 0.04em;
 }
 
-.post-tags .tag-sep {
-  color: #9A918C;
-}
-
 .post-content {
   line-height: 1.85em;
 }
@@ -180,14 +176,6 @@
   text-decoration: underline;
 }
 
-.post-list-item .tag-sep {
-  font-size: 0.76em;
-  color: #9A918C;
-}
-
-[data-theme="dark"] .post-list-item .tag-sep {
-  color: #6A6260;
-}
 
 @media screen and (max-width: 560px) {
   .blog-post-container {
