@@ -113,6 +113,12 @@ RSpec.describe '#tags_html' do
     expect(result).to include('a &amp; b')
     expect(result).not_to include('a & b')
   end
+
+  it 'percent-encodes the href and HTML-escapes the display text independently' do
+    result = tags_html(['a & b'])
+    expect(result).to include('href="/blog/tags/a+%26+b"')
+    expect(result).to include('>a &amp; b<')
+  end
 end
 
 RSpec.describe '#build_blog' do
@@ -408,6 +414,41 @@ RSpec.describe '#build_blog' do
     reloaded = YAML.safe_load(File.read(File.join(tmpdir, 'posts.yaml')))
     expect(reloaded[0]['title']).to eq('She said "hello"')
   end
+
+  it 'serializes empty tags as [] in posts.yaml' do
+    write_post('no-tags.md', "---\ntitle: \"No Tags\"\ndate: \"2024-01-01\"\nslug: \"no-tags\"\n---\n\nBody.")
+
+    build_blog(blog_dir: tmpdir, posts_src: posts_src)
+
+    content = File.read(File.join(tmpdir, 'posts.yaml'))
+    expect(content).to include('tags: []')
+    expect(content).not_to include('tags: ""')
+  end
+
+  it 'does not crash on a second build when a post has empty tags' do
+    write_post('no-tags.md', "---\ntitle: \"No Tags\"\ndate: \"2024-01-01\"\nslug: \"no-tags\"\n---\n\nBody.")
+
+    build_blog(blog_dir: tmpdir, posts_src: posts_src)
+
+    expect { build_blog(blog_dir: tmpdir, posts_src: posts_src) }.not_to raise_error
+  end
+
+  it 'generates tag pages for tags from migrated posts in posts.yaml' do
+    File.write(File.join(tmpdir, 'posts.yaml'), <<~YAML)
+      - title: "Migrated"
+        date: "2015-01-01"
+        slug: "migrated"
+        tags: ["ruby"]
+        excerpt: "Old post."
+    YAML
+
+    write_post('new.md', "---\ntitle: \"New\"\ndate: \"2024-01-01\"\nslug: \"new\"\n---\n\nContent.")
+    build_blog(blog_dir: tmpdir, posts_src: posts_src)
+
+    tag_index = File.join(tmpdir, 'tags', 'ruby', 'index.html')
+    expect(File.exist?(tag_index)).to be true
+    expect(File.read(tag_index)).to include('Migrated')
+  end
 end
 
 RSpec.describe 'build_tag_pages' do
@@ -472,5 +513,25 @@ RSpec.describe 'build_tag_pages' do
   it 'returns the sorted list of generated tag names' do
     result = build_tag_pages(posts, blog_dir: tmpdir)
     expect(result).to eq(%w[rails ruby])
+  end
+
+  it 'omits the date span for posts without a date' do
+    build_tag_pages(
+      [{ 'title' => 'No Date', 'date' => nil, 'slug' => 'no-date', 'tags' => %w[ruby] }],
+      blog_dir: tmpdir
+    )
+    html = File.read(File.join(tmpdir, 'tags', 'ruby', 'index.html'))
+    expect(html).not_to include('post-list-date')
+    expect(html).to include('No Date')
+  end
+
+  it 'HTML-escapes post titles in tag page list items' do
+    build_tag_pages(
+      [{ 'title' => '<b>Bold</b>', 'date' => '2024-01-01', 'slug' => 'safe-slug', 'tags' => %w[ruby] }],
+      blog_dir: tmpdir
+    )
+    html = File.read(File.join(tmpdir, 'tags', 'ruby', 'index.html'))
+    expect(html).to include('&lt;b&gt;Bold&lt;/b&gt;')
+    expect(html).not_to include('<b>Bold</b>')
   end
 end
