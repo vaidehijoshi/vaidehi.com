@@ -59,11 +59,18 @@
           var posts = jsyaml.load(text);
           var ul = document.getElementById('post-list');
           ul.innerHTML = posts.map(function(p) {
-            var d = new Date(p.date + 'T00:00:00');
-            var dateStr = d.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+            var d = p.date ? new Date(p.date + 'T00:00:00') : null;
+            var dateStr = d ? d.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }) : '';
+            var tags = (p.tags || []);
+            var tagsHtml = tags.length
+              ? '<div class="post-tags">' + tags.map(function(t) {
+                  return '<a href="/blog/tags/' + encodeURIComponent(t) + '" class="post-tag">' + esc(t) + '</a>';
+                }).join(', ') + '</div>'
+              : '';
             return '<li class="post-list-item">' +
               '<a href="/blog/' + esc(p.slug) + '">' + esc(p.title) + '</a>' +
               '<span class="post-list-date">' + dateStr + '</span>' +
+              tagsHtml +
               '</li>';
           }).join('');
         })

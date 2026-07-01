@@ -60,13 +60,112 @@ def make_excerpt(html, max_len = 220)
 end
 
 # ---------------------------------------------------------------------------
+# Shared nav partial
+# ---------------------------------------------------------------------------
+def back_link_html
+  '<a href="/blog" class="back-link">&larr; All Posts</a>'
+end
+
+# ---------------------------------------------------------------------------
 # Render the tags HTML snippet (empty string when no tags)
 # ---------------------------------------------------------------------------
 def tags_html(tags)
   return '' if tags.empty?
 
-  links = tags.map { |t| "<span class=\"post-tag\">#{CGI.escapeHTML(t)}</span>" }.join
+  links = tags.map { |t| "<a href=\"/blog/tags/#{CGI.escape(t)}\" class=\"post-tag\">#{CGI.escapeHTML(t)}</a>" }.join(', ')
   "<div class=\"post-tags\">#{links}</div>"
+end
+
+# ---------------------------------------------------------------------------
+# HTML template for a tag index page
+# ---------------------------------------------------------------------------
+def tag_page_template(tag:, posts:)
+  safe_tag = CGI.escapeHTML(tag)
+  items = posts.sort_by { |p| p['date'].to_s }.reverse.map do |p|
+    date_html = p['date'].to_s.empty? ? '' : "<span class=\"post-list-date\">#{format_date(p['date'])}</span>"
+    slug  = CGI.escapeHTML(p['slug'])
+    title = CGI.escapeHTML(p['title'])
+    "<li class=\"post-list-item\"><a href=\"/blog/#{slug}\">#{title}</a>#{date_html}</li>"
+  end.join("\n          ")
+
+  <<~HTML
+    <!DOCTYPE html>
+
+    <html>
+      <head>
+        <title>##{safe_tag} - Vaidehi Joshi</title>
+
+        <link rel="stylesheet" type="text/css" href="/style.css" />
+        <link rel="stylesheet" type="text/css" href="/blog/blog.css" />
+        <script src="/theme.js"></script>
+
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width" />
+
+        <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌻</text></svg>">
+
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" />
+      </head>
+
+      <body>
+        <label class="theme-toggle" aria-label="Toggle light/dark mode">
+          <input type="checkbox" id="theme-checkbox" />
+          <span class="toggle-track"><span class="toggle-thumb"></span></span>
+        </label>
+
+        <div id="heading-content">
+          <a href="/"><img src="/vaidehi-white.png" class="vaidehi-logo-image" /></a>
+        </div>
+
+        <nav id="site-nav">
+          <a href="/">home</a><span class="nav-sep"> · </span><a href="/blog">blog</a><span class="nav-sep"> · </span><a href="https://www.linkedin.com/in/vaidehisj/" target="_blank" rel="noopener">linkedin</a><span class="nav-sep"> · </span><a href="https://github.com/vaidehijoshi" target="_blank" rel="noopener">github</a><span class="nav-sep"> · </span><a href="https://medium.com/@vaidehijoshi" target="_blank" rel="noopener">medium</a><span class="nav-sep"> · </span><a href="https://bsky.app/profile/vaidehi.com" target="_blank" rel="noopener">bluesky</a><span class="nav-sep"> · </span><a href="https://www.twitter.com/vaidehijoshi" target="_blank" rel="noopener">twitter</a>
+        </nav>
+
+        <div class="container">
+          <section class="section">
+            <nav class="blog-nav">
+              #{back_link_html}
+            </nav>
+            <div class="section-heading">##{safe_tag}</div>
+            <ul class="post-list">
+              #{items}
+            </ul>
+          </section>
+        </div>
+
+        <footer>
+          <div class="social-links">
+            <a href="https://www.linkedin.com/in/vaidehisj/" target="_blank" aria-label="LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
+            <a href="https://github.com/vaidehijoshi" target="_blank" aria-label="GitHub"><i class="fa-brands fa-github"></i></a>
+            <a href="https://bsky.app/profile/vaidehi.com" target="_blank" aria-label="Bluesky"><i class="fa-brands fa-bluesky"></i></a>
+            <a href="https://www.twitter.com/vaidehijoshi" target="_blank" aria-label="Twitter"><i class="fa-brands fa-x-twitter"></i></a>
+          </div>
+          <p>&copy; Vaidehi Joshi | <span id="copyright-year"></span></p>
+        </footer>
+        <script>
+          document.getElementById('copyright-year').textContent = new Date().getFullYear();
+        </script>
+      </body>
+    </html>
+  HTML
+end
+
+# ---------------------------------------------------------------------------
+# Generate blog/tags/[tag]/index.html for every tag across all posts
+# ---------------------------------------------------------------------------
+def build_tag_pages(posts, blog_dir: BLOG_DIR)
+  by_tag = Hash.new { |h, k| h[k] = [] }
+  posts.each { |p| (p['tags'] || []).each { |t| by_tag[t] << p } }
+
+  by_tag.each do |tag, tagged_posts|
+    out_dir = File.join(blog_dir, 'tags', tag)
+    FileUtils.mkdir_p(out_dir)
+    File.write(File.join(out_dir, 'index.html'),
+               tag_page_template(tag: tag, posts: tagged_posts),
+               encoding: 'utf-8')
+  end
+
+  by_tag.keys.sort
 end
 
 # ---------------------------------------------------------------------------
@@ -105,7 +204,7 @@ def page_template(title:, date_display:, tags:, content:)
 
         <main class="blog-post-container">
           <nav class="blog-nav">
-            <a href="/blog" class="back-link">&larr; All Posts</a>
+            #{back_link_html}
           </nav>
 
           <article class="blog-post">
@@ -195,7 +294,7 @@ def build_blog(blog_dir: BLOG_DIR, posts_src: POSTS_SRC)
   posts.sort_by! { |p| p['date'].to_s }.reverse!
 
   yaml_lines = posts.flat_map do |p|
-    tags_val = (p['tags'] || []).empty? ? '""' : p['tags'].to_json
+    tags_val = (p['tags'] || []).empty? ? '[]' : p['tags'].to_json
     [
       "- title: #{p['title'].to_json}",
       "  date: #{p['date'].to_json}",
@@ -206,6 +305,8 @@ def build_blog(blog_dir: BLOG_DIR, posts_src: POSTS_SRC)
   end
 
   File.write(File.join(blog_dir, 'posts.yaml'), yaml_lines.join("\n") + "\n", encoding: 'utf-8')
+
+  build_tag_pages(posts, blog_dir: blog_dir)
 
   posts
 end
